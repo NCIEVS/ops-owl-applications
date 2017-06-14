@@ -1,0 +1,1356 @@
+ACTH-Producing Pituitary Gland Adenoma
+ACTH-Producing Pituitary Gland Carcinoma
+ALK-Positive Large B-Cell Lymphoma
+Acanthoma
+Accelerated Phase Chronic Myelogenous Leukemia, BCR-ABL1 Positive
+Acidophil Stem Cell Pituitary Gland Adenoma
+Acinar Cell Carcinoma
+Acinar Lung Adenocarcinoma
+Acinic Cell Breast Carcinoma
+Acquired Hemangioma
+Actinic (Solar) Keratosis
+Activated B-Cell-Like Diffuse Large B-Cell Lymphoma
+Acute Basophilic Leukemia
+Acute Bilineal Leukemia
+Acute Biphenotypic Leukemia
+Acute Erythroid Leukemia
+Acute Leukemia of Ambiguous Lineage
+Acute Lymphoblastic Leukemia
+Acute Lymphoblastic Leukemia by Gene Expression Profile
+Acute Lymphoblastic Leukemia by ROSE Cluster
+Acute Megakaryoblastic Leukemia
+Acute Monoblastic Leukemia
+Acute Monoblastic and Monocytic Leukemia
+Acute Monocytic Leukemia
+Acute Myeloid Leukemia
+Acute Myeloid Leukemia (Megakaryoblastic) with t(1;22)(p13;q13); RBM15-MKL1
+Acute Myeloid Leukemia Arising from Previous Myelodysplastic Syndrome
+Acute Myeloid Leukemia Not Otherwise Specified
+Acute Myeloid Leukemia with Gene Mutations
+Acute Myeloid Leukemia with Maturation
+Acute Myeloid Leukemia with Minimal Differentiation
+Acute Myeloid Leukemia with Multilineage Dysplasia
+Acute Myeloid Leukemia with Mutated CEBPA
+Acute Myeloid Leukemia with Mutated NPM1
+Acute Myeloid Leukemia with Myelodysplasia-Related Changes
+Acute Myeloid Leukemia with Recurrent Genetic Abnormalities
+Acute Myeloid Leukemia with Variant MLL Translocations
+Acute Myeloid Leukemia with a Variant RARA Translocation
+Acute Myeloid Leukemia with inv(16)(p13.1q22) or t(16;16)(p13.1;q22); CBFB-MYH11
+Acute Myeloid Leukemia with inv(16)(p13.1q22); CBFB-MYH11
+Acute Myeloid Leukemia with inv(3)(q21q26.2) or t(3;3)(q21;q26.2); RPN1-EVI1
+Acute Myeloid Leukemia with inv(3)(q21q26.2); RPN1-EVI1
+Acute Myeloid Leukemia with t(11;17)(q13;q21)
+Acute Myeloid Leukemia with t(11;17)(q23;q21)
+Acute Myeloid Leukemia with t(16;16)(p13.1;q22); CBFB-MYH11
+Acute Myeloid Leukemia with t(17;17)(q21;q21)
+Acute Myeloid Leukemia with t(3;3)(q21;q26.2); RPN1-EVI1
+Acute Myeloid Leukemia with t(5;17)(q35;q21)
+Acute Myeloid Leukemia with t(6;9)(p23;q34); DEK-NUP214
+Acute Myeloid Leukemia with t(7;12)(q36;p13); HLXB9-ETV6
+Acute Myeloid Leukemia with t(8;21)(q22;q22); RUNX1-RUNX1T1
+Acute Myeloid Leukemia with t(9;11)(p22;q23); MLLT3-MLL
+Acute Myeloid Leukemia without Maturation
+Acute Myelomonocytic Leukemia
+Acute Myelomonocytic Leukemia with Abnormal Eosinophils
+Acute Myelomonocytic Leukemia without Abnormal Eosinophils
+Acute Panmyelosis with Myelofibrosis
+Acute Promyelocytic Leukemia with t(15;17)(q22;q12); PML-RARA
+Acute Undifferentiated Leukemia
+Adamantinoma
+Adenocarcinoma
+Adenocarcinoma In Situ
+Adenocarcinoma of the Gastroesophageal Junction
+Adenoid Cystic Breast Carcinoma
+Adenoid Cystic Carcinoma
+Adenoma of the Colon with Intramucosal Adenocarcinoma
+Adenomatoid Tumor
+Adenomyoma
+Adenosarcoma
+Adenosquamous Carcinoma
+Adenosquamous Lung Carcinoma
+Adnexal Carcinoma
+Adrenal Cortex Adenoma
+Adrenal Cortex Carcinoma
+Adrenal Gland Pheochromocytoma
+Aflatoxins-Related Hepatocellular Carcinoma
+Aggressive NK-Cell Leukemia
+Aggressive Osteoblastoma
+Aggressive Systemic Mastocytosis
+Alcohol-Related Hepatocellular Carcinoma
+Alkylating Agent-Related Acute Myeloid Leukemia
+Alkylating Agent-Related Myelodysplastic Syndrome
+Alpha Heavy Chain Disease
+Alveolar Adenoma
+Alveolar Rhabdomyosarcoma
+Amelanotic Melanoma
+Ampulla of Vater Adenocarcinoma
+Ampulla of Vater Carcinoma
+Ampulla of Vater Intestinal-Type Adenoma
+Anal Adenocarcinoma
+Anal Canal Adenocarcinoma
+Anal Canal Carcinoma
+Anal Canal Squamous Cell Carcinoma
+Anal Carcinoma
+Anal Extramucosal (Perianal) Adenocarcinoma
+Anal Margin Carcinoma
+Anal Margin Squamous Cell Carcinoma
+Anal Squamous Cell Carcinoma
+Anaplastic (Malignant) Meningioma
+Anaplastic Adrenal Cortex Carcinoma
+Anaplastic Astroblastoma
+Anaplastic Astrocytoma
+Anaplastic Ependymoma
+Anaplastic Kidney Wilms Tumor
+Anaplastic Large Cell Lymphoma
+Anaplastic Large Cell Lymphoma, ALK-Negative
+Anaplastic Large Cell Lymphoma, ALK-Positive
+Anaplastic Lymphoma
+Anaplastic Oligoastrocytoma
+Anaplastic Oligodendroglioma
+Angiofibroma
+Angioimmunoblastic T-Cell Lymphoma
+Angioleiomyoma
+Angiomatous Meningioma
+Angiosarcoma
+Apocrine Carcinoma
+Apocrine Hidrocystoma
+Appendix Adenocarcinoma
+Appendix Adenoma
+Appendix Carcinoma
+Appendix Goblet Cell Carcinoid
+Appendix Mucinous Adenocarcinoma
+Appendix Signet Ring Cell Carcinoma
+Appendix Small Cell Neuroendocrine Carcinoma
+Asbestos-Related Malignant Mesothelioma
+Askin Tumor
+Astroblastoma
+Astrocytic Tumor
+Astrocytoma
+Atypical Burkitt/Burkitt-Like Lymphoma
+Atypical Carcinoid Tumor
+Atypical Chronic Myeloid Leukemia, BCR-ABL1 Negative
+Atypical Lipomatous Tumor
+Atypical Meningioma
+Atypical Teratoid/Rhabdoid Tumor
+B Acute Lymphoblastic Leukemia
+B Acute Lymphoblastic Leukemia with t(12;21)(p13;q22); TEL-AML1 (ETV6-RUNX1)
+B Acute Lymphoblastic Leukemia with t(1;19)(q23;p13.3); E2A-PBX1 (TCF3-PBX1)
+B Acute Lymphoblastic Leukemia with t(5;14)(q31;q32); IL3-IGH
+B Acute Lymphoblastic Leukemia with t(9;22)(q34;q11.2); BCR-ABL1
+B Acute Lymphoblastic Leukemia with t(v;11q23); MLL Rearranged
+B Lymphoblastic Leukemia/Lymphoma
+B Lymphoblastic Leukemia/Lymphoma with Hyperdiploidy
+B Lymphoblastic Leukemia/Lymphoma with Hypodiploidy
+B Lymphoblastic Leukemia/Lymphoma with Recurrent Genetic Abnormalities
+B Lymphoblastic Leukemia/Lymphoma with t(12;21)(p13;q22); TEL-AML1 (ETV6-RUNX1)
+B Lymphoblastic Leukemia/Lymphoma with t(1;19)(q23;p13.3); E2A-PBX1 (TCF3-PBX1)
+B Lymphoblastic Leukemia/Lymphoma with t(5;14)(q31;q32); IL3-IGH
+B Lymphoblastic Leukemia/Lymphoma with t(9;22)(q34;q11.2); BCR-ABL1
+B Lymphoblastic Leukemia/Lymphoma with t(v;11q23); MLL Rearranged
+B Lymphoblastic Leukemia/Lymphoma, Not Otherwise Specified
+B Lymphoblastic Lymphoma
+B-Cell Lymphoma, Unclassifiable, with Features Intermediate between Diffuse Large B-Cell Lymphoma and Burkitt Lymphoma
+B-Cell Lymphoma, Unclassifiable, with Features Intermediate between Diffuse Large B-Cell Lymphoma and Classical Hodgkin Lymphoma
+B-Cell Non-Hodgkin Lymphoma
+B-Cell Proliferation of Uncertain Malignant Potential
+B-Cell Prolymphocytic Leukemia
+Balloon Cell Nevus
+Barrett Adenocarcinoma
+Bartholin Gland Carcinoma
+Basal-Like Breast Carcinoma
+Basaloid Carcinoma
+Basaloid Large Cell Lung Carcinoma
+Benign Adrenal Gland Pheochromocytoma
+Benign Breast Phyllodes Tumor
+Benign Extragonadal Germ Cell Tumor
+Benign Fibrous Histiocytoma
+Benign Gastrointestinal Stromal Tumor
+Benign Germ Cell Tumor
+Benign Glomus Tumor
+Benign Intraocular Medulloepithelioma
+Benign Melanocytic Skin Nevus
+Benign Notochordal Cell Tumor
+Benign Ovarian Germ Cell Tumor
+Benign Phyllodes Tumor
+Benign Prostate Phyllodes Tumor
+Benignt Granular Cell Tumor
+Bilateral Breast Carcinoma
+Bilateral Retinoblastoma
+Bile Duct Adenocarcinoma
+Bile Duct Adenoma
+Bile Duct Carcinoma
+Biphasic Mesothelioma
+Biphasic Pulmonary Blastoma
+Bladder Adenocarcinoma
+Bladder Carcinoma
+Bladder Papillary Urothelial Carcinoma
+Bladder Squamous Cell Carcinoma
+Bladder Urachal Urothelial Carcinoma
+Bladder Urothelial Carcinoma
+Blast Phase Chronic Myelogenous Leukemia, BCR-ABL1 Positive
+Blastema Predominant Kidney Wilms Tumor
+Blastic Plasmacytoid Dendritic Cell Neoplasm
+Blastoid Follicular Lymphoma
+Blastoid Variant Mantle Cell Lymphoma
+Blue Nevus
+Borderline Breast Phyllodes Tumor
+Borderline Phyllodes Tumor
+Borrelia Burgdoferi-Associated Cutaneous Marginal Zone Lymphoma of Mucosa-Associated Lymphoid Tissue
+Bowenoid Papulosis
+Brain Neoplasm
+Breast Adenocarcinoma
+Breast Apocrine Adenoma
+Breast Carcinoma
+Breast Carcinoma by Gene Expression Profile
+Breast Ductal Adenoma
+Breast Phyllodes Tumor
+Breast Pleomorphic Adenoma
+Breast Small Cell Carcinoma
+Breast Tubular Adenoma
+Bronchial Mucosa-Associated Lymphoid Tissue Lymphoma
+Bronchioloalveolar Carcinoma
+Bronchogenic Carcinoma
+Buccal Mucosa Squamous Cell Carcinoma
+Burkitt Leukemia
+Burkitt Lymphoma
+Burkitt Lymphoma with Plasmacytoid Differentiation
+Capillary Hemangioma
+Carcinoid Tumor
+Carcinoma
+Carcinoma In Situ
+Carcinoma ex Pleomorphic Adenoma
+Carcinoma of the Collecting Ducts of Bellini
+Carcinosarcoma
+Cardiac Rhabdomyoma
+Cavernous Hemangioma
+Cavernous Lymphangioma
+Cecum Adenocarcinoma
+Cellular Congenital Mesoblastic Nephroma
+Cellular Ependymoma
+Cellular Fibroma
+Central Nervous System Hemangioblastoma
+Central Nervous System Neoplasm
+Central Nervous System Primitive Neuroectodermal Tumor
+Central Neurocytoma
+Centroblastic Lymphoma
+Cerebellar Hemangioblastoma
+Cerebellar Liponeurocytoma
+Cerebellopontine Angle Primitive Neuroectodermal Tumor
+Cerebral Ganglioneuroblastoma
+Cerebral Neuroblastoma
+Cervical Adenocarcinoma
+Cervical Adenocarcinoma In Situ
+Cervical Adenosquamous Carcinoma
+Cervical Carcinoma
+Cervical Microglandular Polyp
+Cervical Small Cell Carcinoma
+Cervical Squamous Cell Carcinoma
+Cervical Squamous Cell Carcinoma In Situ
+Chemotherapy-Related Leukemia
+Chlamydia Psittaci-Associated Ocular Adnexal Mucosa-Associated Lymphoid Tissue Lymphoma
+Cholangiocarcinoma
+Chondroblastic Osteosarcoma
+Chondroblastoma
+Chondroid Chordoma
+Chondroma
+Chondrosarcoma
+Chordoid Meningioma
+Chordoma
+Choriocarcinoma
+Choroid Plexus Carcinoma
+Chromophobe Renal Cell Carcinoma
+Chronic Eosinophilic Leukemia, Not Otherwise Specified
+Chronic Lymphocytic Leukemia
+Chronic Lymphocytic Leukemia with Immunoglobulin Heavy Chain Variable-Region Gene Somatic Hypermutation
+Chronic Lymphocytic Leukemia with Plasmacytoid Differentiation
+Chronic Lymphocytic Leukemia with Unmutated Immunoglobulin Heavy Chain Variable-Region Gene
+Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma
+Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma with Immunoglobulin Heavy Chain Variable-Region Gene Somatic Hypermutation
+Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma with Unmutated Immunoglobulin Heavy Chain Variable-Region Gene
+Chronic Myelogenous Leukemia, BCR-ABL1 Positive
+Chronic Myelomonocytic Leukemia
+Chronic Myelomonocytic Leukemia with Eosinophilia
+Chronic Myelomonocytic Leukemia-1
+Chronic Myelomonocytic Leukemia-2
+Chronic Neutrophilic Leukemia
+Chronic Phase Chronic Myelogenous Leukemia, BCR-ABL1 Positive
+Classic Congenital Mesoblastic Nephroma
+Classical Burkitt Lymphoma
+Classical Glioblastoma
+Classical Hodgkin Lymphoma
+Clear Cell Adenocarcinoma
+Clear Cell Chondrosarcoma
+Clear Cell Ependymoma
+Clear Cell Meningioma
+Clear Cell Renal Cell Carcinoma
+Clitoral Carcinoma
+Colon Adenocarcinoma
+Colon Adenoma
+Colon Adenomatous Polyp
+Colon Adenosquamous Carcinoma
+Colon Carcinoma
+Colon Intramucosal Adenocarcinoma
+Colon Medullary Carcinoma
+Colon Mucinous Adenocarcinoma
+Colon Serrated Adenocarcinoma
+Colon Sessile Serrated Adenoma/Polyp
+Colon Signet Ring Cell Adenocarcinoma
+Colon Small Cell Neuroendocrine Carcinoma
+Colon Squamous Cell Carcinoma
+Colon Traditional Serrated Adenoma
+Colon Tubular Adenoma
+Colon Tubulovillous Adenoma
+Colon Undifferentiated Carcinoma
+Colon Villous Adenoma
+Colorectal Adenocarcinoma
+Colorectal Adenoma
+Colorectal Adenoma with Mild Dysplasia
+Colorectal Adenoma with Moderate Dysplasia
+Colorectal Adenoma with Severe Dysplasia
+Colorectal Adenosquamous Carcinoma
+Colorectal Carcinoma
+Colorectal Medullary Carcinoma
+Colorectal Mucinous Adenocarcinoma
+Colorectal Serrated Adenocarcinoma
+Colorectal Sessile Serrated Adenoma/Polyp
+Colorectal Signet Ring Cell Carcinoma
+Colorectal Small Cell Neuroendocrine Carcinoma
+Colorectal Squamous Cell Carcinoma
+Colorectal Traditional Serrated Adenoma
+Colorectal Tubular Adenoma
+Colorectal Tubulovillous Adenoma
+Colorectal Undifferentiated Carcinoma
+Colorectal Villous Adenoma
+Combined Hepatocellular Carcinoma and Cholangiocarcinoma
+Complete Hydatidiform Mole
+Complex Fibroadenoma
+Composite Hemangioendothelioma
+Composite Lymphoma
+Compound Nevus
+Congenital Hemangioma
+Congenital Mesoblastic Nephroma
+Conjunctival Squamous Cell Carcinoma
+Conventional Leiomyosarcoma
+Conventional Osteosarcoma
+Core Binding Factor Acute Myeloid Leukemia
+Corneal Squamous Cell Carcinoma
+Cribriform Neuroepithelial Tumor
+Cutaneous B-Cell Non-Hodgkin Lymphoma
+Cutaneous Fibrous Histiocytoma
+Cutaneous Leiomyosarcoma
+Cutaneous Melanoma
+Cutaneous T-Cell Non-Hodgkin Lymphoma
+Cylindroma
+Cystadenocarcinoma
+Cytogenetically Normal Acute Myeloid Leukemia
+DDIT4L Acute Lymphoblastic Leukemia
+Dedifferentiated Chondrosarcoma
+Dedifferentiated Chordoma
+Dedifferentiated Liposarcoma
+Deep Benign Fibrous Histiocytoma
+Deep Hemangioma
+Dendritic Cell Tumor, Not Otherwise Specified
+Dermal Fibroma
+Dermatofibrosarcoma Protuberans
+Desmoid-Type Fibromatosis
+Desmoplastic Infantile Astrocytoma
+Desmoplastic Infantile Ganglioglioma
+Desmoplastic Mesothelioma
+Desmoplastic Nevus
+Differentiated Retinoblastoma
+Differentiating Neuroblastoma
+Diffuse Astrocytoma
+Diffuse Follicular Lymphoma
+Diffuse Gastric Adenocarcinoma
+Diffuse Large B-Cell Lymphoma
+Diffuse Large B-Cell Lymphoma Associated with Chronic Inflammation
+Diffuse Large B-Cell Lymphoma by Gene Expression Profile
+Diffuse Large B-Cell Lymphoma, Not Otherwise Specified
+Diffuse Malignant Mesothelioma
+Diffuse Retinoblastoma
+Digestive System Adenoma
+Digestive System Neuroendocrine Tumor G1
+Digestive System Neuroendocrine Tumor G2
+Disseminated Juvenile Xanthogranuloma
+Distal Bile Duct Carcinoma
+Distal Urethral Carcinoma
+Double-Hit Lymphoma
+Ductal Breast Carcinoma
+Ductal Breast Carcinoma In Situ
+Duodenal Adenocarcinoma
+Dysembryoplastic Neuroepithelial Tumor
+Dysgerminoma
+Dysplastic Cerebellar Gangliocytoma
+Dysplastic Nevus
+Ear Carcinoma
+Early Gastric Cancer
+Early Hepatocellular Carcinoma
+Eccrine Carcinoma
+Eccrine Hidrocystoma
+Embryonal Carcinoma
+Embryonal Rhabdomyosarcoma
+Encapsulated Thymoma
+Enchondroma
+Endocervical Carcinoma
+Endocervical Polyp
+Endometrial Adenocarcinoma
+Endometrial Adenosquamous Carcinoma
+Endometrial Carcinoma
+Endometrial Clear Cell Adenocarcinoma
+Endometrial Endometrioid Adenocarcinoma
+Endometrial Mucinous Adenocarcinoma
+Endometrial Serous Adenocarcinoma
+Endometrial Small Cell Carcinoma
+Endometrial Squamous Cell Carcinoma
+Endometrioid Stromal Sarcoma
+Enteropathy-Associated T-Cell Lymphoma
+Eosinophilic Granuloma
+Ependymal Tumor
+Ependymoblastoma
+Ependymoma
+Epipodophyllotoxin-Related Myelodysplastic Syndrome
+Epithelial Predominant Kidney Wilms Tumor
+Epithelial Predominant Pulmonary Blastoma
+Epithelial-Myoepithelial Carcinoma
+Epithelioid Cell Melanoma
+Epithelioid Hemangioendothelioma
+Epithelioid Leiomyosarcoma
+Epithelioid Malignant Peripheral Nerve Sheath Tumor
+Epithelioid Mesothelioma
+Epstein-Barr Virus Positive Diffuse Large B-Cell Lymphoma of the Elderly
+Epstein-Barr Virus-Related Clonal Post-Transplant Lymphoproliferative Disorder
+Esophageal Adenocarcinoma
+Esophageal Carcinoma
+Esophageal Moderately Differentiated Squamous Cell Carcinoma
+Esophageal Poorly Differentiated Squamous Cell Carcinoma
+Esophageal Small Cell Neuroendocrine Carcinoma
+Esophageal Squamous Cell Carcinoma
+Esophageal Well Differentiated Squamous Cell Carcinoma
+Essential Thrombocythemia
+Ewing Sarcoma
+Ewing Sarcoma of Bone
+Ewing Sarcoma/Peripheral Primitive Neuroectodermal Tumor
+Ewing Sarcoma/Peripheral Primitive Neuroectodermal Tumor of Bone
+Exocervical Carcinoma
+External Ear Carcinoma
+Extracardiac Rhabdomyoma
+Extracranial Neuroblastoma
+Extracutaneous Mastocytoma
+Extragonadal Germ Cell Tumor
+Extrahepatic Bile Duct Adenocarcinoma
+Extrahepatic Bile Duct Carcinoma
+Extranodal Marginal Zone Lymphoma of Mucosa-Associated Lymphoid Tissue
+Extraocular Retinoblastoma
+Extraosseous Plasmacytoma
+Extrarenal Rhabdoid Tumor
+Extraskeletal Ewing Sarcoma
+Extraskeletal Ewing Sarcoma/Peripheral Primitive Neuroectodermal Tumor
+Extraskeletal Osteosarcoma
+Extraventricular Neurocytoma
+Eye Carcinoma
+Eyelid Carcinoma
+FSH-Producing Pituitary Gland Adenoma
+Fallopian Tube Adenocarcinoma
+Fallopian Tube Carcinoma
+Fallopian Tube Squamous Cell Carcinoma
+Familial Neuroblastoma
+Familial Nonmedullary Thyroid Gland Carcinoma
+Familial Waldenstrom Macroglobulinemia
+Female Breast Carcinoma
+Fetal Lung Adenocarcinoma
+Fibrillary Astrocytoma
+Fibroadenoma
+Fibroblastic Osteosarcoma
+Fibroblastic Reticular Cell Tumor
+Fibrolamellar Carcinoma
+Fibrosarcoma
+Fibrous Meningioma
+Flat Adenoma
+Floor of Mouth Squamous Cell Carcinoma
+Follicular Dendritic Cell Sarcoma
+Follicular Lymphoma
+Follicular Variant Peripheral T-Cell Lymphoma
+Functioning Pituitary Gland Adenoma
+Fusion-Negative Rhabdomyosarcoma
+Fusion-Positive Rhabdomyosarcoma
+Gallbladder Adenocarcinoma
+Gallbladder Adenoma
+Gallbladder Adenosquamous Carcinoma
+Gallbladder Carcinoma
+Gallbladder Papillary Neoplasm with an Associated Invasive Carcinoma
+Gallbladder Small Cell Neuroendocrine Carcinoma
+Gallbladder Squamous Cell Carcinoma
+Gamma Heavy Chain Disease
+Gangliocytoma
+Ganglioglioma
+Ganglioneuroblastoma
+Ganglioneuroblastoma, Intermixed
+Ganglioneuroblastoma, Nodular
+Ganglioneuroma
+Gastric Adenocarcinoma
+Gastric Adenoma
+Gastric Adenosquamous Carcinoma
+Gastric Carcinoma
+Gastric Intestinal Type Adenocarcinoma
+Gastric Intramucosal Adenocarcinoma
+Gastric Mucosa-Associated Lymphoid Tissue Lymphoma
+Gastric Small Cell Neuroendocrine Carcinoma
+Gastric Squamous Cell Carcinoma
+Gastrointestinal Stromal Tumor
+Gastrointestinal Stromal Tumor of Uncertain Malignant Potential
+Gemistocytic Astrocytoma
+Germ Cell Tumor
+Germinal Center B-Cell-Like Diffuse Large B-Cell Lymphoma
+Germinoma
+Gestational Choriocarcinoma
+Gestational Trophoblastic Tumor
+Giant Cell Carcinoma
+Giant Cell Fibroblastoma
+Giant Cell Glioblastoma
+Giant Cell Tumor
+Giant Cell Tumor of Soft Tissue
+Giant Fibroadenoma
+Glandular Malignant Peripheral Nerve Sheath Tumor
+Glioblastoma
+Glioblastoma by Gene Expression Profile
+Gliofibroma
+Glioma
+Gliomatosis Cerebri
+Glioneuronal Tumor with Neuropil-Like Islands
+Gliosarcoma
+Glomus Tumor
+Glottic Squamous Cell Carcinoma
+Gonadal Polyembryoma
+Gonadoblastoma
+Gonadotropin-Producing Pituitary Gland Adenoma
+Grade 1 Colon Adenocarcinoma
+Grade 1 Colorectal Adenocarcinoma
+Grade 1 Follicular Lymphoma
+Grade 1 Rectal Adenocarcinoma
+Grade 2 Colon Adenocarcinoma
+Grade 2 Colorectal Adenocarcinoma
+Grade 2 Follicular Lymphoma
+Grade 2 Rectal Adenocarcinoma
+Grade 3 Colon Adenocarcinoma
+Grade 3 Colorectal Adenocarcinoma
+Grade 3 Follicular Lymphoma
+Grade 3 Rectal Adenocarcinoma
+Grade I Lymphomatoid Granulomatosis
+Grade I Meningioma
+Grade II Lymphomatoid Granulomatosis
+Grade II Meningioma
+Grade III Lymphomatoid Granulomatosis
+Grade III Meningioma
+Granular Cell Tumor
+Granulocytic Sarcoma
+Growth Hormone-Producing Pituitary Gland Adenoma
+Growth Hormone-Producing Pituitary Gland Carcinoma
+HER2 Positive Breast Carcinoma
+Hairy Cell Leukemia
+Hairy Cell Leukemia Variant
+Halo Nevus
+Hand-Schuller-Christian Disease
+Head and Neck Carcinoma
+Head and Neck Squamous Cell Carcinoma
+Heavy Chain Disease
+Helicobacter Pylori-Associated Gastric Mucosa-Associated Lymphoid Tissue Lymphoma
+Helicobacter Pylori-Related Gastric Adenocarcinoma
+Hemangioblastoma
+Hemangioendothelioma
+Hemangioma
+Hepatitis Virus-Related Hepatocellular Carcinoma
+Hepatoblastoma
+Hepatocellular Adenoma
+Hepatocellular Carcinoma
+Hepatosplenic T-Cell Lymphoma
+Hereditary Breast Carcinoma
+Hereditary Clear Cell Renal Cell Carcinoma
+Hereditary Diffuse Gastric Adenocarcinoma
+Hereditary Fallopian Tube Carcinoma
+Hereditary Ovarian Carcinoma
+Hereditary Pancreatic Carcinoma
+Hereditary Papillary Renal Cell Carcinoma
+Hereditary Prostate Carcinoma
+Hereditary Retinoblastoma
+Hereditary Thyroid Gland Medullary Carcinoma
+Hereditary Wilms Tumor
+Hidradenocarcinoma
+Hidradenoma
+Hidrocystoma
+High Grade Appendix Mucinous Adenocarcinoma
+High Grade Astrocytic Tumor
+High Grade Ovarian Serous Adenocarcinoma
+Hilar Cholangiocarcinoma
+Histiocytic Sarcoma
+Histiocytic and Dendritic Cell Neoplasm
+Hodgkin Lymphoma
+Human Papillomavirus-Related Adenocarcinoma
+Human Papillomavirus-Related Cervical Squamous Cell Carcinoma
+Human Papillomavirus-Related Vulvar Squamous Cell Carcinoma
+Hybrid Nerve Sheath Tumor
+Hydatidiform Mole
+Hydroa Vacciniforme-Like Lymphoma
+Hyperdiploid B Acute Lymphoblastic Leukemia
+Hypocellular Myelodysplastic Syndrome
+Hypodiploid B Acute Lymphoblastic Leukemia
+Hypopharyngeal Squamous Cell Carcinoma
+Immature Teratoma
+Immunoblastic Lymphoma
+Indeterminate Dendritic Cell Tumor
+Infant Acute Lymphoblastic Leukemia with MLL Rearrangement
+Infant Acute Lymphoblastic Leukemia without MLL Gene Rearrangement
+Infant Leukemia
+Infantile Fibrosarcoma
+Infiltrating Bladder Urothelial Carcinoma
+Infiltrating Cervical Carcinoma
+Infiltrating Renal Pelvis Urothelial Carcinoma, Sarcomatoid Variant
+Inflammatory Breast Carcinoma
+Inflammatory Leiomyosarcoma
+Inflammatory Myofibroblastic Tumor
+Interdigitating Dendritic Cell Sarcoma
+Intestinal Type Adenocarcinoma
+Intracanalicular Fibroadenoma
+Intradermal Nevus
+Intraductal Papillary Breast Carcinoma
+Intrahepatic Bile Duct Mucinous Cystic Neoplasm with an Associated Invasive Carcinoma
+Intrahepatic Cholangiocarcinoma
+Intramucosal Adenocarcinoma
+Intraocular Retinoblastoma
+Intravascular Large B-Cell Lymphoma
+Invasive Carcinoma
+Invasive Ductal Carcinoma, Not Otherwise Specified
+Invasive Hydatidiform Mole
+Invasive Lobular Breast Carcinoma
+Invasive Malignant Thymoma
+Invasive Papillary Breast Carcinoma
+Junctional Nevus
+Juvenile Fibroadenoma
+Juvenile Myelomonocytic Leukemia
+Kaposi Sarcoma
+Kaposiform Hemangioendothelioma
+Keratoacanthoma
+Kidney Carcinoma
+Kidney Medullary Carcinoma
+Kidney Oncocytoma
+Kidney Wilms Tumor
+LH-Producing Pituitary Gland Adenoma
+Labia Majora Carcinoma
+Labia Minora Carcinoma
+Lacrimal Gland Carcinoma
+Lacrimal Gland Carcinoma ex Pleomorphic Adenoma
+Langerhans Cell Histiocytosis
+Langerhans Cell Sarcoma
+Large Cell Carcinoma
+Large Cell Lung Carcinoma
+Large Cell Lung Carcinoma with Rhabdoid Phenotype
+Large Cell Lung Carcinoma, Clear Cell Variant
+Large Cell Lung Neuroendocrine Carcinoma
+Large Cell Neuroendocrine Carcinoma
+Laryngeal Squamous Cell Carcinoma
+Leiomyoma
+Leiomyosarcoma
+Lentigo Maligna Melanoma
+Lepidic Predominant Adenocarcinoma
+Letterer-Siwe Disease
+Leukemia
+Lip Basal Cell Carcinoma
+Lip Carcinoma
+Lip Squamous Cell Carcinoma
+Lip and Oral Cavity Carcinoma
+Lip and Oral Cavity Squamous Cell Carcinoma
+Lipoblastoma
+Lipoma
+Lipomatosis
+Liposarcoma
+Liver Carcinosarcoma
+Liver and Intrahepatic Bile Duct Carcinoma
+Lobular Breast Carcinoma
+Lobular Breast Carcinoma In Situ
+Low Grade Appendix Mucinous Neoplasm
+Low Grade Astrocytic Tumor
+Low Grade Endometrioid Stromal Sarcoma
+Low Grade Ovarian Serous Adenocarcinoma
+Lower Gingival Squamous Cell Carcinoma
+Luminal A Breast Carcinoma
+Luminal B Breast Carcinoma
+Lung Adenocarcinoma
+Lung Adenocarcinoma with Mixed Bronchioloalveolar and Invasive Components
+Lung Adenoid Cystic Carcinoma
+Lung Carcinoma
+Lung Carcinosarcoma
+Lung Clear Cell Adenocarcinoma
+Lung Epithelial-Myoepithelial Carcinoma
+Lung Giant Cell Carcinoma
+Lung Mucinous Adenocarcinoma
+Lung Mucinous Cystadenoma
+Lung Mucoepidermoid Carcinoma
+Lung Mucous Gland Adenoma
+Lung Papillary Adenoma
+Lung Pleomorphic Adenoma
+Lung Pleomorphic Carcinoma
+Lung Sarcomatoid Carcinoma
+Lung Signet Ring Cell Carcinoma
+Lung Spindle Cell Carcinoma
+Lymphangioma
+Lymphangiosarcoma
+Lymphoblastic Lymphoma
+Lymphocyte-Depleted Classical Hodgkin Lymphoma
+Lymphocyte-Rich Classical Hodgkin Lymphoma
+Lymphoepithelioid Variant Peripheral T-Cell Lymphoma
+Lymphoepithelioma-Like Lung Carcinoma
+Lymphoma
+Lymphomatoid Granulomatosis
+Lymphomatoid Papulosis
+Lymphoplasmacyte-Rich Meningioma
+Lymphoplasmacytic Lymphoma
+Male Breast Carcinoma
+Malignant Adrenal Gland Pheochromocytoma
+Malignant Breast Phyllodes Tumor
+Malignant Extragonadal Germ Cell Tumor
+Malignant Gastrinoma
+Malignant Gastrointestinal Stromal Tumor
+Malignant Germ Cell Tumor
+Malignant Glioma
+Malignant Glomus Tumor
+Malignant Granular Cell Tumor
+Malignant Melanotic Peripheral Nerve Sheath Tumor
+Malignant Mesothelioma
+Malignant Mixed Epithelial Stromal Tumor of the Kidney
+Malignant Mixed Mesodermal (Mullerian) Tumor
+Malignant Osteoclastic Giant Cell-Rich Tumor of Bone
+Malignant Ovarian Germ Cell Tumor
+Malignant Peripheral Nerve Sheath Tumor
+Malignant Peripheral Nerve Sheath Tumor with Mesenchymal Differentiation
+Malignant Phyllodes Tumor
+Malignant Prostate Phyllodes Tumor
+Malignant Solitary Fibrous Tumor
+Malignant Somatostatinoma
+Malignant Tenosynovial Giant Cell Tumor
+Malignant Testicular Germ Cell Tumor
+Malignant Thymoma
+Malignant Triton Tumor
+Malignant Type A Thymoma
+Malignant Type AB Thymoma
+Malignant Type B1 Thymoma
+Malignant Type B2 Thymoma
+Malignant Vipoma
+Mammosomatotroph Pituitary Gland Adenoma
+Mantle Cell Lymphoma
+Marginal Zone Lymphoma
+Mast Cell Leukemia
+Mast Cell Sarcoma
+Mature T-Cell and NK-Cell Non-Hodgkin Lymphoma
+Mature Teratoma
+Mediastinal (Thymic) Large B-Cell Lymphoma
+Medullary Breast Carcinoma
+Medulloepithelioma
+Melanoma
+Melanotic Psammomatous Malignant Peripheral Nerve Sheath Tumor
+Meningioma
+Merkel Cell Carcinoma
+Mesenchymal Chondrosarcoma
+Mesenchymal Glioblastoma
+Mesothelioma
+Metachronous Osteosarcoma
+Metachronous Wilms Tumor
+Metaplastic Meningioma
+Microcystic Meningioma
+Microgranular Acute Promyelocytic Leukemia
+Middle Ear Carcinoma
+Minor Salivary Gland Adenocarcinoma
+Minor Salivary Gland Adenoid Cystic Carcinoma
+Minor Salivary Gland Carcinoma
+Minor Salivary Gland Carcinoma ex Pleomorphic Adenoma
+Minor Salivary Gland Mucoepidermoid Carcinoma
+Minor Salivary Gland Small Cell Carcinoma
+Minor Salivary Gland Squamous Cell Carcinoma
+Minor Salivary Gland Undifferentiated Carcinoma
+Mixed Acinar-Ductal Carcinoma of the Pancreas
+Mixed Astrocytoma-Ependymoma
+Mixed Astrocytoma-Ependymoma-Oligodendroglioma
+Mixed Cell Type Kidney Wilms Tumor
+Mixed Cellularity Classical Hodgkin Lymphoma
+Mixed Congenital Mesoblastic Nephroma
+Mixed Epithelioid and Spindle Cell Melanoma
+Mixed Germ Cell Tumor
+Mixed Germ Cell-Sex Cord-Stromal Tumor
+Mixed Glioma
+Mixed Liposarcoma
+Mixed Lobular and Ductal Breast Carcinoma
+Mixed Phenotype Acute Leukemia
+Mixed Phenotype Acute Leukemia with t(9;22)(q34;q11.2); BCR-ABL1
+Mixed Phenotype Acute Leukemia with t(v;11q23); MLL Rearranged
+Mixed Phenotype Acute Leukemia, B/Myeloid, Not Otherwise Specified
+Mixed Phenotype Acute Leukemia, T/Myeloid, Not Otherwise Specified
+Mixed Somatotroph-Lactotroph Pituitary Gland Adenoma
+Mixed Tumor of the Skin (Chondroid Syringoma)
+Moderately Differentiated Prostate Adenocarcinoma
+Monoblastic Sarcoma
+Monomorphic CD56+ Intestinal T-Cell Lymphoma
+Monomorphic Post-Transplant Lymphoproliferative Disorder
+Mu Heavy Chain Disease
+Mucin-Producing Adenocarcinoma
+Mucinous Adenocarcinoma
+Mucinous Breast Carcinoma
+Mucinous Gastric Adenocarcinoma
+Mucinous Tubular and Spindle Cell Carcinoma of the Kidney
+Multicystic Mesothelioma
+Mycosis Fungoides
+Mycosis Fungoides and Sezary Syndrome
+Myelodysplastic Syndrome
+Myelodysplastic Syndrome with Gene Mutation
+Myelodysplastic Syndrome with Isolated del(5q)
+Myelodysplastic Syndrome, Unclassifiable
+Myelodysplastic/Myeloproliferative Neoplasm
+Myelodysplastic/Myeloproliferative Neoplasm, Unclassifiable
+Myeloid Leukemia Associated with Down Syndrome
+Myeloid Neoplasms with PDGFRB Rearrangement
+Myeloid Proliferations Related to Down Syndrome
+Myeloid Sarcoma
+Myeloid and Lymphoid Neoplasms with Eosinophilia and Abnormalities of PDGFRA, PDGFRB, or FGFR1
+Myeloid and Lymphoid Neoplasms with FGFR1 Rearrangement
+Myeloid and Lymphoid Neoplasms with PDGFRA Rearrangement
+Myeloproliferative Neoplasm
+Myeloproliferative Neoplasm, Unclassifiable
+Myxoid Chondrosarcoma
+Myxoid Leiomyosarcoma
+Myxoid Liposarcoma
+Myxopapillary Ependymoma
+NUT Midline Carcinoma
+Nasal Cavity Squamous Cell Carcinoma
+Nasal Cavity and Paranasal Sinus Squamous Cell Carcinoma
+Nasal Type Extranodal NK/T-Cell Lymphoma
+Nasopharyngeal Keratinizing Squamous Cell Carcinoma
+Neck Carcinoma
+Neoplastic Post-Transplant Lymphoproliferative Disorder
+Neural Glioblastoma
+Neuroblastoma
+Neuroendocrine Carcinoma
+Neuroendocrine Neoplasm
+Neurofibroma
+Neurothekeoma
+Nipple Adenoma
+Nipple Carcinoma
+Nodal Marginal Zone Lymphoma
+Nodular Lymphocyte Predominant Hodgkin Lymphoma
+Nodular Melanoma
+Nodular Sclerosis Classical Hodgkin Lymphoma
+Non-Cutaneous Melanoma
+Non-Functioning Pituitary Gland Adenoma
+Non-Gestational Ovarian Choriocarcinoma
+Non-Hereditary Clear Cell Renal Cell Carcinoma
+Non-Hodgkin Lymphoma
+Non-Secretory Plasma Cell Myeloma
+Non-Small Cell Lung Carcinoma
+Nonanaplastic Kidney Wilms Tumor
+Noninvasive Malignant Thymoma
+Normal Breast-Like Subtype of Breast Carcinoma
+Null Cell Pituitary Gland Adenoma
+Ocular Adnexal Mucosa-Associated Lymphoid Tissue Lymphoma
+Olfactory Neuroblastoma
+Oligoastrocytoma
+Oligodendroglial Tumor
+Oligodendroglioma
+Oral Cavity Carcinoma
+Oral Cavity Squamous Cell Carcinoma
+Oropharyngeal Squamous Cell Carcinoma
+Osteoblastic Osteosarcoma
+Osteoblastoma
+Osteoclastic Giant Cell-Rich Tumor of Bone
+Osteoid Osteoma
+Osteoma
+Osteosarcoma
+Osteosarcoma Arising in Paget Disease of Bone
+Osteosclerotic Plasma Cell Myeloma
+Ovarian Adenocarcinoma
+Ovarian Carcinoma
+Ovarian Clear Cell Adenocarcinoma
+Ovarian Cystadenocarcinoma
+Ovarian Endometrioid Adenocarcinoma
+Ovarian Germ Cell Tumor
+Ovarian Mucinous Adenocarcinoma
+Ovarian Mucinous Cystadenoma
+Ovarian Serous Adenocarcinoma
+Ovarian Serous Cystadenoma
+Ovarian Small Cell Carcinoma
+Ovarian Squamous Cell Carcinoma
+Ovarian Transitional Cell Carcinoma
+Oxyphilic Adenocarcinoma
+Paget Disease
+Paget Disease of the Anus
+Paget Disease of the Breast
+Paget Disease of the Penis
+Paget Disease of the Vulva
+Palate Squamous Cell Carcinoma
+Pancreatic Acinar Cell Carcinoma
+Pancreatic Acinar Cell Cystadenoma
+Pancreatic Adenocarcinoma
+Pancreatic Carcinoma
+Pancreatic Cystadenocarcinoma
+Pancreatic Cystadenoma
+Pancreatic Delta Cell Neuroendocrine Tumor
+Pancreatic Ductal Adenocarcinoma
+Pancreatic Gastrin-Producing Neuroendocrine Tumor
+Pancreatic Glucagon-Producing Neuroendocrine Tumor
+Pancreatic Insulin-Producing Neuroendocrine Tumor
+Pancreatic Intraductal Papillary-Mucinous Neoplasm with an Associated Invasive Carcinoma
+Pancreatic Intraductal Tubulopapillary Neoplasm with an Associated Invasive Carcinoma
+Pancreatic Large Cell Neuroendocrine Carcinoma
+Pancreatic Macrocystic Serous Cystadenoma
+Pancreatic Neuroendocrine Carcinoma
+Pancreatic Neuroendocrine Tumor
+Pancreatic Neuroendocrine Tumor G1
+Pancreatic Neuroendocrine Tumor G2
+Pancreatic Serous Cystadenoma
+Pancreatic Small Cell Neuroendocrine Carcinoma
+Pancreatic VIP-Producing Neuroendocrine Tumor
+Papillary Breast Carcinoma
+Papillary Carcinoma
+Papillary Ependymoma
+Papillary Glioneuronal Tumor
+Papillary Intralymphatic Angioendothelioma
+Papillary Lung Adenocarcinoma
+Papillary Meningioma
+Papillary Renal Cell Carcinoma
+Papillary Tumor of the Pineal Region
+Papilloma
+Paraganglioma
+Paranasal Sinus Squamous Cell Carcinoma
+Parathyroid Gland Adenoma
+Parathyroid Gland Carcinoma
+Parotid Gland Adenocarcinoma
+Parotid Gland Adenoid Cystic Carcinoma
+Parotid Gland Carcinoma
+Parotid Gland Carcinoma ex Pleomorphic Adenoma
+Parotid Gland Carcinosarcoma
+Parotid Gland Monomorphic Adenoma
+Parotid Gland Mucoepidermoid Carcinoma
+Parotid Gland Pleomorphic Adenoma
+Parotid Gland Squamous Cell Carcinoma
+Parotid Gland Undifferentiated Carcinoma
+Parotid Gland Warthin Tumor
+Partial Hydatidiform Mole
+Pediatric Follicular Lymphoma
+Pediatric Nodal Marginal Zone Lymphoma
+Penile Basal Cell Carcinoma
+Penile Bowenoid Papulosis
+Penile Carcinoma
+Periampullary Adenocarcinoma
+Pericanalicular Fibroadenoma
+Pericardial Malignant Mesothelioma
+Perineurioma
+Periosteal Chondroma
+Periosteal Chondrosarcoma
+Peripheral Ganglioneuroblastoma
+Peripheral Neuroblastoma
+Peripheral Primitive Neuroectodermal Tumor
+Peripheral Primitive Neuroectodermal Tumor of Bone
+Peripheral Primitive Neuroectodermal Tumor of Soft Tissues
+Peripheral T-Cell Lymphoma, Not Otherwise Specified
+Peritoneal Malignant Mesothelioma
+Peritoneal Multicystic Mesothelioma
+Peritoneal Well Differentiated Papillary Mesothelioma
+Ph-Like Acute Lymphoblastic Leukemia
+Pharyngeal Squamous Cell Carcinoma
+Philadelphia Chromosome Negative, BCR-ABL1 Positive Chronic Myelogenous Leukemia
+Philadelphia Chromosome Positive, BCR-ABL1 Positive Chronic Myelogenous Leukemia
+Phyllodes Tumor
+Pilocytic Astrocytoma
+Pilomatrical Carcinoma
+Pilomatricoma
+Pilomyxoid Astrocytoma
+Pineal Parenchymal Cell Neoplasm
+Pineal Parenchymal Tumor of Intermediate Differentiation
+Pineoblastoma
+Pineocytoma
+Pituitary Gland Adenoma
+Pituitary Gland Carcinoma
+Pituitary Gland Macroadenoma
+Pituitary Gland Microadenoma
+Plasma Cell Leukemia
+Plasma Cell Myeloma
+Plasma Cell Myeloma Post-Transplant Lymphoproliferative Disorder
+Plasmablastic Lymphoma
+Plasmacytoma
+Pleomorphic Liposarcoma
+Pleomorphic Rhabdomyosarcoma
+Pleomorphic Variant Mantle Cell Lymphoma
+Pleomorphic Xanthoastrocytoma
+Pleural Malignant Mesothelioma
+Pleural Well Differentiated Papillary Mesothelioma
+Pleuropulmonary Blastoma
+Plurihormonal Pituitary Gland Adenoma
+Polycythemia Vera
+Polycythemia Vera, Polycythemic Phase
+Polycythemia Vera, Post-Polycythemic Myelofibrosis Phase
+Polymorphic Post-Transplant Lymphoproliferative Disorder
+Polymorphus Hemangioendothelioma
+Poorly Cohesive Gastric Carcinoma
+Poorly Differentiated Neuroblastoma
+Poorly Differentiated Prostate Adenocarcinoma
+Poorly Differentiated Thyroid Gland Carcinoma
+Poroma
+Posterior Pharyngeal Wall Squamous Cell Carcinoma
+Precancerous Polyp
+Primary Bone Osteosarcoma
+Primary Central Chondrosarcoma
+Primary Cutaneous Anaplastic Large Cell Lymphoma
+Primary Cutaneous CD4-Positive Small/Medium-Sized T-Cell Lymphoma
+Primary Cutaneous CD8-Positive Aggressive Epidermotropic T-Cell Lymphoma
+Primary Cutaneous Diffuse Large B-Cell Lymphoma
+Primary Cutaneous Diffuse Large B-Cell Lymphoma, Leg Type
+Primary Cutaneous Diffuse Large B-Cell Lymphoma, Other
+Primary Cutaneous Follicle Center Lymphoma
+Primary Cutaneous Gamma-Delta T-Cell Lymphoma
+Primary Cutaneous Marginal Zone Lymphoma of Mucosa-Associated Lymphoid Tissue
+Primary Cutaneous Peripheral T-Cell Lymphoma, Rare Subtype
+Primary Effusion Lymphoma
+Primary Intestinal Follicular Lymphoma
+Primary Myelofibrosis
+Primary Myelofibrosis, Fibrotic Stage
+Primary Myelofibrosis, Prefibrotic Stage
+Primary Peritoneal Carcinoma
+Primary Peritoneal Serous Adenocarcinoma
+Primary Peritoneal Serous Papillary Adenocarcinoma
+Primary Prostate Urothelial Carcinoma
+Prolactin-Producing Pituitary Gland Adenoma
+Prolactin-Producing Pituitary Gland Carcinoma
+Prolymphocytic Leukemia
+Proneural Glioblastoma
+Prostate Acinar Adenocarcinoma
+Prostate Adenocarcinoma
+Prostate Adenoid Cystic Carcinoma
+Prostate Adenoma
+Prostate Adenosquamous Carcinoma
+Prostate Basal Cell Carcinoma
+Prostate Carcinoma
+Prostate Ductal Adenocarcinoma
+Prostate Phyllodes Tumor
+Prostate Small Cell Carcinoma
+Prostate Squamous Cell Carcinoma
+Prostate Stromal Proliferation of Uncertain Malignant Potential
+Prostate Stromal Sarcoma
+Prostate Undifferentiated Carcinoma
+Protoplasmic Astrocytoma
+Proximal Urethral Carcinoma
+Psammomatous Meningioma
+Pseudomyogenic Hemangioendothelioma
+Pulmonary Artery Choriocarcinoma
+Pulmonary Blastoma
+RAEB with Fibrosis
+RAEB-1
+RAEB-2
+Radiation-Related Angiosarcoma
+Radiation-Related Osteosarcoma
+Rectal Adenocarcinoma
+Rectal Adenoma
+Rectal Adenoma with Severe Dysplasia
+Rectal Adenomatous Polyp
+Rectal Adenosquamous Carcinoma
+Rectal Carcinoma
+Rectal Medullary Carcinoma
+Rectal Mucinous Adenocarcinoma
+Rectal Serrated Adenocarcinoma
+Rectal Sessile Serrated Adenoma/Polyp
+Rectal Signet Ring Cell Adenocarcinoma
+Rectal Small Cell Neuroendocrine Carcinoma
+Rectal Squamous Cell Carcinoma
+Rectal Traditional Serrated Adenoma
+Rectal Tubular Adenoma
+Rectal Tubulovillous Adenoma
+Rectal Undifferentiated Carcinoma
+Rectal Villous Adenoma
+Rectosigmoid Adenocarcinoma
+Rectosigmoid Carcinoma
+Rectosigmoid Mucinous Adenocarcinoma
+Rectosigmoid Signet Ring Cell Carcinoma
+Refractory Anemia
+Refractory Anemia with Excess Blasts
+Refractory Anemia with Ring Sideroblasts
+Refractory Anemia with Ring Sideroblasts Associated with Marked Thrombocytosis
+Refractory Cytopenia of Childhood
+Refractory Cytopenia with Multilineage Dysplasia
+Refractory Cytopenia with Multilineage Dysplasia and Ring Sideroblasts
+Refractory Cytopenia with Unilineage Dysplasia
+Refractory Neutropenia
+Refractory Thrombocytopenia
+Renal Cell Carcinoma
+Renal Cell Carcinoma Associated with Xp11.2 Translocations/TFE3 Gene Fusions
+Renal Cell Carcinoma Associated with inv(X)(p11;q12)
+Renal Cell Carcinoma Associated with t(X;1)(p11.2;p34)
+Renal Cell Carcinoma Associated with t(X;1)(p11.2;q21)
+Renal Cell Carcinoma Associated with t(X;17)(p11.2;q25)
+Renal Pelvis Carcinoma
+Renal Pelvis Papillary Urothelial Carcinoma
+Renal Pelvis Urothelial Carcinoma
+Retiform Hemangioendothelioma
+Retinal Hemangioblastoma
+Retinoblastoma
+Retinocytoma
+Retroperitoneal Carcinoma
+Rhabdoid Meningioma
+Rhabdoid Tumor
+Rhabdoid Tumor of the Kidney
+Rhabdomyoma
+Rhabdomyosarcoma
+Rhabdomyosarcoma with Mixed Embryonal and Alveolar Features
+Rosette-Forming Glioneuronal Tumor of the Fourth Ventricle
+Salivary Gland Adenocarcinoma
+Salivary Gland Adenoid Cystic Carcinoma
+Salivary Gland Adenosquamous Carcinoma
+Salivary Gland Carcinoma
+Salivary Gland Carcinoma ex Pleomorphic Adenoma
+Salivary Gland Clear Cell Carcinoma, Not Otherwise Specified
+Salivary Gland Epithelial Myoepithelial Carcinoma
+Salivary Gland Lymphoepithelial Carcinoma
+Salivary Gland Monomorphic Adenoma
+Salivary Gland Mucoepidermoid Carcinoma
+Salivary Gland Myoepithelial Carcinoma
+Salivary Gland Pleomorphic Adenoma
+Salivary Gland Small Cell Carcinoma
+Salivary Gland Squamous Cell Carcinoma
+Salivary Gland Undifferentiated Carcinoma
+Sarcoma
+Sarcomatoid Carcinoma
+Sarcomatoid Mesothelioma
+Sarcomatoid Renal Cell Carcinoma
+Schwannoma
+Sclerosing Rhabdomyosarcoma
+Sebaceous Adenoma
+Sebaceous Carcinoma
+Secondary Acute Myeloid Leukemia
+Secondary Chondrosarcoma
+Secondary Osteosarcoma
+Secretory Breast Carcinoma
+Secretory Meningioma
+Seminoma
+Serous Adenocarcinoma
+Serous Endometrial Intraepithelial Carcinoma
+Sezary Syndrome
+Signet Ring Cell Carcinoma
+Signet Ring Cell Gastric Adenocarcinoma
+Skin Adenosquamous Carcinoma
+Skin Angiosarcoma
+Skin Basal Cell Carcinoma
+Skin Carcinoma
+Skin Hemangioma
+Skin Lymphangioma
+Skin Papilloma
+Skin Squamous Cell Carcinoma
+Skull Base Chordoma
+Small Cell Carcinoma
+Small Cell Glioblastoma
+Small Cell Lung Carcinoma
+Small Cell Variant Anaplastic Large Cell Lymphoma
+Small Intestinal Adenocarcinoma
+Small Intestinal Carcinoma
+Small Intestinal Medullary Carcinoma
+Small Intestinal Mucinous Adenocarcinoma
+Small Intestinal Signet Ring Cell Carcinoma
+Small Intestinal Small Cell Neuroendocrine Carcinoma
+Small Lymphocytic Lymphoma
+Small Lymphocytic Lymphoma with Immunoglobulin Heavy Chain Variable-Region Gene Somatic Hypermutation
+Small Lymphocytic Lymphoma with Plasmacytoid Differentiation
+Small Lymphocytic Lymphoma with Unmutated Immunoglobulin Heavy Chain Variable-Region Gene
+Smoldering Plasma Cell Myeloma
+Solid Lung Adenocarcinoma with Mucin Production
+Solitary Circumscribed Neuroma
+Solitary Fibrous Tumor
+Solitary Osseous Plasmacytoma
+Solitary Plasmacytoma
+Spinal Cord Neoplasm
+Spindle Cell Melanoma
+Spindle Cell Rhabdomyosarcoma
+Spindle Cell/Sclerosing Rhabdomyosarcoma
+Spiradenocarcinoma
+Spiradenoma
+Spitz Nevus
+Splenic B-Cell Lymphoma/Leukemia, Unclassifiable
+Splenic Diffuse Red Pulp Small B-Cell Lymphoma
+Splenic Marginal Zone Lymphoma
+Sporadic Breast Carcinoma
+Sporadic Diffuse Gastric Adenocarcinoma
+Sporadic Papillary Renal Cell Carcinoma
+Sporadic Retinoblastoma
+Sporadic Thyroid Gland Medullary Carcinoma
+Squamous Cell Breast Carcinoma
+Squamous Cell Carcinoma
+Squamous Cell Carcinoma of the Penis
+Squamous Cell Lung Carcinoma
+Squamous Cell Lung Carcinoma, Basaloid Variant
+Squamous Cell Lung Carcinoma, Clear Cell Variant
+Squamous Cell Lung Carcinoma, Papillary Variant
+Squamous Cell Lung Carcinoma, Small Cell Variant
+Squamous Papilloma
+Stage 0 Ampulla of Vater Cancer
+Stage 0 Anal Canal Cancer
+Stage 0 Appendix Carcinoma
+Stage 0 Bladder Urothelial Carcinoma
+Stage 0 Cervical Cancer
+Stage 0 Colon Cancer
+Stage 0 Colorectal Cancer
+Stage 0 Esophageal Adenocarcinoma
+Stage 0 Esophageal Cancer
+Stage 0 Esophageal Squamous Cell Carcinoma
+Stage 0 Gallbladder Cancer
+Stage 0 Gastric Cancer
+Stage 0 Lung Cancer
+Stage 0 Pancreatic Cancer
+Stage 0 Rectal Cancer
+Stage 0 Rectosigmoid Cancer
+Stage 0 Renal Pelvis Urothelial Carcinoma
+Stage 0 Small Intestinal Cancer
+Stage 0 Squamous Cell Carcinoma
+Stage 0 Transitional Cell Carcinoma
+Stage 0 Ureter Urothelial Carcinoma
+Stage 0a Bladder Urothelial Carcinoma
+Stage 0a Renal Pelvis Urothelial Carcinoma
+Stage 0is Bladder Urothelial Carcinoma
+Stage 0is Renal Pelvis Urothelial Carcinoma
+Stromal Predominant Kidney Wilms Tumor
+Subcutaneous Panniculitis-Like T-Cell Lymphoma
+Subependymal Giant Cell Astrocytoma
+Subependymoma
+Subglottic Squamous Cell Carcinoma
+Sublingual Gland Adenocarcinoma
+Sublingual Gland Carcinoma
+Submandibular Gland Adenocarcinoma
+Submandibular Gland Adenoid Cystic Carcinoma
+Submandibular Gland Carcinoma
+Submandibular Gland Carcinoma ex Pleomorphic Adenoma
+Submandibular Gland Mucoepidermoid Carcinoma
+Submandibular Gland Squamous Cell Carcinoma
+Submandibular Gland Undifferentiated Carcinoma
+Superficial Fibromatosis
+Superficial Spreading Melanoma
+Supraglottic Squamous Cell Carcinoma
+Supratentorial Primitive Neuroectodermal Tumor
+Sweat Gland Carcinoma
+Syringoma
+Systemic Mastocytosis
+Systemic Mastocytosis with Associated Clonal Hematological non-Mast-Cell Lineage Disease
+T Acute Lymphoblastic Leukemia
+T Lymphoblastic Leukemia/Lymphoma
+T Lymphoblastic Lymphoma
+T-Cell Large Granular Lymphocyte Leukemia
+T-Cell Large Granular Lymphocyte Leukemia Expressing the T-Cell Receptor Gamma-Delta
+T-Cell Large Granular Lymphocyte Leukemia, Common Variant
+T-Cell Non-Hodgkin Lymphoma
+T-Cell Proliferation of Uncertain Malignant Potential
+T-Cell Prolymphocytic Leukemia
+T-Cell Prolymphocytic Leukemia, Cerebriform Cell Variant
+T-Cell Prolymphocytic Leukemia, Small Cell Variant
+T-Cell/Histiocyte-Rich Large B-Cell Lymphoma
+T-Zone Variant Peripheral T-Cell Lymphoma
+TSH-Producing Pituitary Gland Adenoma
+TSH-Producing Pituitary Gland Carcinoma
+Tanycytic Ependymoma
+Tenosynovial Giant Cell Tumor
+Teratoma
+Testicular Choriocarcinoma
+Testicular Germ Cell Tumor
+Testicular Seminoma
+Therapy-Related Leukemia
+Therapy-Related Myelodysplastic Syndrome
+Therapy-Related Myelodysplastic/Myeloproliferative Neoplasm
+Thymic Adenocarcinoma
+Thymic Adenosquamous Carcinoma
+Thymic Carcinoid Tumor
+Thymic Carcinoma
+Thymic Clear Cell Carcinoma
+Thymic Large Cell Neuroendocrine Carcinoma
+Thymic Lymphoepithelioma-Like Carcinoma
+Thymic Mucoepidermoid Carcinoma
+Thymic Sarcomatoid Carcinoma
+Thymic Small Cell Carcinoma
+Thymic Squamous Cell Carcinoma
+Thymic Undifferentiated Carcinoma
+Thymoma
+Thymoma Type A
+Thymoma Type AB
+Thymoma Type B
+Thymoma Type B1
+Thymoma Type B2
+Thymoma Type B3
+Thyroid Gland Adenocarcinoma
+Thyroid Gland Carcinoma
+Thyroid Gland Follicular Adenoma
+Thyroid Gland Follicular Carcinoma
+Thyroid Gland Medullary Carcinoma
+Thyroid Gland Mixed Medullary and Follicular Cell Carcinoma
+Thyroid Gland Papillary Carcinoma
+Thyroid Gland Squamous Cell Carcinoma
+Thyroid Gland Undifferentiated (Anaplastic) Carcinoma
+Tibial Adamantinoma
+Tongue Squamous Cell Carcinoma
+Topoisomerase II Inhibitor-Related Acute Myeloid Leukemia
+Tracheal Adenoid Cystic Carcinoma
+Tracheal Carcinoma
+Tracheal Squamous Cell Carcinoma
+Transitional Cell Carcinoma
+Transitional Meningioma
+Trichilemmocarcinoma
+Trichoblastoma
+Tricholemmoma
+Trilateral Retinoblastoma
+Triple-Negative Breast Carcinoma
+Trophoblastic Tumor
+Tubular Breast Carcinoma
+Type 1 Papillary Renal Cell Carcinoma
+Type 2 Papillary Renal Cell Carcinoma
+Type 3 Diffuse Large B-Cell Lymphoma
+Type A Lymphomatoid Papulosis
+Type B Lymphomatoid Papulosis
+Type C Lymphomatoid Papulosis
+Type I Endometrial Adenocarcinoma
+Type I Pleuropulmonary Blastoma
+Type II Endometrial Adenocarcinoma
+Type II Pleuropulmonary Blastoma
+Type III Pleuropulmonary Blastoma
+Typical Acute Promyelocytic Leukemia
+Unclassified Renal Cell Carcinoma
+Undifferentiated Carcinoma
+Undifferentiated Gastric Carcinoma
+Undifferentiated Ovarian Carcinoma
+Undifferentiated Pleomorphic Sarcoma
+Undifferentiated Retinoblastoma
+Undifferentiated Stromal Sarcoma
+Unilateral Breast Carcinoma
+Unilateral Retinoblastoma
+Upper Gingival Squamous Cell Carcinoma
+Ureter Carcinoma
+Ureter Squamous Cell Carcinoma
+Ureter Urothelial Carcinoma
+Urethral Adenocarcinoma
+Urethral Carcinoma
+Urethral Squamous Cell Carcinoma
+Urethral Urothelial Carcinoma
+Uterine Carcinosarcoma, Heterologous Type
+Uterine Carcinosarcoma, Homologous Type
+Uterine Corpus Adenosarcoma
+Uterine Corpus Carcinosarcoma
+Uterine Corpus Endometrial Stromal Sarcoma
+Uterine Corpus Leiomyoma
+Uterine Corpus Leiomyosarcoma
+Vaginal Adenocarcinoma
+Vaginal Adenosquamous Carcinoma
+Vaginal Carcinoma
+Vaginal Squamous Cell Carcinoma
+Verruca Vulgaris
+Visual Pathway Astrocytoma
+Visual Pathway Glioma
+Vulvar Adenocarcinoma
+Vulvar Basal Cell Carcinoma
+Vulvar Carcinoma
+Vulvar Squamous Cell Carcinoma
+Waldenstrom Macroglobulinemia
+Warthin Tumor
+Well Differentiated Adrenal Cortex Carcinoma
+Well Differentiated Leiomyosarcoma
+Well Differentiated Liposarcoma
+Well Differentiated Papillary Mesothelioma
+Well Differentiated Prostate Adenocarcinoma
+Wilms Tumor
+Yolk Sac Tumor
+

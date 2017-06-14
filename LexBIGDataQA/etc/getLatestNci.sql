@@ -1,0 +1,1 @@
+select prefix from lb6_registry where resourceURI = 'http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#' and resourceVersion in (select max(resourceVersion) from lb6_registry where resourceURI = 'http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#')

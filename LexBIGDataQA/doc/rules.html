@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+  <title>LexBIG Data QA System - Rules Specification</title>
+  <meta name="author" content="Brian Carlsen">
+  <meta name="description"
+ content="LexBIG Data QA System Rules Specification">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#ff0000" link="#3333ff" vlink="#999999">
+<center>
+<h2>LexBIG Data QA System - Rules Specification<br>
+</h2>
+<hr style="width: 100%; height: 2px;">
+<div style="text-align: left;"><span style="font-weight: bold;"></span><i>QA
+Rules Specification for the LexBIG Data
+QA System.</i>
+<br>
+<br>
+</div>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]
+</center>
+<i><br>
+</i>
+<h3><a name="overview"></a>Overview</h3>
+This page documents the specification for rules by <a href="dm.html">domain
+object</a>.&nbsp; For each domain object there may be semantic rules
+that should always apply.<br>
+<br>
+<span style="font-weight: bold;"></span><span style="font-weight: bold;"></span><span
+ style="font-weight: bold;"></span>
+<h3><a name="details"></a>Details</h3>
+Three key topics are covered here:<br>
+<ul>
+  <li><a href="#output">Semantic Validation Output File</a></li>
+  <li><a href="#rules">Rules by Domain Object</a></li>
+  <li><a href="#source">Terminology-specific Rules</a><br>
+  </li>
+</ul>
+<h3><a name="output"></a>Semantic Validation Output File<br>
+</h3>
+A Java or Perl program will be used to check semantic rules against the
+data state of a particular life cycle stage.&nbsp; This tool will
+produce a formatted output file.&nbsp; The output file will be a
+vertical-bar (|) delimited text file with the following fields:<br>
+<pre>ruleName|ruleType|pass/fail|id|<br></pre>
+The <span style="font-family: monospace;">id</span> field is the
+identifier of the domain object that failed to pass the test. In some
+cases, rules will fail for legitimate reasons.&nbsp; In that case,
+additional fields can be added to explain the failure for reporting
+purposes.&nbsp; In this event, those lines that require explaining will
+have this format:<br>
+<pre>ruleName|ruleType|pass/fail|id|authority|reason|</pre>
+In the case that a test passes, the id field will be blank. Following
+is a sample rules file that includes a reason for failure<br>
+<br>
+<span style="font-weight: bold;">TODO</span>: Include sample rules
+output<br>
+<span style="font-weight: bold;"><br>
+</span>
+<h3><a name="rules"></a>Rules by Domain Object</h3>
+The rules specification is based on the domain model we are
+using.&nbsp; Following is a list of <a href="dm.html">domain model</a>
+objects and the corresponding&nbsp; rules to validate for each life
+cycle stage. <br>
+<br>
+<table
+ style="text-align: left; width: 90%; margin-left: auto; margin-right: auto;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th style="vertical-align: top;">Domain Object<br>
+      </th>
+      <th style="vertical-align: top;">Rule Name<br>
+      </th>
+      <th style="vertical-align: top;">Rule Type<br>
+      </th>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">codedEntry<br>
+      </td>
+      <td style="vertical-align: top;">codeHasIsa<br>
+      </td>
+      <td style="vertical-align: top;">ontology<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+non-obsolete concept
+within the terminology has at least one is_a relationship to a parent
+concept.&nbsp; This ensures that all concepts in the terminology occupy
+legitimate locations in the hierarchy.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">codedEntry<br>
+      </td>
+      <td style="vertical-align: top;">codeHasPn<br>
+      </td>
+      <td style="vertical-align: top;">onotology<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each concept
+within the terminology has a preferred name.&nbsp; In terms of this
+domain model, it means that the codedEntry has at least one
+presentation for which isPreferred is true.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">presentation<br>
+      </td>
+      <td style="vertical-align: top;">nameHasCode<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+presentation is associated with a legitimate concept.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">definition<br>
+      </td>
+      <td style="vertical-align: top;">defHasCode<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">This rule passes if each
+definition is associated with a legitimate concept.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">comment<br>
+      </td>
+      <td style="vertical-align: top;">commentHasCode</td>
+      <td style="vertical-align: top;">refIntegrity</td>
+      <td style="vertical-align: top;">This rule passes if each comment
+is associated with a legitimate concept.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">instruction<br>
+      </td>
+      <td style="vertical-align: top;">instrHasCode</td>
+      <td style="vertical-align: top;">refIntegrity</td>
+      <td style="vertical-align: top;">This rule passes if each
+instruction is associated with a legitimate concept.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">property<br>
+      </td>
+      <td style="vertical-align: top;">propHasCode<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity</td>
+      <td style="vertical-align: top;">This rule passes if each
+property is associated with a legitimate concept.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyQualification<br>
+      </td>
+      <td style="vertical-align: top;">propPropHasProp<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+property on a property is associated with a legitimate property<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyLink<br>
+      </td>
+      <td style="vertical-align: top;">propLinkHasProp[12]<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity</td>
+      <td style="vertical-align: top;">This rule passes if each
+propertyLink is associated with two legitimate properties.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationTarget<br>
+      </td>
+      <td style="vertical-align: top;">relHasCode[12]<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationTarget connects two legitimate concepts.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationData<br>
+      </td>
+      <td style="vertical-align: top;">relDataHasCode<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationData has a legitimate concept LHS (left-hand-side).<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationQualification<br>
+      </td>
+      <td style="vertical-align: top;">relPropHasRel<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationQualifier is connected to a legitimate associationData or
+associationTarget.<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" rowspan="1" style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Association<br>
+      </td>
+      <td style="vertical-align: top;">relTypeOneToOne<br>
+      </td>
+      <td style="vertical-align: top;">lexBig<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if there is a
+1:1 correspondence between the association id (entityCode) and the
+forwardName and reverseName. <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Association<br>
+      </td>
+      <td style="vertical-align: top;">relHasRelType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationTarget has a defined association.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Association<br>
+      </td>
+      <td style="vertical-align: top;">relDataHasRelType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationData has a defined association.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Association<br>
+      </td>
+      <td style="vertical-align: top;">relTypeHasRel<br>
+      </td>
+      <td style="vertical-align: top;">refIntegirty<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each defined
+association is actually used in an associationTarget or an
+associationData.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">AssociationQualifier<br>
+      </td>
+      <td style="vertical-align: top;">relPropHasRelPropType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+associationQualification has a defined AssociationQualifier.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Hierarchy<br>
+      </td>
+      <td style="vertical-align: top;">hierarchyHasRelType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if the
+indicated Association actually exists.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Language<br>
+      </td>
+      <td style="vertical-align: top;">nameHasLanguage<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+presentation has a defined Language.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Property<br>
+      </td>
+      <td style="vertical-align: top;">propHasPropType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+property has a defined property name. </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PropertyLink<br>
+      </td>
+      <td style="vertical-align: top;">propLinkHasPropLinkType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+property link has a defined link. </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PropertyQualifier<br>
+      </td>
+      <td style="vertical-align: top;">propPropHasPropPropType<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">This rule passes if each
+property qualifier has a defined qualifier type.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">RepresentationalForm<br>
+      </td>
+      <td style="vertical-align: top;">nameHasTty<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each
+presentation has a defined RepresentationalForm.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Source<br>
+      </td>
+      <td style="vertical-align: top;">relPropHasSource<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">a "source" relProp must have a
+value that is a defined source value.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">propPropHasSource<br>
+      </td>
+      <td style="vertical-align: top;">refIntegrity </td>
+      <td style="vertical-align: top;">a "source" relProp must have a
+value that is a defined source value. </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">ChangeEvent<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3><a name="source"></a>Terminology-specific Rules<br>
+</h3>
+Some rules only apply within the context of particular
+terminologies.&nbsp; These rules should only be implemented in those
+cases to avoid massive failures for other terminologies to which they
+do not apply.&nbsp; For example, the following rule only applies to
+terminologies
+that use definitions.<br>
+<br>
+<table
+ style="text-align: left; width: 90%; margin-left: auto; margin-right: auto;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th style="vertical-align: top;">Domain Object<br>
+      </th>
+      <th style="vertical-align: top;">Rule Name<br>
+      </th>
+      <th style="vertical-align: top;">Rule Type<br>
+      </th>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">codedEntry<br>
+      </td>
+      <td style="vertical-align: top;">codeHasDef<br>
+      </td>
+      <td style="vertical-align: top;">content<br>
+      </td>
+      <td style="vertical-align: top;">This rule passes if each<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+For life cycle stages that are shared by different terminologies, there
+will be shared tools for performing validation of rules.&nbsp; For
+example, the rules in the previous section can be validated for any
+terminology once loaded into the LexBIG database.<br>
+<br>
+In the event that there are additional terminology-specific rules,
+adjunct Perl or Java programs will need to be developed to wrap the
+shared tools and provide implementations for the additional rules.<br>
+<br>
+<h3><a name="ref"></a>References</h3>
+<ul>
+  <li>LexEVS GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/lexevs/">http://gforge.nci.nih.gov/projects/lexevs/</a><br>
+  </li>
+  <li>EVS Operations GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/evsops/">http://gforge.nci.nih.gov/projects/evsops/</a></li>
+</ul>
+<center><br>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]<br>
+&nbsp;
+<font size="-1"><span style="font-weight: bold;"><br>
+</span></font></center>
+<p>
+</p>
+<hr width="100%">
+<table nosave="" border="0" cols="2" width="100%">
+  <tbody>
+    <tr nosave="">
+      <td nosave="" align="left" valign="top">
+      <address><span style="text-decoration: underline;"><a
+ href="index.html">Index</a><br>
+      </span><a href="/"></a></address>
+      </td>
+      <td nosave="" align="right" valign="top">
+      <address><font size="-1">Contact: <a
+ href="mailto:bcarlsen@apelon.com">Brian A. Carlsen</a></font></address>
+      <address> <font size="-1">Created: 09/09/2008</font></address>
+      <address> <font size="-1">Last Updated: </font><font size="-1">05/03/2009</font></address>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

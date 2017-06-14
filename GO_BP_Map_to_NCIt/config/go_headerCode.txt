@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.obolibrary.org/obo/go.owl#"
+     xml:base="http://purl.obolibrary.org/obo/go.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:terms="http://www.geneontology.org/formats/oboInOwl#http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"
+     xmlns:nci="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+     xmlns:go="http://purl.obolibrary.org/obo/go.owl#">
+    <owl:Ontology rdf:about="http://purl.obolibrary.org/obo/go.owl">
+        <oboInOwl:hasOBOFormatVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.2</oboInOwl:hasOBOFormatVersion>
+        <oboInOwl:date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01:09:2015 17:12</oboInOwl:date>
+        <oboInOwl:auto-generated-by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBO-Edit 2.3.1</oboInOwl:auto-generated-by>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cvs version: $Revision: 24547 $</rdfs:comment>
+        <oboInOwl:default-namespace rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gene_ontology</oboInOwl:default-namespace>
+        <oboInOwl:saved-by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tanyaberardini</oboInOwl:saved-by>
+        <owl:versionIRI rdf:resource="http://purl.obolibrary.org/obo/go/releases/2015-09-01/go.owl"/>
+    </owl:Ontology>
+
+<owl:DatatypeProperty rdf:ID="code">
+<code>AHC0</code>
+<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+</owl:DatatypeProperty>

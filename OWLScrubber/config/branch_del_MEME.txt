@@ -1,0 +1,4 @@
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC50000
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC50001
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C20777
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28428

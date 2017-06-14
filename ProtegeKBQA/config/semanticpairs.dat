@@ -1,0 +1,29 @@
+Carbohydrate|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Biologically Active Substance
+Amino Acid, Peptide, or Protein|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Enzyme
+Amino Acid, Peptide, or Protein|Immunologic Factor
+Amino Acid, Peptide, or Protein|Receptor
+Amino Acid, Peptide, or Protein|Antibiotic
+Amino Acid, Peptide, or Protein|Hormone
+Antibiotic|Organic Chemical
+Antibiotic|Carbohydrate
+Carbohydrate|Pharmacologic Substance
+Eicosanoid|Pharmacologic Substance
+Element, Ion, or Isotope|Pharmacologic Substance
+Hazardous or Poisonous Substance|Organic Chemical
+Hormone|Steroid
+Immunologic Factor|Pharmacologic Substance
+Indicator, Reagent, or Diagnostic Aid|Inorganic Chemical
+Indicator, Reagent, or Diagnostic Aid|Organic Chemical
+Inorganic Chemical|Pharmacologic Substance
+Lipid|Pharmacologic Substance
+Nucleic Acid, Nucleoside, or Nucleotide|Pharmacologic Substance
+Organic Chemical|Pharmacologic Substance
+Organic Chemical|Vitamin
+Pharmacologic Substance|Steroid
+Pharmacologic Substance|Virus
+
+
+
+

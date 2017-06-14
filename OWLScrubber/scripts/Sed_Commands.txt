@@ -1,0 +1,32 @@
+
+cat <file> | grep "<P386 rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"></P386>"
+cat <file> | grep "<P385 rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"></P385>"
+sed -i s%"<P386 rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"></P386>"%% <file>
+sed -i s%"<P385 rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"></P385>"%% <file>
+
+cat <file> | grep -A10 -B10 "term-source"
+cat <file> | grep -A10 -B10 "term-group”  
+sed -i s%\<term-group%\<P383% <file>
+sed -i s%\</term-group%\</P383% <file>
+sed -i s%\<term-source%\<P384% <file>
+sed -i s%\</term-source%\</P384% <file>
+cat <file> | grep -A10 -B10 "term-source"
+cat <file> | grep -A10 -B10 "term-group”
+cp <file> <file-byCode.owl>
+
+cat <file> | grep "Term Source"
+cat <file> | grep "Term Type"
+sed -i 's%label>Term Source%label>term-source%' <file>
+sed -i 's%label>Term Type%label>term-group%' <file>
+sed -i 's%label>Source Code%label>source-code%' <file>
+sed -i 's%label>Subsource Name%label>subsource-name%' <file>
+sed -i 's%label>Definition Source%label>def-source%' <file>
+sed -i 's%label>attribution%label>attr%' <file>
+cp <file> <file-forLexEVS.owl>
+cat <file> | grep "Term Source"
+cat <file> | grep "Term Type"
+cat <file> | grep "term-source"
+cat <file> | grep "term-group"
+
+
+ 

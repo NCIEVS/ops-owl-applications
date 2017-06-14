@@ -1,0 +1,19 @@
+Pipe
+NoSemanticTypes	Premerged_Concepts
+NoSemanticTypes	Preretired_Concepts
+RetiredBadStatus	Nothing
+RetiredBadStatus	Retired_Concept_2003
+RetiredBadStatus	Retired_Concept_2004
+RetiredBadStatus	Retired_Concept_2005
+RetiredBadStatus	Retired_Concept_2006
+RetiredBadStatus	Retired_Concept_2007
+RetiredBadStatus	Retired_Concept_2008
+RetiredBadStatus	Retired_Concept_2009
+RetiredBadStatus	Retired_Concept_2010
+RetiredBadStatus    Retired_Concept_2011
+DuplicatePreferred
+NoPreferred
+NoAltDef
+NoContibutingFullSyn
+NoCSforFullSyn
+PNbug

@@ -1,0 +1,2 @@
+changeCount|history|select count(*) from ${LEXBIG_PREFIX}ncihist|
+changeTally|history|select count(*),editAction,date_format(editDate,'%Y%m') from ${LEXBIG_PREFIX}ncihist group by editAction,date_format(editDate,'%Y%m')|

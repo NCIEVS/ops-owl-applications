@@ -1,0 +1,16 @@
+#Properties to pull into the report.  First column will be the column name.  Second is property name.  
+#Third, if present, will be the qualifier name.  #Fourth, if present, will specify a qualifier value to look for
+
+FDA PT:P90	term-source	FDA	term-group	PT
+NCI Synonym:P90	term-source	NCI
+NCI PT:P90	term-source	NCI	term-group	PT
+NCI Definition:P97	def-source	NCI
+Brand Name:P90	term-type	BR
+Chemical:P90	term-type	SN
+CAS Number:P210
+UNII Code:P319
+Semantic Type:P106
+GO:P211	go-source	CGAP
+
+#This marks the end of the file.  Do not remove
+EOF  

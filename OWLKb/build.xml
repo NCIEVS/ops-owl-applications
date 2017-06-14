@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="OWLKb">
+    <property environment="env"/>
+    <property name="OWLDiff.location" value="../OWLDiff"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse_Luna/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Maven Dependencies.libraryclasspath">
+        <pathelement location="../../../.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/commons/commons-rdf-api/0.1.0-incubating/commons-rdf-api-0.1.0-incubating.jar"/>
+        <pathelement location="../../../.m2/repository/commons-collections/commons-collections/20040616/commons-collections-20040616.jar"/>
+        <pathelement location="../../../.m2/repository/gov/nih/nlm/nls/lvg/lvg2010dist/0.0.1/lvg2010dist-0.0.1.jar"/>
+        <pathelement location="../../../.m2/repository/net/sourceforge/owlapi/owlapi-distribution/4.1.4/owlapi-distribution-4.1.4.jar"/>
+        <pathelement location="../../../.m2/repository/com/fasterxml/jackson/core/jackson-core/2.5.1/jackson-core-2.5.1.jar"/>
+        <pathelement location="../../../.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.5.1/jackson-databind-2.5.1.jar"/>
+        <pathelement location="../../../.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.5.1/jackson-annotations-2.5.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/tukaani/xz/1.5/xz-1.5.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-model/2.7.16/sesame-model-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-util/2.7.16/sesame-util-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-api/2.7.16/sesame-rio-api-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-languages/2.7.16/sesame-rio-languages-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-datatypes/2.7.16/sesame-rio-datatypes-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-binary/2.7.16/sesame-rio-binary-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-n3/2.7.16/sesame-rio-n3-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-nquads/2.7.16/sesame-rio-nquads-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-ntriples/2.7.16/sesame-rio-ntriples-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-rdfjson/2.7.16/sesame-rio-rdfjson-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-rdfxml/2.7.16/sesame-rio-rdfxml-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-trix/2.7.16/sesame-rio-trix-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-turtle/2.7.16/sesame-rio-turtle-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/org/openrdf/sesame/sesame-rio-trig/2.7.16/sesame-rio-trig-2.7.16.jar"/>
+        <pathelement location="../../../.m2/repository/com/github/jsonld-java/jsonld-java-sesame/0.5.0/jsonld-java-sesame-0.5.0.jar"/>
+        <pathelement location="../../../.m2/repository/com/github/jsonld-java/jsonld-java/0.5.0/jsonld-java-0.5.0.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/httpcomponents/httpclient-cache/4.2.5/httpclient-cache-4.2.5.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.jar"/>
+        <pathelement location="../../../.m2/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
+        <pathelement location="../../../.m2/repository/org/slf4j/jcl-over-slf4j/1.7.7/jcl-over-slf4j-1.7.7.jar"/>
+        <pathelement location="../../../.m2/repository/org/semarglproject/semargl-sesame/0.6.1/semargl-sesame-0.6.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/semarglproject/semargl-core/0.6.1/semargl-core-0.6.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/semarglproject/semargl-rdfa/0.6.1/semargl-rdfa-0.6.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/semarglproject/semargl-rdf/0.6.1/semargl-rdf-0.6.1.jar"/>
+        <pathelement location="../../../.m2/repository/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar"/>
+        <pathelement location="../../../.m2/repository/com/google/guava/guava/18.0/guava-18.0.jar"/>
+        <pathelement location="../../../.m2/repository/com/google/inject/guice/4.0/guice-4.0.jar"/>
+        <pathelement location="../../../.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+        <pathelement location="../../../.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+        <pathelement location="../../../.m2/repository/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.jar"/>
+        <pathelement location="../../../.m2/repository/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.jar"/>
+        <pathelement location="../../../.m2/repository/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/slf4j/slf4j-api/1.7.10/slf4j-api-1.7.10.jar"/>
+        <pathelement location="../../../.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    </path>
+    <path id="OWLKb.classpath">
+        <pathelement location="target/classes"/>
+        <pathelement location="target/test-classes"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <path id="run.Test_OWLKb.classpath">
+        <path refid="OWLKb.classpath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="target/classes"/>
+        <mkdir dir="target/test-classes"/>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src">
+                <include name="**/*.java"/>
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/test-classes">
+            <fileset dir="test/src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="target/classes"/>
+        <delete dir="target/test-classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <include name="**/*.java"/>
+            <classpath refid="OWLKb.classpath"/>
+        </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/test-classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="test/src"/>
+            <classpath refid="OWLKb.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${OWLDiff.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${OWLDiff.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="Test_OWLKb">
+        <java classname="gov.nih.nci.evs.owl.TestHarness" failonerror="true" fork="yes">
+            <classpath refid="run.Test_OWLKb.classpath"/>
+        </java>
+    </target>
+</project>

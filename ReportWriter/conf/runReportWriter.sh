@@ -1,0 +1,1 @@
+java -cp "./conf/application-config-client.xml" -jar  ./build/exporthistory.jar -f ./conf/config.txt

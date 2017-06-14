@@ -1,0 +1,23 @@
+Editor_Note
+IMT_Code
+Review_Status
+CTRM_ID
+DC_Anatomy
+PARENT
+OLD_SOURCE_ROLE
+Def_Curator
+Merge_Source
+Merge_Target
+IND_Code
+Merge_Into
+Locus_ID
+NDFRT_Code
+NDFRT_Name
+Related_MedDRA_Code
+Mitelman_Code
+Maps_To_LASH
+Related_Lash_Concept
+ALT_LONG_DEFINITION
+LONG_DEFINITION
+Synonym
+ALT_DEFINITION	def-source	SPL

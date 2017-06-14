@@ -1,0 +1,10 @@
+SNOMED Clinical Terms|SNOMEDCT
+SNOMED Clinical Terms|Snomed CT
+SNOMED Clinical Terms|SNOMED
+MedDRA|MDR
+MedDRA|Medical Dictionary for Regulatory Activities Terminology (MedDRA)
+HL7|HL7 Vocabulary
+HL7|HL7
+HL7|HL7V3.0
+chebi_ontology|ChEBI
+chebi_ontology|Chemical Entities of Biological Interest

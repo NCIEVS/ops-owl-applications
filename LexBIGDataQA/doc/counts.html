@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LexBIG Data QA System - Counts Specification</title>
+  <meta name="author" content="Brian Carlsen">
+  <meta name="description"
+ content="LexBIG Data QA System Counts Specification">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ vlink="#999999" alink="#ff0000" link="#3333ff">
+<center>
+<h2>LexBIG Data QA System - Counts Specification<br>
+</h2>
+<hr style="width: 100%; height: 2px;">
+<div style="text-align: left;"><span style="font-weight: bold;"></span><i>QA
+Counts
+Specification
+for the LexBIG Data
+QA System.</i>
+<br>
+<br>
+</div>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]
+</center>
+<i><br>
+</i>
+<h3><a name="overview"></a>Overview</h3>
+This page documents the specification for QA counts by <a
+ href="dm.html">domain object</a>.&nbsp; Each domain object is
+associated with one or more count names.&nbsp; <br>
+<br>
+<span style="font-weight: bold;"></span><span style="font-weight: bold;"></span><span
+ style="font-weight: bold;"></span>
+<h3><a name="details"></a>Details</h3>
+Three key topics are covered here:<br>
+<ul>
+  <li><a href="#output">Counts Output File</a></li>
+  <li><a href="#counts">Counts by Domain Object</a></li>
+  <li><a href="#source">Terminology-specific Counts</a></li>
+</ul>
+<h3><a name="output"></a>Counts Output File<br>
+</h3>
+A Java or Perl program will be used to generate counts for the data
+state of a particular life cycle stage.&nbsp; This tool will
+produce a formatted output file.&nbsp; The output file will be a
+vertical-bar (|) delimited text file with the following fields:<br>
+<pre>countName|fieldValues|count|<br></pre>
+In some
+cases, counts will be known to be incorrect for legitimate
+reasons.&nbsp; In that case,
+additional fields can be added to explain the failure for comparison
+and reporting purposes.&nbsp; In this event, those lines that require
+explaining will
+have this format:<br>
+<pre>countName|fieldValues|count|adjustmentCount|authority|reason|</pre>
+The system supports one special reason, the literal value "NOT
+LOADED".&nbsp; It is used to indicate that certain data appearing in
+early stages (e.g. the original, native file stage) is counted but not
+loaded into further stages.&nbsp; The special value is used by the
+comparison tools to avoid comparing these values; favoring, instead, to
+simply&nbsp; report them as being counted but not loaded. <br>
+<br>
+Following is a sample counts file:<br>
+<br>
+<span style="font-family: monospace;">codeCount||1415219|<br>
+codeTally|Active,Y,N,Content|1415219|<br>
+commentCount||0|<br>
+defCount||123705|<br>
+defTally|NCI MetaThesaurus,Content|123705|<br>
+instrCount||0|<br>
+isaRelValue||isa|<br>
+languageTypeCount||1|<br>
+nameCount||3633478|<br>
+nameTally|null,N,ENG,AB,NCI MetaThesaurus,Content|30487|<br>
+nameTally|null,N,ENG,ACR,NCI MetaThesaurus,Content|49951|<br>
+...</span><span style="font-weight: bold;"></span><br>
+<br>
+One way to think about entries in the counts file as SQL <span
+ style="font-family: monospace;">SELECT</span> statements
+with <span style="font-family: monospace;">count(*)</span> and <span
+ style="font-family: monospace;">GROUP BY</span> clauses.&nbsp; For
+example,<br>
+<pre>SELECT 'object1_tally', value1, value2, value3, count(*) ct<br>FROM &lt;domain object1&gt;<br>GROUP BY value1, value2, value3;</pre>
+This will result in count file entries like this:<br>
+<pre>object1Tally|value1,value2,value3|ct|<span
+ style="font-weight: bold;"><br></span></pre>
+In some cases, we are merely interested in counting the number of
+instances of a of domain object and we do not care about grouping by
+field.&nbsp; These cases are equivalent to a queries like this:<br>
+<pre>SELECT 'object1Tally', null, count(*) ct<br>FROM &lt;domain object1&gt;;<br></pre>
+In this case, the value field will be empty. Thus, it will result in a
+count file entry like this:<br>
+<pre>object1Count||ct|</pre>
+<span style="font-style: italic;">Note</span>:&nbsp; sometimes fields
+being
+counted will have either null values.&nbsp; In that case, the literal
+value
+"null" should be used in the output file.<br>
+<span style="font-style: italic;">Note</span>:&nbsp; sometimes fields
+being
+counted will have boolean values. In the event that such a field is <span
+ style="font-style: italic;">true</span>, the literal value "Y" should
+be used.&nbsp; Otherwise, the literal value "N" should be used.<br>
+<h3><a name="counts"></a>Counts by Domain Object<br>
+</h3>
+The counts specification is based on the domain model we are
+using.&nbsp; Following is a list of <a href="dm.html">domain model</a>
+objects and the corresponding counts to generate by object for each
+life cycle stage. <br>
+<br>
+<table
+ style="text-align: left; width: 90%; margin-left: auto; margin-right: auto;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th style="vertical-align: top;">Domain Object<br>
+      </th>
+      <th style="vertical-align: top;">Count Name<br>
+      </th>
+      <th style="vertical-align: top;">Value List<br>
+      </th>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">codedEntry<br>
+      </td>
+      <td style="vertical-align: top;">codeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">codedEntry<br>
+      </td>
+      <td style="vertical-align: top;">codeTally<br>
+      </td>
+      <td style="vertical-align: top;">status, active (obsolete or
+non-obsolete - Y,N), defined (Y,N), qaModelType (Content, Metadata,
+History, Anonymous)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">presentation<br>
+      </td>
+      <td style="vertical-align: top;">nameCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">presentation<br>
+      </td>
+      <td style="vertical-align: top;">nameTally<br>
+      </td>
+      <td style="vertical-align: top;">degreeOfFidelity (null, EXACT,
+BROAD, ...), isPreferred (Y,N), language,
+representationalForm (TTY, ..), presentationType (the propertyNAme),
+source, qaModelType (Content, Metadata,
+History, Anonymous)</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">definition<br>
+      </td>
+      <td style="vertical-align: top;">defCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">definition<br>
+      </td>
+      <td style="vertical-align: top;">defTally<br>
+      </td>
+      <td style="vertical-align: top;">source, qaModelType (Content,
+Metadata, History, Anonymous) </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">comment<br>
+      </td>
+      <td style="vertical-align: top;">commentCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">instruction<br>
+      </td>
+      <td style="vertical-align: top;">instrCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">property<br>
+      </td>
+      <td style="vertical-align: top;">propCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">property<br>
+      </td>
+      <td style="vertical-align: top;">propTally<br>
+      </td>
+      <td style="vertical-align: top;">language, property (ATN),
+source, qaModelType
+(Content, Metadata, History, Anonymous)</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyQualification<br>
+      </td>
+      <td style="vertical-align: top;">propPropCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyQualification<br>
+      </td>
+      <td style="vertical-align: top;">propPropTally<br>
+      </td>
+      <td style="vertical-align: top;">property (property ATN - e.g.
+definition), type (qualification type), ATN (qualification ATN),
+qaModelType (Content, Metadata, History, Anonymous) </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyLink<br>
+      </td>
+      <td style="vertical-align: top;">propLinkCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">propertyLink<br>
+      </td>
+      <td style="vertical-align: top;">propLinkTally<br>
+      </td>
+      <td style="vertical-align: top;">link (REL/RELA),
+sourceProperty.property (prop1),
+targetProperty.property (prop2), qaModelType (Content, Metadata,
+History, Anonymous) </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationTarget<br>
+      </td>
+      <td style="vertical-align: top;">relCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationTarget<br>
+      </td>
+      <td style="vertical-align: top;">relTally<br>
+      </td>
+      <td style="vertical-align: top;">source ,
+association (REL), qaModelType (Content, Metadata, History, Anonymous) </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationData<br>
+      </td>
+      <td style="vertical-align: top;">relDataCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationData<br>
+      </td>
+      <td style="vertical-align: top;">relDataTally<br>
+      </td>
+      <td style="vertical-align: top;">source, association, qaModelType
+(Content, Metadata, History, Anonymous) </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationQualification</td>
+      <td style="vertical-align: top;">relPropCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">associationQualification<br>
+      </td>
+      <td style="vertical-align: top;">relPropTally<br>
+      </td>
+      <td style="vertical-align: top;">associationQualifier
+(qualification ATN), qaModelType (Content, Metadata, History, Anonymous)
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" rowspan="1" style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Association<br>
+      </td>
+      <td style="vertical-align: top;">relTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">AssociationQualifier<br>
+      </td>
+      <td style="vertical-align: top;">relPropTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a (distinct qualifierName
+count)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Hierarchy<br>
+      </td>
+      <td style="vertical-align: top;">isaRelValue<br>
+      </td>
+      <td style="vertical-align: top;">e.g. "is_a" or "hasSubtype"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Language<br>
+      </td>
+      <td style="vertical-align: top;">languageTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Property<br>
+      </td>
+      <td style="vertical-align: top;">propTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PropertyLink<br>
+      </td>
+      <td style="vertical-align: top;">propLinkTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PropertyQualifier<br>
+      </td>
+      <td style="vertical-align: top;">propPropTypeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a (distinct ATN)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">RepresentationalForm<br>
+      </td>
+      <td style="vertical-align: top;">ttyCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Source<br>
+      </td>
+      <td style="vertical-align: top;">sourceCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" rowspan="1" style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">ChangeEvent<br>
+      </td>
+      <td style="vertical-align: top;">changeCount<br>
+      </td>
+      <td style="vertical-align: top;">n/a<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">ChangeEvent<br>
+      </td>
+      <td style="vertical-align: top;">changeTally<br>
+      </td>
+      <td style="vertical-align: top;">type,&nbsp; editDateYYYYMM</td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-style: italic;"></span><br>
+<h3><a name="source"></a>Terminology-specific Counts<br>
+</h3>
+The counting specification was designed to be based on a conceptual
+model of the domain objects.&nbsp; As such, there are no
+terminology-specific domain objects to count.&nbsp; Idiosyncracies
+specific to a terminology should be addressed with <a
+ style="font-style: italic;" href="rules.html#source">terminology-specific
+rules</a> instead.<br>
+<br>
+<h3><a name="ref"></a>References</h3>
+<ul>
+  <li>LexEVS GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/lexevs/">http://gforge.nci.nih.gov/projects/lexevs/</a><br>
+  </li>
+  <li>EVS Operations GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/evsops/">http://gforge.nci.nih.gov/projects/evsops/</a></li>
+</ul>
+<center><br>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]<br>
+&nbsp;
+<font size="-1"><span style="font-weight: bold;"><br>
+</span></font></center>
+<p>
+</p>
+<hr width="100%">
+<table nosave="" width="100%" border="0" cols="2">
+  <tbody>
+    <tr nosave="">
+      <td nosave="" valign="top" align="left">
+      <address><span style="text-decoration: underline;"><a
+ href="index.html">Index</a><br>
+      </span><a href="/"></a></address>
+      </td>
+      <td nosave="" valign="top" align="right">
+      <address><font size="-1">Contact: <a
+ href="mailto:bcarlsen@apelon.com">Brian A. Carlsen</a></font></address>
+      <address> <font size="-1">Created: 09/09/2008</font></address>
+      <address> <font size="-1">Last Updated: 05/08</font><font
+ size="-1">/2009</font></address>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

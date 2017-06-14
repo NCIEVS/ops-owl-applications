@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+  <title>LexBIG Data QA System - Development</title>
+  <meta name="author" content="Brian Carlsen">
+  <meta name="description"
+ content="LexBIG Data QA System Software Development and Systems Information">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#ff0000" link="#3333ff" vlink="#999999">
+<center>
+<h2>LexBIG Data QA System - Development<br>
+</h2>
+<hr style="width: 100%; height: 2px;">
+<div style="text-align: left;"><span style="font-weight: bold;"></span><i>Documentation
+relating to software development and systems dependencies of the LexBIG
+Data
+QA System.</i>
+<br>
+<br>
+</div>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]
+</center>
+<i><br>
+</i>
+<h3><a name="overview"></a>Overview</h3>
+The LexBIG Data QA System is a collection of Perl scripts and Java
+programs developed and tested in a Linux environment.&nbsp; This
+document the various system and third-party library dependencies as
+well as the structure and location of the repository, and the details
+of the development environment.<br>
+<br>
+<h3><a name="details"></a>Details</h3>
+Three key topics are covered here:<br>
+<ul>
+  <li><a href="#system">System Dependencies<br>
+    </a></li>
+  <li><a href="#repos">Repository<br>
+    </a></li>
+  <li><a href="#dev">Development Environment</a><br>
+  </li>
+</ul>
+<span style="font-weight: bold;"><a name="system"></a>System
+Dependencies<br>
+</span><br>
+These OS and tool versions were used for development and testing are
+recommended for general use.&nbsp; However, we do expect the system to
+run in any UNIX-like environment&nbsp; (including Cygwin) with the
+proper Perl, Java, and MySQL versions installed.<br>
+<ul>
+  <li><span style="font-weight: bold;">Operating System</span>:
+GNU/Linux, kernel 2.6.9-55.0.9<br>
+  </li>
+  <li><span style="font-weight: bold;">Java</span>: JDK1.6.0_01-b06</li>
+  <li><span style="font-weight: bold;">Perl</span>: 5.8.5</li>
+  <ul>
+    <li>DBI</li>
+    <li>DBD::mysql<br>
+    </li>
+  </ul>
+  <li><span style="font-weight: bold;">MySQL</span>: 5.0.51a-community</li>
+  <li><span style="font-weight: bold;">LexBIG</span>: 2.2.0 (03/05/2008)</li>
+  <li><span style="font-weight: bold;">Apache Ant</span>: 1.7.0<br>
+  </li>
+</ul>
+<span style="font-weight: bold;"><span style="font-weight: bold;"><span
+ style="font-weight: bold;"><br>
+<span style="font-weight: bold;"><a name="repos"></a>Repository<br>
+<span style="font-weight: bold;"><span style="font-weight: bold;"></span></span></span></span></span></span><br>
+The source files for the LexBIG Data QA System are maintained in a CVS
+repository running from the LexBIG GForge site.&nbsp; The location to
+use is:<br>
+<br>
+<tt>:ext:<em>developername</em>@cbiocvs2.nci.nih.gov:/share/content/gforge/lexbi<span
+ style="font-family: mon;">gqa</span><span style="font-weight: bold;"><br>
+<br>
+</span></tt>The repository structure looks like this:<br>
+<pre><span style="font-weight: bold;">TODO</span>: Make sure this correctly reflects the repos:<br>data/<br>etc/<br>    db.props_orig<br>lib/<br>src/<br>  java/<br>    gov/<br>      nih/<br>        nci/<br>          lexbig/<br>            qa/<br>  common/<br>    diffReport.pl<br>    countDb.pl<br>    countApi.pl # wrapper script around java<br>  go/<br>    countGo.pl<br>build.xml<br>INSTALL.txt<br>README.txt<br>.classpath<br>.project<br></pre>
+The ant build script contains a "make_zip" target that creates a <span
+ style="font-family: monospace;">lexbigQa.zip</span> file that can be
+installed into a predeterimined $QA_HOME on any system meeting the <a
+ href="#system">requirements</a>.<br>
+<br>
+<br>
+<span style="font-weight: bold;"><a name="dev"></a>Development
+Environment<br>
+</span><br>
+Development was performed using the Eclipse 3.4 (Ganymede) IDE on
+Windows using the Java version described above.&nbsp; To browse the
+source code in Eclipse, obtain a copy from the CVS <a href="#repos">repository</a>
+described above.&nbsp; Then use the File-&gt;Import feature of
+Eclipse.&nbsp; Open the item labeled "General" and choose "Project from
+existing workspace".<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 470px; height: 550px;" src="images/moz-screenshot-1.jpg"
+ alt=""><br>
+</div>
+<br>
+Enter the top level directory exported from CVS as your "root
+directory" and click "Finish".<br>
+<h3><a name="ref"></a>References</h3>
+<ul>
+  <li>Eclipse Download: <a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a></li>
+  <li>LexEVS GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/lexevs/">http://gforge.nci.nih.gov/projects/lexevs/</a><br>
+  </li>
+  <li>EVS Operations GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/evsops/">http://gforge.nci.nih.gov/projects/evsops/</a></li>
+  <li>Subversion Repos: <a
+ href="https://gforge.nci.nih.gov/svnroot/evsops/trunk/LexBIGDataQA">https://gforge.nci.nih.gov/svnroot/evsops/trunk/LexBIGDataQA</a></li>
+</ul>
+<center><br>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]<br>
+&nbsp;
+<font size="-1"><span style="font-weight: bold;"><br>
+</span></font></center>
+<p>
+</p>
+<hr width="100%">
+<table nosave="" border="0" cols="2" width="100%">
+  <tbody>
+    <tr nosave="">
+      <td nosave="" align="left" valign="top">
+      <address><span style="text-decoration: underline;"><a
+ href="index.html">Index</a><br>
+      </span><a href="/"></a></address>
+      </td>
+      <td nosave="" align="right" valign="top">
+      <address><font size="-1">Contact: <a
+ href="mailto:bcarlsen@apelon.com">Brian A. Carlsen</a></font></address>
+      <address> <font size="-1">Created: 09/09/2008</font></address>
+      <address> <font size="-1">Last Updated: </font><font size="-1">09/09/2008</font></address>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+  <title>LexBIG Data QA System - Life Cycles</title>
+  <meta name="author" content="Brian Carlsen">
+  <meta name="description" content="LexBIG Data QA System Life Cycles">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#ff0000" link="#3333ff" vlink="#999999">
+<center>
+<h2>LexBIG Data QA System - Life Cycles<br>
+</h2>
+<hr style="width: 100%; height: 2px;">
+<div style="text-align: left;"><span style="font-weight: bold;"></span><i>Documentation
+relating to life cycle based approach of the LexBIG Data
+QA System.</i>
+<br>
+<br>
+</div>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]
+</center>
+<i><br>
+</i>
+<h3><a name="overview"></a>Overview</h3>
+The LexBIG Data QA System is based around the important notions of <span
+ style="font-style: italic;">Life Cycle Stages</span> and <span
+ style="font-style: italic;">Life Cycle Processes</span>.&nbsp; Each
+life cycle stage is represented by a particular state of the data in a
+particular format (formatted text file, XML file, database tables, API
+spec).&nbsp; Each life cycle process represents a transformation of the
+data from one state to another.<br>
+<br>
+<h3><a name="details"></a>Details</h3>
+Three key topics are covered here:<br>
+<ul>
+  <li><a href="#count">Counting Life Cycle Data States<br>
+    </a></li>
+  <li><a href="#comp">Validating Life Cycle Processes - Comparing Data
+States<br>
+    </a></li>
+  <li><a href="#rule">Validating Rules for Data States</a><br>
+  </li>
+</ul>
+<span style="font-weight: bold;"><a name="count"></a>Counting Life
+Cycle Data States<br>
+</span><br>
+Each state of the data represents the <a href="dm.html">domain objects</a>
+of its life cycle stage in a particular way.&nbsp; Perl or Java tools
+are used to generate a series of counts for each domain object
+according to a <a href="counts.html">specification</a>.&nbsp; These
+sets of counts are recorded in a file system file that has three main
+fields:&nbsp; test name, test value, test count.&nbsp; For example,<br>
+<pre>nameTally|BROAD,N|1617|</pre>
+This entry indicates that the "nameTally" count with the value
+"BROAD,N" (which corresponds to a set of fields) has the count
+1617.&nbsp; In other words, there are 1617 cases of "name" objects with
+that combination of field values.&nbsp; <br>
+<br>
+In some cases, we will know that a count is incorrect for one reason or
+another relative to other counts made by the system.&nbsp; For example,
+the original file may have duplicates while the loaded database does
+not.&nbsp; In the event that something like this happens, an additional
+three fields can be added to <span style="font-style: italic;">adjust</span>
+the original value.&nbsp; The fields are:&nbsp; adjustment count,
+authority, reason.&nbsp; For example, the entry above could be adjusted
+as follows:<br>
+<pre>nameTally|BROAD,N|1617|3|BAC|3 duplicate cases found in input data|</pre>
+Adjustments are made manually by editing the relevant count set file
+and adding fields where appropriate.<br>
+<br>
+<span style="font-weight: bold;"><span style="font-weight: bold;"><span
+ style="font-weight: bold;"><span style="font-weight: bold;"><a
+ name="comp"></a>Validating Life Cycle Processes - Comparing Data States<br>
+<span style="font-weight: bold;"><span style="font-weight: bold;"></span></span></span></span></span></span><br>
+Life cycle processes represent transformations of data from one state
+to another.&nbsp; Each time a transformation occurs, there is the
+potential for data to become corrupted if transformation algorithms are
+not correct.&nbsp; By generating counts of conceptual domain objects
+for each data state and comparing them across life cycle stages, we can
+validate certain aspects of the correctness of the transformation
+algorithm.<br>
+<br>
+Consider the counts file entry shown above. If this same test name (<span
+ style="font-family: monospace;">nameTally</span>) and value (<span
+ style="font-family: monospace;">BROAD,N</span>) appear across
+data states with the
+same count, we know that no data of this type has been lost or
+gained.&nbsp; We call this
+<span style="font-style: italic;">conservation of mass</span>.&nbsp;&nbsp;
+This kind of comparison addresses a variety of different potential QA
+issues, including:<br>
+<ul>
+  <li>Transformation algorithm changes field values (inappropriate data
+transformation)<br>
+  </li>
+  <li>Transformation algorithm adds additional values not found in
+precursor set (additional data)<br>
+  </li>
+  <li>Transformation algorithm ignores certain data from precursor set
+(lost data)<br>
+  </li>
+  <li>Transformation algorithm does not view domain objects the same
+way in pre/post data states (model mismatch)<br>
+  </li>
+</ul>
+The LexBIG Data QA System has a utility for comparing sets of counts,
+including adjustments and preparing a report of the results.&nbsp; It
+identifies changes in counts for a particular name/value as well as
+name/value pairs that appear in one set of counts that do not appear in
+the other set of counts (and vice-versa).&nbsp; <br>
+<br>
+<span style="font-weight: bold;"><a name="rule"></a>Validating Rules
+for Data States<br>
+</span><br>
+Generating and comparing counts by domain objects for a particular data
+state and across data states is only part of a total QA solution.&nbsp;
+While this approach addresses problems with transformation algorithms
+relating to the volume of certain kinds of data, it cannot directly
+perform semantic validation of individual data states.&nbsp; This is
+where rule-based QA comes into focus.<br>
+<br>
+We have defined a set of semantic QA rules that should apply across all
+data states (see <a href="rules.html">Rules Specification</a>).&nbsp;
+The tools provided are capable of validating these semantic rules for
+the shared data states (like a loaded LexBIG database).&nbsp; However,
+native files from terminology providers vary widely in style and
+representation.&nbsp; As such, terminology-specific scripts will need
+to be developed on a case-by-case basis to validate this same list of
+rules.&nbsp; Additionally, individual terminologies may require
+additional semantic validation rules that apply only in the case of
+that terminology and not in other ones.<br>
+<br>
+By validating semantic rules for each data state, we add another layer
+of guarantee that transformation algorithms are correctly representing
+the same data - in the same way - as the original data state.<br>
+<br>
+<h3><a name="ref"></a>References</h3>
+<ul>
+  <li>LexEVS GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/lexevs/">http://gforge.nci.nih.gov/projects/lexevs/</a><br>
+  </li>
+  <li>EVS Operations GForge Project: <a
+ href="http://gforge.nci.nih.gov/projects/evsops/">http://gforge.nci.nih.gov/projects/evsops/</a></li>
+</ul>
+<center><br>
+[ <a href="#overview">overview</a> | <a href="#details">details</a> |
+<a href="#ref">references</a> ]<br>
+&nbsp;
+<font size="-1"><span style="font-weight: bold;"><br>
+</span></font></center>
+<p>
+</p>
+<hr width="100%">
+<table nosave="" border="0" cols="2" width="100%">
+  <tbody>
+    <tr nosave="">
+      <td nosave="" align="left" valign="top">
+      <address><span style="text-decoration: underline;"><a
+ href="index.html">Index</a><br>
+      </span><a href="/"></a></address>
+      </td>
+      <td nosave="" align="right" valign="top">
+      <address><font size="-1">Contact: <a
+ href="mailto:bcarlsen@apelon.com">Brian A. Carlsen</a></font></address>
+      <address> <font size="-1">Created: 09/09/2008</font></address>
+      <address> <font size="-1">Last Updated: </font><font size="-1">09/09/2008</font></address>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

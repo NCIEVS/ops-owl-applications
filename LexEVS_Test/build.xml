@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<project name="LexEVS_Test_60" default="runMainRunner" basedir=".">
+
+	<description>Build script for Local Client</description>
+	
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+	<property name="classes.dir" value="classes"/>
+    <property name="conf.dir" value="conf"/>
+    <property name="src.dir" value="src"/>
+
+    <!--***********************************************************************
+    *** CLASSPATH AND UNIX-STYLE BASEDIR PROPERTIES
+    *********************************************************************** -->
+    <path id="runtime">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    	<fileset dir="${build.dir}">
+    	    <include name="**/*.jar"/>
+        </fileset>
+        <pathelement path="${conf.dir}"/>
+        <pathelement path="${classes.dir}"/>
+    </path>
+    
+    <path id="compiletime">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- set basedir.url = basedir as unix style pathname, regardless of platform -->
+    <path id="basedir.path">
+        <pathelement path="${basedir}" />
+    </path>	
+	
+	   <pathconvert targetos="unix" property="basedir.unix" refid="basedir.path" />
+
+	   <macrodef name="SDKecho">
+	        <attribute name="message" default="..." />
+	        <sequential>
+	            <echo>*****************************************************************</echo>
+	            <echo>***  @{message}</echo>
+	            <echo>*****************************************************************</echo>
+	        </sequential>
+	    </macrodef>
+    
+    <!--***********************************************************************
+    *** Prepares the directory structure
+    *********************************************************************** -->
+    <target name="init" >
+        <SDKecho message="${ant.project.name}: Preparing directories"/>
+        <mkdir dir="${build.dir}"/>
+    	<mkdir dir="${classes.dir}"/>
+    </target>
+
+    <!--***********************************************************************
+    *** Cleans the generated directories and files
+    *********************************************************************** -->
+    <target name="clean" description="Cleans the generated directories and files">
+        <SDKecho message="${ant.project.name}: Cleaning directories and files"/>
+        <delete dir="${build.dir}"/>
+    	<delete dir="${classes.dir}"/>
+    </target>
+	
+	   <!--***********************************************************************
+	    *** Compiles the classes
+	    *********************************************************************** -->
+	    <target name="compile" depends="clean,init" description="Compiles the generated beans">
+	        <SDKecho message="${ant.project.name}: Compiling the generated beans"/>
+	        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true">
+	            <include name="**/*.java"/>
+	            <classpath refid="compiletime"/>
+	        </javac>
+	    </target>
+	
+    <!-- ********************************************************-->
+    <!--    Targets for packaging                                 -->
+    <!-- ********************************************************-->
+    <target name="jar" depends="compile" description="Package code into a jar file">
+         <jar destfile= "${build.dir}/lexTest60.jar"
+                basedir="${classes.dir}">
+         </jar>
+    </target>
+	
+	<target name="package" depends="jar" description="Package all libraries into one jar">
+	     <jar destfile="${build.dir}/Lexevs60Test.jar">
+	     	<fileset dir="${classes.dir}"/>
+	     	<fileset dir="${conf.dir}"/>
+	     	<restrict>
+	     		<name name="**/*.class"/>
+	     		<archives>
+	     			<zips>
+	     			<fileset dir = "${lib.dir}" includes="**/*.jar"/>
+	     				</zips>
+	     			</archives>
+	     		</restrict>
+	     	<manifest>
+	     	<attribute name = "Main-Class"
+	     		value="gov.nih.nci.MainRunner"/>
+	     		</manifest>
+	     	</jar>
+	</target>
+	
+    <!--***********************************************************************
+    *** Runs the Test 
+    *********************************************************************** -->
+    <target name="run" depends="compile" description="Runs the test">
+        <SDKecho message="${ant.project.name}: Running the test"/>
+        <java classname="TestClient" fork="true">
+            <classpath refid="runtime" />
+        </java>
+    </target>
+    
+    <!-- *******************************************************************-->
+    <!-- Run XML Utility Demo                                               -->
+    <!-- *******************************************************************-->
+    <target name="runXML" depends="compile" description="Runs the XML Utility test">
+        <SDKecho message="${ant.project.name}: Running the XML Utility test"/>
+        <mkdir dir="./output"/>
+        <java classname="TestXMLClient" fork="true" maxmemory="512m">
+            <classpath refid="runtime" />
+        </java>
+    </target>
+
+
+    <!-- *******************************************************************-->
+    <!-- Run XML Get XML                                              -->
+    <!-- *******************************************************************-->
+    <target name="runGetXML" depends="compile" description="Runs the Get XML client">
+        <SDKecho message="${ant.project.name}: Running the Get XML Client"/>
+        <mkdir dir="./output"/>
+        <java classname="TestGetXMLClient" fork="true" maxmemory="512m">
+            <classpath refid="runtime" />
+        </java>
+    </target>
+    
+       <!-- *******************************************************************-->
+        <!-- Run XML Remote Test Client                                              -->
+        <!-- *******************************************************************-->
+        <target name="runRemoteTestClient" depends="compile" description="Runs the Remote Test Client">
+            <SDKecho message="${ant.project.name}: Running the Remote Test Client"/>
+            <mkdir dir="./output"/>
+            <java classname="RemoteTestClient" fork="true" maxmemory="512m">
+                <classpath refid="runtime" />
+            </java>
+        </target>
+    
+    <!-- *******************************************************************-->
+      <!-- Run XML Main Runner                                              -->
+      <!-- *******************************************************************-->
+      <target name="runMainRunner" depends="compile" description="Runs the Main Runner">
+          <SDKecho message="${ant.project.name}: Running the Main Runner"/>
+        <SDKecho message="Command line args: -Dconfig = ${config}" />
+      	 <SDKecho message="Command line args: -Durl = ${url}" />  
+          <mkdir dir="./output"/>
+          <java classname="gov.nih.nci.MainRunner" fork="true" maxmemory="512m">
+        <!--  	<arg value="${localNames}"/>   -->
+          	<arg line="-L ${config} -I ${url}"/>
+          	<classpath refid="runtime" />
+          </java>
+      </target>
+    
+    <!--**********************************************************************
+    *** Dumps the properties of the build script
+    *********************************************************************** -->
+    <target name="show-properties" description="Dumps a list of all properties currently set">
+        <echoproperties destfile="antproperties.txt"/>
+        <echo>Properties were dumped to 'antproperties.txt'</echo>
+    </target>
+	
+</project>

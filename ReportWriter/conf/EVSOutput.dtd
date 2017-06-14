@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT EVSOutput (CodeListItem)+>
+<!ATTLIST CodeListItem
+	CodedValue CDATA #REQUIRED
+>
+<!ELEMENT CodeListItem (Decode, TermCode?, SourceDef?, SourceSyns?, UseFor?, NCIName?, NCIDef?, NCISyns?)>
+<!ELEMENT Decode (TranslatedText)>
+<!ATTLIST TranslatedText
+	xml:lang CDATA #REQUIRED
+>
+<!ELEMENT TranslatedText (#PCDATA)>
+<!ELEMENT TermCode (#PCDATA)>
+<!ELEMENT SourceDef (#PCDATA)>
+<!ELEMENT SourceSyns (SourceSyn)+>
+<!ELEMENT SourceSyn (SynValue, SynType?, SynCode?)>
+<!ELEMENT SynValue (#PCDATA)>
+<!ELEMENT SynType (#PCDATA)>
+<!ELEMENT SynCode (#PCDATA)>
+<!ELEMENT UseFor (UseForItem)+>
+<!ELEMENT UseForItem (UseForName?, UseForCode?)>
+<!ELEMENT UseForName (#PCDATA)>
+<!ELEMENT UseForCode (#PCDATA)>
+<!ELEMENT NCIName (#PCDATA)>
+<!ELEMENT NCIDef (#PCDATA)>
+<!ELEMENT NCISyns (NCISyn+)>
+<!ELEMENT NCISyn (NCISynValue?, NCISynType?)>
+<!ELEMENT NCISynValue (#PCDATA)>
+<!ELEMENT NCISynType (#PCDATA)>
