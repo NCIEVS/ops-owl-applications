@@ -1,0 +1,5 @@
+ALT_DEFINITION	Definition_Review_Date
+ALT_DEFINITION	Definition_Reviewer_Name
+DEFINITION	Definition_Review_Date
+DEFINITION	Definition_Reviewer_Name
+FULL_SYN	subsource-name

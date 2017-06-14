@@ -1,0 +1,19 @@
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P95
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P202
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P318
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P327
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P328
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P304
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC3
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P321
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P378	SPL
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P370
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P371
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P372
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P373
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P374
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P375
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P376
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	ICSR
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	caDSR
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	eManu

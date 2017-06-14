@@ -1,0 +1,1 @@
+java -jar ./build/owlsummary.jar -I file:///inputfile -P file:///previousFile -S file:///SummaryFile -D file:///DetailsFile

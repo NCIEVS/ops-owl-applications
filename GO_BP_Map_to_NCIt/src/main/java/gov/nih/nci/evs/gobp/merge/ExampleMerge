@@ -1,0 +1,147 @@
+Original Files
+Original NCIt
+<owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Histogenesis">
+    <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Developmental_Process"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</rdfs:label>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histiogenic Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenesis</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenic Process</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >C21128</code>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Tissue Development Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <UMLS_CUI rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >C0178679</UMLS_CUI>
+    <Preferred_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</Preferred_Name>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Tissue_Growth"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Biological_Process_Is_Part_Of_Process"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <DEFINITION rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>A multicellular process involved in the formation of new, more mature, or differentiated cells or tissues. (NCI)</ncicp:def-definition><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>DEFAULT_Review</ncicp:Definition_Reviewer_Name><ncicp:Definition_Review_Date>060127</ncicp:Definition_Review_Date></ncicp:ComplexDefinition></DEFINITION>
+    <Legacy_Concept_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenesis</Legacy_Concept_Name>
+    <Semantic_Type rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Cell Function</Semantic_Type>
+  </owl:Class>
+
+Original GO   
+<owl:Class rdf:about="http://purl.obolibrary.org/obo/GO_0009888">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tissue development</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/GO_0048856"/>
+        <oboInOwl:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GO:0009888</oboInOwl:id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The process whose specific outcome is the progression of a tissue over time, from its formation to the mature structure.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wikipedia:Histogenesis</oboInOwl:hasDbXref>
+        <oboInOwl:hasOBONamespace rdf:datatype="http://www.w3.org/2001/XMLSchema#string">biological_process</oboInOwl:hasOBONamespace>
+        <oboInOwl:hasExactSynonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">histogenesis</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasBroadSynonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">histogenesis and organogenesis</oboInOwl:hasBroadSynonym>
+    </owl:Class>
+    <owl:Axiom>
+        <oboInOwl:hasDbXref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ISBN:0471245208</oboInOwl:hasDbXref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The process whose specific outcome is the progression of a tissue over time, from its formation to the mature structure.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/GO_0009888"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+Extraction GO
+<owl:Class rdf:ID="GO_0009888">
+<rdfs:label>tissue development</rdfs:label>
+<rdfs:subClassOf rdf:resource="#GO_0048856"/>
+<nci:DEFINITION rdf:parseType="Literal"><ncicp:ComplexDefinition><ncicp:def-definition><![CDATA[The process whose specific outcome is the progression of a tissue over time, from its formation to the mature structure.]]></ncicp:def-definition><ncicp:hasDbXref><![CDATA[ISBN:0471245208]]></ncicp:hasDbXref></ncicp:ComplexDefinition></nci:DEFINITION>
+<nci:FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm><ncicp:term-name><![CDATA[histogenesis]]></ncicp:term-name><ncicp:term-group><![CDATA[EXACT]]></ncicp:term-group></ncicp:ComplexTerm></nci:FULL_SYN>
+<nci:FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm><ncicp:term-name><![CDATA[histogenesis and organogenesis]]></ncicp:term-name><ncicp:term-group><![CDATA[BROAD]]></ncicp:term-group></ncicp:ComplexTerm></nci:FULL_SYN>
+<nci:FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm><ncicp:term-name><![CDATA[tissue development]]></ncicp:term-name><ncicp:term-group><![CDATA[PT]]></ncicp:term-group><ncicp:term-source><![CDATA[NCI]]></ncicp:term-source></ncicp:ComplexTerm></nci:FULL_SYN>
+<Preferred_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"><![CDATA[tissue development]]></Preferred_Name>
+<hasDbXref rdf:datatype="http://www.w3.org/2001/XMLSchema#string"><![CDATA[Wikipedia:Histogenesis]]></hasDbXref>
+<hasOBONamespace rdf:datatype="http://www.w3.org/2001/XMLSchema#string"><![CDATA[biological_process]]></hasOBONamespace>
+<id rdf:datatype="http://www.w3.org/2001/XMLSchema#string"><![CDATA[GO:0009888]]></id>
+</owl:Class>
+
+Merged Classes
+
+New class in NCIt
+
+My understanding is the the GO file will still be present as an import.  The only part that needs to be in NCIt is our data that is being layered onto it.  In the manual file I could do this but I am not sure how this will appear in the gui or in subsequent exports.
+
+<owl:Class rdf:about=“http://purl.obolibrary.org/obo/go.owl#GO_0009888”>
+<rdfs:subClassOf rdf:resource=http://purl.obolibrary.org/obo/go.owl#GO_0048856”/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</rdfs:label>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histiogenic Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenesis</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenic Process</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >GO_0009888</code>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Tissue Development Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <UMLS_CUI rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >C0178679</UMLS_CUI>
+    <Preferred_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</Preferred_Name>
+    <DEFINITION rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>A multicellular process involved in the formation of new, more mature, or differentiated cells or tissues. (NCI)</ncicp:def-definition><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>DEFAULT_Review</ncicp:Definition_Reviewer_Name><ncicp:Definition_Review_Date>060127</ncicp:Definition_Review_Date></ncicp:ComplexDefinition></DEFINITION>
+    <Legacy_Concept_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenesis</Legacy_Concept_Name>
+    <Semantic_Type rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Cell Function</Semantic_Type>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Tissue_Growth"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Biological_Process_Is_Part_Of_Process"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+</owl:Class>
+
+Retired class in NCIt
+
+Do we want the editor and design notes to refer only to the GO code or to the full URL?
+
+ <owl:DeprecatedClass rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Histogenesis">
+    <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Retired_Concept_Current_Year”/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</rdfs:label>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histiogenic Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenesis</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Histogenic Process</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >C21128</code>
+    <FULL_SYN rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Tissue Development Process</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></FULL_SYN>
+    <UMLS_CUI rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >C0178679</UMLS_CUI>
+    <Preferred_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenic Process</Preferred_Name>
+    <DEFINITION rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>A multicellular process involved in the formation of new, more mature, or differentiated cells or tissues. (NCI)</ncicp:def-definition><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>DEFAULT_Review</ncicp:Definition_Reviewer_Name><ncicp:Definition_Review_Date>060127</ncicp:Definition_Review_Date></ncicp:ComplexDefinition></DEFINITION>
+    <Legacy_Concept_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Histogenesis</Legacy_Concept_Name>
+    <Semantic_Type rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Cell Function</Semantic_Type>
+    <Editor_Note>Tue Feb 20 12:00:00 EST 2016 - Merge into GO_0009888, safrant</Editor_Note>
+    <DesignNote rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Tue Feb 20 12:00:00 EST 2016 - See 'GO_0009888'</DesignNote>
+   <OLD_PARENT rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Developmental_Process</OLD_PARENT>
+<Concept_Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Retired_Concept</Concept_Status>  
+</owl:DeprecatedClass>
+
+evs_history
+C21128 merge 2016-02-20 GO_0009888 safrant
+C21128 retire 2016-02-20 safrant
+GO_0009888 merge 2016-06-20 GO_0009888 safrant
+
+concept_history
+C21128 merge 2016-02-20 GO_0009888
+C21128 retire 2016-02-20
+GO_0009888 merge 2016-02-20 GO_0009888
+
+In browser
+Normally the reference code is a link to the surviving concept.  We would need to know how this should be entered to allow Kim to follow the link.
+Concept Status: Retired Concept  (See:  tissue development)

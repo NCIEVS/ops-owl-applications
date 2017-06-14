@@ -1,0 +1,8 @@
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P380
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P379
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P380
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P379
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Definition_Reviewer_Name
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P97	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Definition_Review_Date
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Definition_Reviewer_Name
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Definition_Review_Date

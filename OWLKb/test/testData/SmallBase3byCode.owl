@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+    xmlns="http://ncicb.nci.nih.gov/xml/owl/EVS/SmallBase.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ncicb.nci.nih.gov/xml/owl/EVS/SmallBase.owl">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://protege.stanford.edu/plugins/owl/protege"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >NCI Thesaurus anatomy 05.03d base, imported jax mouse anatomy domain.</rdfs:comment>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0.01</owl:versionInfo>
+  </owl:Ontology>
+  <owl:Class rdf:ID="C50000">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Retired Concepts</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="B14423">
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Organism</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Organism</P108>
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>Organism</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Organism</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="B101577">
+    <rdfs:subClassOf rdf:resource="#C50000"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Retired Concept Current Year</rdfs:label>
+    <P90 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >&lt;ncicp:ComplexTerm &gt;&lt;ncicp:term-name&gt;Retired Concept Current Year&lt;/ncicp:term-name&gt;&lt;ncicp:term-group&gt;PT&lt;/ncicp:term-group&gt;&lt;ncicp:term-source&gt;NCI&lt;/ncicp:term-source&gt;&lt;/ncicp:ComplexTerm&gt;</P90>
+    <P97 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >&lt;ncicp:ComplexDefinition &gt;&lt;ncicp:def-source&gt;NCI&lt;/ncicp:def-source&gt;&lt;ncicp:def-definition&gt;retired concepts are archived under other nodes after a period of time&lt;/ncicp:def-definition&gt;&lt;ncicp:Definition_Review_Date&gt;100108&lt;/ncicp:Definition_Review_Date&gt;&lt;ncicp:Definition_Reviewer_Name&gt;bitdiddle&lt;/ncicp:Definition_Reviewer_Name&gt;&lt;/ncicp:ComplexDefinition&gt;</P97>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Retired Concept Current Year</P108>
+  </owl:Class>
+  <owl:Class rdf:ID="B13086">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#B13086"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="R81"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Abnormal Cell</rdfs:label>
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Abnormal Cell</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <P90 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >&lt;ncicp:ComplexTerm &gt;&lt;ncicp:term-name&gt;Abnormal Cell&lt;/ncicp:term-name&gt;&lt;ncicp:term-group&gt;PT&lt;/ncicp:term-group&gt;&lt;ncicp:term-source&gt;NCI&lt;/ncicp:term-source&gt;&lt;/ncicp:ComplexTerm&gt;</P90>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Abnormal Cell</P108>
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>Abnormal Cell</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+  </owl:Class>
+  <owl:Class rdf:ID="B16785">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Gene</rdfs:label>
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>Gene</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Gene</P108>
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Gene</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>© and µ and · and § and ‘</ncicp:term-name><ncicp:term-group>SY</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+  </owl:Class>
+  <owl:Class rdf:ID="B100173">
+    <P90 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >&lt;ncicp:ComplexTerm &gt;&lt;ncicp:term-name&gt;Proteobacteria&lt;/ncicp:term-name&gt;&lt;ncicp:term-group&gt;PT&lt;/ncicp:term-group&gt;&lt;ncicp:term-source&gt;NCI&lt;/ncicp:term-source&gt;&lt;/ncicp:ComplexTerm&gt;</P90>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Proteobacteria</P108>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Proteobacteria</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="B14360">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bacteria</rdfs:label>
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>fixing namespaces</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Bacteria</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <rdfs:subClassOf rdf:resource="#B14423"/>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bacteria</P108>
+  </owl:Class>
+  <owl:Class rdf:ID="C50001">
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Preretired_Concepts</P108>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Preretired_Concepts</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="C50002">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Premerged_Concepts</rdfs:label>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Premerged_Concepts</P108>
+  </owl:Class>
+  <owl:Class rdf:ID="B100002">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >SemanticRoot</rdfs:label>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >SemanticRoot</P108>
+    <P90 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >&lt;ncicp:ComplexTerm &gt;&lt;ncicp:term-name&gt;SemanticRoot&lt;/ncicp:term-name&gt;&lt;ncicp:term-group&gt;PT&lt;/ncicp:term-group&gt;&lt;ncicp:term-source&gt;NCI&lt;/ncicp:term-source&gt;&lt;/ncicp:ComplexTerm&gt;</P90>
+  </owl:Class>
+  <owl:Class rdf:ID="INV825918682">
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>foo2</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >foo2</P108>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >foo2</rdfs:label>
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>foo2</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="B100001"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#B100001">
+    <P97 rdf:parseType="Literal"><ncicp:ComplexDefinition xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:def-definition>Syntax Root</ncicp:def-definition><ncicp:Definition_Review_Date>100616</ncicp:Definition_Review_Date><ncicp:def-source>NCI</ncicp:def-source><ncicp:Definition_Reviewer_Name>bitdiddle</ncicp:Definition_Reviewer_Name></ncicp:ComplexDefinition></P97>
+    <P90 rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Syntax Root</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></P90>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Syntax Root</rdfs:label>
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Syntax Root</P108>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="maps_to_jax">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >maps_to_jax</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="R55">
+    <P108 rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Technique_Has_Purpose</P108>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Technique_Has_Purpose</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="new-assoc"/>
+  <owl:ObjectProperty rdf:about="#R81">
+    <rdfs:range rdf:resource="#B14423"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Anatomic_Structure_Has_Location</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="AHC0">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <protege:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >true</protege:readOnly>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >code</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P325">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ALT_DEFINITION</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P97">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DEFINITION</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P90">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >FULL_SYN</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P98">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DesignNote</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P108">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Preferred_Name</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="P200">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_PARENT</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:TransitiveProperty rdf:ID="R82">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Anatomic_Structure_is_Physical_Part_of</rdfs:label>
+  </owl:TransitiveProperty>
+  <owl:AnnotationProperty rdf:ID="P202">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_SOURCE_ROLE</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P96">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Gene_Encodes_Product</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P106">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Semantic_Type</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="NHC4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Split_From</rdfs:label>
+    <protege:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >true</protege:readOnly>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P327">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Merge_Source</rdfs:label>
+    <protege:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >true</protege:readOnly>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P95">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Editor_Note</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P201">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_CHILD</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P107">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Display_Name</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P216">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >BioCarta_ID</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P102">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >GenBank_Accession_Number</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P211">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >GO_Annotation</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="NHC3">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Merge_Into</rdfs:label>
+    <protege:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >true</protege:readOnly>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P101">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Homologous_Gene</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P318">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Def_Curator</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P364">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_ASSOCIATION</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:about="http://protege.stanford.edu/plugins/owl/protege#readOnly"/>
+  <owl:AnnotationProperty rdf:ID="P328">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <protege:readOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >true</protege:readOnly>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Merge_Target</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P207">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >UMLS_CUI</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P94">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Locus_ID</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P210">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >CAS_Registry</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P100">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OMIM_Number</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P365">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_SOURCE_ASSOCIATION</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P310">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Concept_Status</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P208">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >NCI_META_CUI</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P93">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Swiss_Prot</rdfs:label>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="P204">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >OLD_ROLE</rdfs:label>
+  </owl:AnnotationProperty>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.3, Build 572)  http://protege.stanford.edu -->

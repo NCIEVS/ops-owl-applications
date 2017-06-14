@@ -1,0 +1,1 @@
+java -jar  ./build/historyvalidation.jar -g ./config/ProtegeHistoryQA.properties -p file:///URI_of_previous_Thesaurus -u file:///URI_of_current_Thesaurus -c file:///URI_of_concept_history -e file:///URI_of_evs_history -o file:///URI_of_output_file
