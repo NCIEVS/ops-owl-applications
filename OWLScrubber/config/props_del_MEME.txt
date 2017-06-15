@@ -1,0 +1,9 @@
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P95
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P202
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P318
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P327
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P328
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P304
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NHC3
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P321
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P378	SPL

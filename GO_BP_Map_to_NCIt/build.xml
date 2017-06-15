@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="GO_BP_Map_to_NCItsvn_fix">
+    <property environment="env"/>
+    <property name="OWLKb.location" value="../OWLKb"/>
+    <property name="LogMap.location" value="../LogMap"/>
+    <property name="LexEVS_Distributed_Client.location" value="../../../git/LexEVS_Distributed_Client"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse_Luna/"/>
+    <property name="oboformat.location" value="../oboformat"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Maven Dependencies.libraryclasspath">
+        <pathelement location="../../../.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+    </path>
+    <path id="OWLKb.classpath">
+        <pathelement location="${OWLKb.location}/target/classes"/>
+        <pathelement location="${OWLKb.location}/target/test-classes"/>
+        <pathelement location="${OWLKb.location}/lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="${OWLKb.location}/lib/owlapi-bin.jar"/>
+        <pathelement location="${OWLKb.location}/lib/lvg2010dist.jar"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <path id="oboformat.classpath">
+        <pathelement location="${oboformat.location}/target/classes"/>
+        <pathelement location="${oboformat.location}/target/test-classes"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <path id="LexEVS_Distributed_Client.classpath">
+        <pathelement location="${LexEVS_Distributed_Client.location}/bin"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/acegi-security-1.0.4.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/antlr-2.7.7.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/asm-3.2.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/axis.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/caGrid-CQL-cql.1.0-1.2.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-1.3.1-core.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-1.3.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-bean-serializer.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-codegen-1.3.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-codegen-anttask-1.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/castor-xml-schema-1.3.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/cglib-2.2.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/cog-jglobus.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-codec-1.3.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-discovery-0.4.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/jaxrpc.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/sdk-client-framework.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/sdk-grid-remoting.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/sdk-security.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-batch-core-2.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-batch-infrastructure-2.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-web-2.5.6.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-webmvc-2.5.6.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lexbig.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/LexEVSSecurity.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-pool-1.4.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/hibernate-annotations-3.4.0.GA.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/hibernate-commons-annotations-3.3.0.GA.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/hibernate-core-3.3.2.GA.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/hibernate-validator-3.1.0.GA.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/jakarta-regexp-1.4.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/log4j-1.2.14.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lucene-analyzers-2.4.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lucene-core-2.4.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lucene-queries-2.4.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lucene-regex-2.4.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lucene-snowball-2.4.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.emf.common_2.2.1.v200609210005.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.emf.ecore_2.2.1.v200609210005.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.emf.ecore.xmi_2.2.1.v200609210005.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.equinox.preferences_3.2.0.v20060601.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/org.eclipse.osgi_3.2.0.v20060601.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/compass-2.2.0.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/aopalliance-1.0.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-aop-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-asm-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-aspects-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-beans-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-context-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-context-support-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-core-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-expression-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-jdbc-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-orm-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-oxm-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-test-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-tx-3.1.0.RELEASE.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/spring-xml-1.5.9.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-lang3-3.1.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/commons-lang-2.4.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lexevsapi62-beans.jar"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lexevsapi62-framework.jar"/>
+    </path>
+    <path id="LogMap.classpath">
+        <pathelement location="${LogMap.location}/target/classes"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+        <pathelement location="${LogMap.location}/lib/MORe.standalone.0.1.6.jar"/>
+        <pathelement location="${LogMap.location}/lib/HermiT1.3.8.jar"/>
+        <pathelement location="${LogMap.location}/lib/org.semanticweb.elk.0.4.1.jar"/>
+        <pathelement location="${LogMap.location}/lib/seals-omt-client.jar"/>
+        <pathelement location="${LogMap.location}/lib/TrOWLCore.jar"/>
+        <pathelement location="${LogMap.location}/lib/alcomo.jar"/>
+        <pathelement location="${LogMap.location}/lib/FaCTpp-OWLAPI-3.4-v1.6.2.jar"/>
+    </path>
+    <path id="GO_BP_Map_to_NCItsvn_fix.classpath">
+        <pathelement location="target/classes"/>
+        <path refid="OWLKb.classpath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+        <path refid="oboformat.classpath"/>
+        <pathelement location="${OWLKb.location}/lib/owlapi-bin.jar"/>
+        <pathelement location="${LogMap.location}/target/classes"/>
+        <path refid="LexEVS_Distributed_Client.classpath"/>
+        <pathelement location="${LexEVS_Distributed_Client.location}/lib/lexevsapi62-framework.jar"/>
+        <path refid="LogMap.classpath"/>
+    </path>
+    <path id="run.MetaColocation.classpath">
+        <path refid="GO_BP_Map_to_NCItsvn_fix.classpath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="target/classes"/>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src/main/java">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="target/classes"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${LexEVS_Distributed_Client.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${LogMap.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${OWLKb.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${oboformat.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${LexEVS_Distributed_Client.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${LogMap.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${OWLKb.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${oboformat.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/main/java"/>
+            <classpath refid="GO_BP_Map_to_NCItsvn_fix.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="MetaColocation">
+        <java classname="gov.nih.nci.evs.gobp.map.MetaColocation" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx4000M"/>
+            <arg line="/Users/safrant/Workspaces/GO_BP/GO_BP_Map_to_NCIt/NCI_Code_List.txt NCI GO"/>
+            <classpath refid="run.MetaColocation.classpath"/>
+        </java>
+    </target>
+</project>
