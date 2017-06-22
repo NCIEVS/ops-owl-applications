@@ -522,8 +522,9 @@ public class OWLScrubber {
 				.getAnnotationAssertionAxioms(c, this.ontology)) {
 
 			if (anno.getProperty().getIRI().equals(property)) {
-
-				v.add(anno.getValue().toString());
+				OWLLiteral annotationLiteral = anno.getValue().asLiteral().orNull();
+				if(annotationLiteral != null) { 
+				v.add(annotationLiteral.getLiteral().toString());}
 			}
 			// }
 		}
@@ -593,7 +594,8 @@ public class OWLScrubber {
 		String annotationValue = new String("");
 		for (OWLAnnotationAssertionAxiom anno : EntitySearcher
 				.getAnnotationAssertionAxioms(c, this.ontology)) {
-			annotationValue = anno.getValue().toString();
+			OWLLiteral annotationLiteral = anno.getValue().asLiteral().orNull();
+			if(annotationLiteral != null) { annotationValue = annotationLiteral.getLiteral().toString();}
 			if (anno.getProperty().getIRI().equals(property)) return annotationValue;
 		}
 		return annotationValue;
