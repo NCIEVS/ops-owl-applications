@@ -50,8 +50,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 
 /**
  * The Class OWLScrubber.
@@ -73,6 +78,8 @@ public class OWLScrubber {
 			e.printStackTrace();
 		}
 	}
+	
+	OWLReasoner reasoner;
 
 	/** The ontology namespace. */
 	private String ontologyNamespace;
@@ -250,7 +257,7 @@ public class OWLScrubber {
 		this.complexDataToDelete = this.readConfigFile(complexDeleteFile);
 		this.complexPropsToSimplify = this.readConfigFile(complexSimplifyFile);
 		this.propertySubs = this.readConfigFile(propertySubFile);
-
+		startToldReasoner();
 	}
 
 	private IRI createIRI(String className) {
@@ -298,11 +305,69 @@ public class OWLScrubber {
 		List<OWLOntologyChange> list = new ArrayList<OWLOntologyChange>(changes);
 		this.manager.applyChanges(list);
 	}
+	
+	public void startToldReasoner() {
+		System.out.println("Starting TOLD reasoner.");
+		// this.config.reasonerProgressMonitor = new ConsoleProgressMonitor();
+		// this.reasoner = factory.createReasoner(this.ontology, this.config);
+		// this.reasoner = new StructuralReasoner(this.ontology, this.config,
+		// BufferingMode.BUFFERING);
+		OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+		reasoner = reasonerFactory.createReasoner(this.ontology);
+		reasoner.getUnsatisfiableClasses();
+		System.out.println("Finished computing class hierarchy.");
+	}
 
+	private Vector<OWLClass> getSuperClasses(OWLClass cls, boolean directOnly) {
+		if(cls.isOWLNothing()){
+			return new Vector<OWLClass>();
+		}
+		
+		final Vector<OWLClass> vParents = new Vector<OWLClass>();
+		if (this.reasoner != null) {
+			for (final OWLClass subCls : this.reasoner.getSuperClasses(cls,
+			        directOnly).getFlattened()) {
+				if (!vParents.contains(subCls) && !subCls.isOWLThing()) {
+					vParents.add(subCls);
+				}
+			}
+		}
+		if (vParents.size() < 1) {
+			final Collection<OWLClassExpression> ods = EntitySearcher
+			        .getSuperClasses(cls, this.ontology);
+			final OWLClassExpression[] parents = ods
+			        .toArray(new OWLClassExpression[ods.size()]);
+			if (parents.length == 0) return vParents;
+
+			for (final OWLClassExpression parent : parents) {
+				if (!parent.isAnonymous()) {
+					vParents.add(parent.asOWLClass());
+				}
+			}
+			if (!directOnly) {
+				for (int i = 0; i < vParents.size(); i++) {
+					final Vector<OWLClass> w = this.getSuperClasses(vParents
+					        .elementAt(i).asOWLClass(), false);
+					if (w != null) {
+						for (int j = 0; j < w.size(); j++) {
+							if ((w.elementAt(j) != null)
+							        && !vParents.contains(w.elementAt(j))) {
+								vParents.add(w.elementAt(j).asOWLClass());
+							}
+						}
+					}
+				}
+			}
+		}
+		return vParents;
+	}
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#generateFlat()
 	 */
+	@SuppressWarnings("unused")
 	private void generateFlat() {
 		TreeMap<String, Vector<String>> idAndDatas = new TreeMap<String, Vector<String>>();
 		TreeMap<String, Vector<String>> idAndDatasRetired = new TreeMap<String, Vector<String>>();
@@ -312,15 +377,29 @@ public class OWLScrubber {
 			// reasoner.classify();
 			for (OWLClass c : this.ontology.getClassesInSignature()) {
 				// Set<Set<OWLClass>> parents = reasoner.getSuperClasses(c);
-				Collection<OWLClassExpression> parents = EntitySearcher
-						.getSuperClasses(c, this.ontology);
-				Collection<OWLClassExpression> parents2 = EntitySearcher
-				        .getEquivalentClasses(c, this.ontology);
+				if (c.getIRI().getFragment().equals("C3163")){
+					String debug = "Stop here";
+				}
+				
+				Vector<OWLClass> parents = getSuperClasses(c, true);
+				
+//				Collection<OWLClassExpression> parents = EntitySearcher
+//						.getSuperClasses(c, this.ontology);
+//				Collection<OWLClassExpression> parents2 = EntitySearcher
+//				        .getEquivalentClasses(c, this.ontology);
+//				for(OWLClassExpression oce: parents2){
+//					Set<OWLClassExpression> classes = oce.getNestedClassExpressions();
+//					for(OWLClassExpression cls : classes){
+//						if (cls instanceof OWLClassImpl){
+//							parents.add(cls);
+//						}
+//					}
+//				}
 
 				// Set<OWLDescription> parents = c.getSuperClasses(ontology);
 				// Set<OWLDescription> parents2 =
 				// c.getEquivalentClasses(ontology);
-				parents.addAll(parents2);
+//				parents.addAll(parents2);
 
 				String code = this.getSolePropertyValue(c,
 				        PROPERTY_ALIAS.CODE.iri());
