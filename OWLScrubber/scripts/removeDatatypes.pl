@@ -12,7 +12,9 @@ my $i;
 
 for( $i = 0; $i < $owlLineCount; $i++ ) {
   if($owlLines[$i] =~ /.*rdf:datatype.*/) {
-    $owlLines[$i] =~ s/\srdf:datatype="http:\/\/www\.w3\.org\/2001\/XMLSchema#string\"//;
+    $owlLines[$i] =~ s/\srdf:datatype="http:\/\/www\.w3\.org\/2001\/XMLSchema#(string|integer)"//;
+#                        rdf:datatype="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#textArea"
+    $owlLines[$i] =~ s/\srdf:datatype="http:\/\/ncicb\.nci\.nih\.gov\/xml\/owl\/EVS\/Thesaurus\.owl#textArea"//;
   }
 }
 
