@@ -1098,7 +1098,6 @@ public class OWLScrubber {
 				for (OWLAnnotation anno : annAx.getAnnotations()) {
 					if (anno.getProperty().getIRI().equals(qualifier)) {
 						if (anno.getValue().asLiteral().orNull() != null) {
-							String debug = ((OWLLiteral) anno.getValue()).getLiteral().toString();
 							if (((OWLLiteral) anno.getValue()).getLiteral().toString().equals(oldValue)) {
 								existingAnnotations.remove(anno);
 								OWLAnnotation newAnno = factory.getOWLAnnotation(anno.getProperty(),
