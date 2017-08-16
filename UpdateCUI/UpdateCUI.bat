@@ -1,0 +1,1 @@
+java -jar UpdateCUI-2.0-jar-with-dependencies.jar %*
