@@ -1877,13 +1877,6 @@ public class OwlApiLayer {
 	 * @return the checks if is defined
 	 */
 	public boolean getIsDefined(IRI conceptCode) {
-		
-		if (conceptCode.getFragment().equals("C100051")){
-			String debug="Stop here";
-		}
-		if (conceptCode.getFragment().equals("C129917")){
-			String debug="Stop here";
-		}
 		OWLClass cls = this.getOWLClass(conceptCode);
 		Collection<OWLClassExpression> classes = EntitySearcher.getEquivalentClasses(cls, this.ontology);
 		if(classes.size()>0){

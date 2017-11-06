@@ -346,7 +346,7 @@ public class OWLKb {
 		} catch (URISyntaxException e) {
 	        System.out.println("Deprecated Branch is invalid URI "+ defaultDeprecatedBranch);
 	        e.printStackTrace();
-        }
+        } 
 	}
 
 	public void addAnnotationProperty(URI uri, Property newProp) {
@@ -2340,6 +2340,22 @@ public HashMap<URI, String> getAllAssociations(){
 		IRI qualifier = IRI.create(qual);
 		this.api.removeQualifier(property, qualifier);
 		this.refreshOntology();
+	}
+	
+	public int getAxiomCount(){
+		return this.api.getAxiomCount();
+	}
+	
+	public int getGciCount(){
+		return this.api.getGciCount();
+	}
+	
+	public int getMultiInheritanceCount(){
+		return this.api.getMultiParentCount();
+	}
+	
+	public String getDLExpressivity(){
+		return this.api.getDLExpressivity();
 	}
 
 }

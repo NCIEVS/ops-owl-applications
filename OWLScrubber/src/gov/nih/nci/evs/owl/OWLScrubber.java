@@ -1092,7 +1092,6 @@ public class OWLScrubber {
 				this.ontology)) {
 			boolean match = false;
 			Set<OWLAnnotation> existingAnnotations = annAx.getAnnotations();
-			Set<OWLAnnotation> newAnnotations = new HashSet<OWLAnnotation>();
 
 			if (annAx.getProperty().getIRI().equals(property)) {
 				for (OWLAnnotation anno : annAx.getAnnotations()) {
@@ -1103,7 +1102,6 @@ public class OWLScrubber {
 								OWLAnnotation newAnno = factory.getOWLAnnotation(anno.getProperty(),
 										factory.getOWLLiteral(newValue));
 								existingAnnotations.add(newAnno);
-								newAnnotations.add(newAnno);
 								match = true;
 							}
 						}

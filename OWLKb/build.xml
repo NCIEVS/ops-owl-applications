@@ -127,4 +127,18 @@
             <classpath refid="run.Test_OWLKb.classpath"/>
         </java>
     </target>
+                <!-- ********************************************************-->
+                <!--    Targets for packaging                                 -->
+                <!-- ********************************************************-->
+                <target name="jar" depends="build" description="Package code into a jar file">
+            	     <jar destfile= "${build.dir}/owl2kb.jar"
+            	            basedir="${classes.dir}">
+            	     	
+            	     	
+              	     	<manifest>
+                  	<attribute name="Main-Class"
+                  		value="gov.nih.nci.evs.owl.data.OWLKb"/>
+                  		</manifest>
+            	     </jar>
+            	</target>
 </project>

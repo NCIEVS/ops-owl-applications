@@ -112,19 +112,4 @@
         <antcall target="build"/>
     </target-->
               	
-                <!-- ********************************************************-->
-                <!--    Targets for packaging                                 -->
-                <!-- ********************************************************-->
-                <target name="jar" depends="build-project" description="Package code into a jar file">
-            	     <jar destfile= "build/owl2kb.jar"
-            	            basedir="target/classes">
-            	     </jar>
-            	</target>
-
-            	   <target name="runTest" depends="build-project" description="Runs Test">
-            	        <java classname="gov.nih.nci.evs.owl.TestHarness" fork="true">
-            	            <jvmarg value="-Xmx800m" />
-            	            <classpath refid="libs"/>
-            	        </java>
-            	    </target>         	
 </project>

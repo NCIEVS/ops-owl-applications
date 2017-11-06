@@ -74,14 +74,13 @@ public class ProtegeKBQA {
 	}
 
 	public void printHelp() {
-		System.out.println("java -jar path/owlnciqa.jar"); //$NON-NLS-1$
+		System.out.println("java -jar path/owlnciqa.jar");
 		System.out.println();
-		System.out.println("-c --config\t\tPath to configuration file"); //$NON-NLS-1$
-		System.out.println("-i --input\t\tURI of vocabulary file (optional)"); //$NON-NLS-1$
-		System.out.println("-o --output\t\tURI of output file(optional)"); //$NON-NLS-1$
+		System.out.println("-c --config\t\tPath to configuration file");
+		System.out.println("-i --input\t\tURI of vocabulary file (optional)");
+		System.out.println("-o --output\t\tURI of output file(optional)");
 		System.out.println();
-		System.out
-		        .println("If input and output not passed in as parameters, they must be specified in config file"); //$NON-NLS-1$
+		System.out.println("If input and output not passed in as parameters, they must be specified in config file");
 		System.exit(0);
 	}
 
@@ -179,11 +178,11 @@ public class ProtegeKBQA {
 	// Review Names
 	/** The no_ def review. */
 	HashMap<String, String> no_DefReview = new HashMap<String, String>();
-	
+
 	// HashMap stores instances of Definitions with def-source NCI-DEFCURATOR
 	// without a drug editor
 	HashMap<String, String> no_DefCurator = new HashMap<String, String>();
-	
+
 	/** Drug Dictionary Editors */
 	private Vector<String> drugEditors;
 
@@ -253,6 +252,8 @@ public class ProtegeKBQA {
 	/** The sys prop. */
 	private static Properties sysProp = System.getProperties();
 
+	Messages messages;
+
 	/** The config file. */
 	String configFile = null;
 
@@ -270,7 +271,7 @@ public class ProtegeKBQA {
 	private void checkCharacter(ConceptProxy cls, char c) {
 		String c1 = new String();
 		// in case c is null?
-		c1 = "" + c; //$NON-NLS-1$
+		c1 = "" + c;
 		Vector<Property> properties = new Vector<Property>();
 		properties = cls.getProperties();
 		for (final Property property : properties) {
@@ -278,13 +279,11 @@ public class ProtegeKBQA {
 				if (c == '@') {
 					this.badchar_at.put(cls.getCode(), property.getValue());
 				} else if (c == '\n') {
-					this.badchar_newline.put(cls.getCode(),
-					        property.getValue());
+					this.badchar_newline.put(cls.getCode(), property.getValue());
 				} else if (c == '|') {
 					// New property - Value_Set_Location - will include pipes
-					if (!property.getCode().equals(Messages.getString("ProtegeKBQA.Value_Set_Location"))) { //$NON-NLS-1$
-						this.badchar_pipe.put(cls.getCode(),
-						        property.getValue());
+					if (!property.getCode().equals(messages.getString("ProtegeKBQA.Value_Set_Location"))) {
+						this.badchar_pipe.put(cls.getCode(), property.getValue());
 					}
 				} else if (c == '\t') {
 					this.badchar_tab.put(cls.toString(), property.getValue());
@@ -298,23 +297,20 @@ public class ProtegeKBQA {
 		// should also have an Alt-def
 		// ignoreSources.contains(synSource)
 		final Vector<Property> contributingSources = cls
-		        .getProperties(Messages.getString("ProtegeKBQA.Contributing_Source")); //$NON-NLS-1$
+				.getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
 
-		final Vector<Property> defs = cls.getProperties(Messages.getString("ProtegeKBQA.Definition")); //$NON-NLS-1$
+		final Vector<Property> defs = cls.getProperties(messages.getString("ProtegeKBQA.Definition"));
 		// concepts with FDA_UNII_Code should not check for FDA alt-def
-		final Vector<Property> unii_codes = cls.getProperties(Messages.getString("ProtegeKBQA.FDA_UNII_Code")); //$NON-NLS-1$
+		final Vector<Property> unii_codes = cls.getProperties(messages.getString("ProtegeKBQA.FDA_UNII_Code"));
 		boolean hasUNII = cls.getProperties().size() > 0;
 
 		final String sCode = cls.getCode();
-		List<String> exclude = Arrays.asList("UCUM", //$NON-NLS-1$
-		        "MedDRA", "ICH", "HL7", "NCPDP"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		List<String> exclude = Arrays.asList("UCUM", "MedDRA", "ICH", "HL7", "NCPDP"); //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-		
 		// if there are contributing sources and definitions
 		if (contributingSources.size() > 0) {
 			// check if there are any alt_defs.
-			final Vector<Property> alt_defs = cls
-			        .getProperties(Messages.getString("ProtegeKBQA.Alt_Definition")); //$NON-NLS-1$
+			final Vector<Property> alt_defs = cls.getProperties(messages.getString("ProtegeKBQA.Alt_Definition"));
 			if ((alt_defs.size() > 0) && (contributingSources.size() > 0)) {
 
 				// check to see if the alt_def corresponds to the contributing
@@ -324,17 +320,13 @@ public class ProtegeKBQA {
 					if (!this.ignoreSources.contains(source.getValue())) {
 						boolean hasSource = false;
 						for (final Property def : alt_defs) {
-							if (def.getValue().contains(
-							        "<def-source>" + source.getValue() //$NON-NLS-1$
-							                + "</def-source>")) { //$NON-NLS-1$
+							if (def.getValue().contains("<def-source>" + source.getValue() + "</def-source>")) {
 								hasSource = true;
-							} else if (def.getQualifier(Messages.getString("ProtegeKBQA.Def_Source")) != null //$NON-NLS-1$
-							        && def.getQualifier(Messages.getString("ProtegeKBQA.Def_Source")) //$NON-NLS-1$
-							                .getValue()
-							                .equals(source.getValue())) {
+							} else if (def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")) != null
+									&& def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")).getValue()
+											.equals(source.getValue())) {
 								hasSource = true;
-							} else if (source.getValue().equals("FDA") //$NON-NLS-1$
-							        && hasUNII) {
+							} else if (source.getValue().equals("FDA") && hasUNII) {
 								hasSource = true;
 							}
 						}
@@ -344,16 +336,10 @@ public class ProtegeKBQA {
 
 							if (!exclude.contains(source.getValue())) {
 
-								this.no_alt_def.put(
-								        sCode,
-								        "No ALT_DEFINITION for " //$NON-NLS-1$
-								                + source.getValue());
-								if (altDefSourceCount.containsKey(source
-								        .getValue())) {
-									Integer tempInt = altDefSourceCount
-									        .get(source.getValue()) + 1;
-									altDefSourceCount.put(source.getValue(),
-									        tempInt);
+								this.no_alt_def.put(sCode, "No ALT_DEFINITION for " + source.getValue());
+								if (altDefSourceCount.containsKey(source.getValue())) {
+									Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+									altDefSourceCount.put(source.getValue(), tempInt);
 								} else {
 									altDefSourceCount.put(source.getValue(), 1);
 								}
@@ -364,8 +350,7 @@ public class ProtegeKBQA {
 			} else {
 				// if there is one contributing source of FDA and there is a
 				// UNII_Code, discard
-				if (hasUNII && contributingSources.size() == 1
-				        && contributingSources.get(0).getValue().equals("FDA")) { //$NON-NLS-1$
+				if (hasUNII && contributingSources.size() == 1 && contributingSources.get(0).getValue().equals("FDA")) {
 					// if there is only one CS and it is FDA, and there is a
 					// UNII_Code, don't add it.
 				} else if (contributingSources.size() > 1) {
@@ -374,52 +359,39 @@ public class ProtegeKBQA {
 						// check each source against the ignore list. If any are
 						// not on it, then it should have an alt-def
 						if (!this.ignoreSources.contains(source.getValue())) {
-							if (hasUNII && source.getValue().equals("FDA")) { //$NON-NLS-1$
+							if (hasUNII && source.getValue().equals("FDA")) {
 								// if the source is FDA and there is a
 								// UNII_Code, discard
 							} else {
 
-								
 								if (!exclude.contains(source.getValue())) {
 									hasSource = false;
-									if (altDefSourceCount.containsKey(source
-									        .getValue())) {
-										Integer tempInt = altDefSourceCount
-										        .get(source.getValue()) + 1;
-										altDefSourceCount.put(
-										        source.getValue(), tempInt);
+									if (altDefSourceCount.containsKey(source.getValue())) {
+										Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+										altDefSourceCount.put(source.getValue(), tempInt);
 									} else {
-										altDefSourceCount.put(
-										        source.getValue(), 1);
+										altDefSourceCount.put(source.getValue(), 1);
 									}
 								}
 							}
 						}
 					}
 					if (!hasSource) {
-						this.no_alt_def.put(sCode, "0 ALT_DEFINTIONs"); //$NON-NLS-1$
+						this.no_alt_def.put(sCode, "0 ALT_DEFINTIONs");
 					}
 				} else {
 					// only one contributing source and no alt-defs
-					if (!this.ignoreSources.contains(contributingSources.get(0)
-					        .getValue())) {
+					if (!this.ignoreSources.contains(contributingSources.get(0).getValue())) {
 
-						if (!exclude.contains(contributingSources.get(0)
-						        .getValue())) {
+						if (!exclude.contains(contributingSources.get(0).getValue())) {
 
-							this.no_alt_def.put(sCode, "No ALT_DEFINITION for " //$NON-NLS-1$
-							        + contributingSources.get(0).getValue());
-							if (altDefSourceCount
-							        .containsKey(contributingSources.get(0)
-							                .getValue())) {
-								Integer tempInt = altDefSourceCount
-								        .get(contributingSources.get(0)
-								                .getValue()) + 1;
-								altDefSourceCount.put(contributingSources
-								        .get(0).getValue(), tempInt);
+							this.no_alt_def.put(sCode,
+									"No ALT_DEFINITION for " + contributingSources.get(0).getValue());
+							if (altDefSourceCount.containsKey(contributingSources.get(0).getValue())) {
+								Integer tempInt = altDefSourceCount.get(contributingSources.get(0).getValue()) + 1;
+								altDefSourceCount.put(contributingSources.get(0).getValue(), tempInt);
 							} else {
-								altDefSourceCount.put(contributingSources
-								        .get(0).getValue(), 1);
+								altDefSourceCount.put(contributingSources.get(0).getValue(), 1);
 							}
 						}
 					}
@@ -439,13 +411,12 @@ public class ProtegeKBQA {
 		// Check for concepts that have more than 1 DEFINITION property
 		// or that have no DEFINITION property
 
-		final Vector<Property> v = c.getProperties(Messages.getString("ProtegeKBQA.Definition")); //$NON-NLS-1$
-		final Property semType = c.getProperty(Messages.getString("ProtegeKBQA.Semantic_Type")); //$NON-NLS-1$
+		final Vector<Property> v = c.getProperties(messages.getString("ProtegeKBQA.Definition"));
+		final Property semType = c.getProperty(messages.getString("ProtegeKBQA.Semantic_Type"));
 		if (v.size() < 1) {
-			this.no_DEF.put(c.getCode(), semType!=null ? semType.getValue() : "Null Semantic Type");
+			this.no_DEF.put(c.getCode(), semType != null ? semType.getValue() : "Null Semantic Type");
 		} else if (v.size() > 1) {
-			this.multiple_DEF.put(c.getCode(), new Integer(v.size()).toString()
-			        + " DEFs"); //$NON-NLS-1$
+			this.multiple_DEF.put(c.getCode(), new Integer(v.size()).toString() + " DEFs");
 		}
 
 		// TODO build a metric to count the number of concepts with and without
@@ -453,12 +424,11 @@ public class ProtegeKBQA {
 	}
 
 	private void checkDEFINITIONValue(ConceptProxy c) {
-		final Vector<Property> v = c.getProperties(Messages.getString("ProtegeKBQA.Definition")); //$NON-NLS-1$
+		final Vector<Property> v = c.getProperties(messages.getString("ProtegeKBQA.Definition"));
 		for (final Property def : v) {
 			final String defValue = def.getValue();
-			if (defValue.startsWith("\"") && defValue.endsWith("\"")) { //$NON-NLS-1$ //$NON-NLS-2$
-				final String defQuote = "Definition is fully quoted " //$NON-NLS-1$
-				        + def.getValue();
+			if (defValue.startsWith("\"") && defValue.endsWith("\"")) { //$NON-NLS-2$
+				final String defQuote = "Definition is fully quoted " + def.getValue();
 				this.quoted_DEF.put(c.getCode(), defQuote);
 			}
 		}
@@ -474,67 +444,68 @@ public class ProtegeKBQA {
 		// If there is a Def_Curator="NCI Drug Dictionary" then the
 		// DEFINITION_Reviewer_Name
 		// should be "SPECIAL_Review" or "DEFAULT_review"
-		final Vector<Property> curators = cls.getProperties(Messages.getString("ProtegeKBQA.Def_Curator")); //$NON-NLS-1$
+		final Vector<Property> curators = cls.getProperties(messages.getString("ProtegeKBQA.Def_Curator"));
 		if (curators.size() > 0) {
-			final Vector<Property> defs = cls.getProperties(Messages.getString("ProtegeKBQA.Definition")); //$NON-NLS-1$
+			final Vector<Property> defs = cls.getProperties(messages.getString("ProtegeKBQA.Definition"));
 			for (final Property def : defs) {
-				final String reviewerName = getQualifierValue(def, Messages.getString("ProtegeKBQA.Definition_Reviewer_Name"));
-				if (!(reviewerName.equalsIgnoreCase(Messages.getString("ProtegeKBQA.Special_Review")) || reviewerName //$NON-NLS-1$
-				        .equalsIgnoreCase(Messages.getString("ProtegeKBQA.Default_Review")))) { //$NON-NLS-1$
+				final String reviewerName = getQualifierValue(def,
+						messages.getString("ProtegeKBQA.Definition_Reviewer_Name"));
+				if (!(reviewerName.equalsIgnoreCase(messages.getString("ProtegeKBQA.Special_Review"))
+						|| reviewerName.equalsIgnoreCase(messages.getString("ProtegeKBQA.Default_Review")))) {
 					this.no_DefReview.put(cls.getCode(), def.getValue());
 				}
 			}
 		}
 	}
 
-//	private String getReviewerName(Property def) {
-//		for(Qualifier qual: def.getQualifiers()){
-//			if(qual.getCode().equals(Messages.getString("ProtegeKBQA.Definition_Reviewer_Name"))){
-//				return qual.getValue();
-//			}
-//		}
-//		return "";
-//		
-////		String name = ""; //$NON-NLS-1$
-////		if (def.contains("<ncicp:Definition_Reviewer_Name>")) { //$NON-NLS-1$
-////			try {
-////				final int beginning = def
-////				        .indexOf("<ncicp:Definition_Reviewer_Name>"); //$NON-NLS-1$
-////				final int end = def
-////				        .indexOf("</ncicp:Definition_Reviewer_Name>"); //$NON-NLS-1$
-////				name = def.substring(beginning + 32, end);
-////			} catch (final Exception e) {
-////				e.printStackTrace();
-////				System.out.println("Parse error at: " + def); //$NON-NLS-1$
-////			}
-////		}
-////		return name;
-//	}
-	
+	// private String getReviewerName(Property def) {
+	// for(Qualifier qual: def.getQualifiers()){
+	// if(qual.getCode().equals(messages.getString("ProtegeKBQA.Definition_Reviewer_Name"))){
+	// return qual.getValue();
+	// }
+	// }
+	// return "";
+	//
+	//// String name = "";
+	//// if (def.contains("<ncicp:Definition_Reviewer_Name>")) {
+	//// try {
+	//// final int beginning = def
+	//// .indexOf("<ncicp:Definition_Reviewer_Name>");
+	//// final int end = def
+	//// .indexOf("</ncicp:Definition_Reviewer_Name>");
+	//// name = def.substring(beginning + 32, end);
+	//// } catch (final Exception e) {
+	//// e.printStackTrace();
+	//// System.out.println("Parse error at: " + def);
+	//// }
+	//// }
+	//// return name;
+	// }
+
 	private String getQualifierValue(Property prop, String qualCode) {
-		for(Qualifier qual: prop.getQualifiers()){
-			if(qual.getCode().equals(qualCode)){
+		for (Qualifier qual : prop.getQualifiers()) {
+			if (qual.getCode().equals(qualCode)) {
 				return qual.getValue();
 			}
 		}
 		return "";
-		
+
 	}
 
-//	private String getDefinitionValue(String def) {
-//		String name = ""; 
-//		if (def.contains("<ncicp:Definition_Reviewer_Name>")) { //$NON-NLS-1$
-//			try {
-//				final int beginning = def.indexOf("<ncicp:def-definition>"); //$NON-NLS-1$
-//				final int end = def.indexOf("</ncicp:def-definition>"); //$NON-NLS-1$
-//				name = def.substring(beginning + 22, end);
-//			} catch (final Exception e) {
-//				e.printStackTrace();
-//				System.out.println("Parse error at: " + def); //$NON-NLS-1$
-//			}
-//		}
-//		return name;
-//	}
+	// private String getDefinitionValue(String def) {
+	// String name = "";
+	// if (def.contains("<ncicp:Definition_Reviewer_Name>")) {
+	// try {
+	// final int beginning = def.indexOf("<ncicp:def-definition>");
+	// final int end = def.indexOf("</ncicp:def-definition>");
+	// name = def.substring(beginning + 22, end);
+	// } catch (final Exception e) {
+	// e.printStackTrace();
+	// System.out.println("Parse error at: " + def);
+	// }
+	// }
+	// return name;
+	// }
 
 	private void checkDuplicateProperties(ConceptProxy c) {
 		final Vector<Property> props = c.getProperties();
@@ -543,7 +514,7 @@ public class ProtegeKBQA {
 			if (!propMap.contains(prop)) {
 				propMap.add(prop);
 			} else {
-				this.duplicate_property.put(c.getCode()+":"+c.getName(), prop.getCode() + ":" + prop.getValue());
+				this.duplicate_property.put(c.getCode() + ":" + c.getName(), prop.getCode() + ":" + prop.getValue());
 			}
 		}
 	}
@@ -566,7 +537,7 @@ public class ProtegeKBQA {
 		for (final Role role : roles) {
 			final String roleName = role.getRelation().getName();
 			final String roleTarget = role.getTarget().getCode();
-			final String roleDef = roleName + " " + roleTarget; //$NON-NLS-1$
+			final String roleDef = roleName + " " + roleTarget;
 			if (!roleMap.contains(roleDef)) {
 				roleMap.add(roleDef);
 			} else {
@@ -582,23 +553,22 @@ public class ProtegeKBQA {
 		boolean hasIssue = false;
 		for (final Property property : properties) {
 			String propertyValue = property.getValue();
-			for (Qualifier qual:property.getQualifiers()){
-				propertyValue = propertyValue +" "+ qual.getValue();
+			for (Qualifier qual : property.getQualifiers()) {
+				propertyValue = propertyValue + " " + qual.getValue();
 			}
 
 			String highBits = checkHighBitCharacters(propertyValue);
 
 			if (highBits.length() > 0) {
-				String bitReport = "Property: " + property.getName() + "\t" //$NON-NLS-1$
-				        + highBits + "Property: " + property.getValue(); //$NON-NLS-1$
-				if (bitReport.contains("Unexpected Character")) { //$NON-NLS-1$
+				String bitReport = "Property: " + property.getName() + "\t" + highBits + "Property: "
+						+ property.getValue();
+				if (bitReport.contains("Unexpected Character")) {
 					highBitCharacters.put(cls.getCode(), bitReport);
 				} else {
 					replacedHighBitCharacters.put(cls.getCode(), bitReport);
 				}
 
 			}
-
 
 		}
 
@@ -607,7 +577,7 @@ public class ProtegeKBQA {
 	private String checkHighBitCharacters(String propertyValue) {
 		// Check each character and swap out any unicode in the map.
 		// Toss exception if non-swappable character found
-		String returnString = ""; //$NON-NLS-1$
+		String returnString = "";
 		final int len = propertyValue.length();
 		for (int i = 0; i < len; i++) {
 			final Integer iPosition = new Integer(i + 1);
@@ -617,10 +587,9 @@ public class ProtegeKBQA {
 				// No problems. These are accepted characters
 				// No need to go iterating through the unicode converter
 			} else if (symbolMap.containsKey(c)) {
-				returnString = returnString + "Character replaced " + "Char: " //$NON-NLS-1$ //$NON-NLS-2$
-				        + propertyValue.charAt(i) + " Ascii code:" + cast + " " //$NON-NLS-1$ //$NON-NLS-2$
-				        + symbolMap.get(c).getCharDescription() + " Position: " //$NON-NLS-1$
-				        + iPosition + "    \t"; //$NON-NLS-1$
+				returnString = returnString + "Character replaced " + "Char: " //$NON-NLS-2$
+						+ propertyValue.charAt(i) + " Ascii code:" + cast + " " //$NON-NLS-2$
+						+ symbolMap.get(c).getCharDescription() + " Position: " + iPosition + "    \t";
 				// throw new Exception("Replaced character " +
 				// Character.toString(c) + " " +
 				// symbolMap.get(c).getCharDescription());
@@ -628,9 +597,9 @@ public class ProtegeKBQA {
 				// Allow string to pass through, but note it.
 				// throw new Exception("Unexpected character " +
 				// Character.toString(c));
-				returnString = returnString + "Unexpected Character " //$NON-NLS-1$
-				        + "Char: " + propertyValue.charAt(i) + " Ascii code:" //$NON-NLS-1$ //$NON-NLS-2$
-				        + cast + " Position: " + iPosition + "   \t "; //$NON-NLS-1$ //$NON-NLS-2$
+				returnString = returnString + "Unexpected Character " + "Char: " + propertyValue.charAt(i)
+						+ " Ascii code:" //$NON-NLS-1$
+						+ cast + " Position: " + iPosition + "   \t "; //$NON-NLS-2$
 			}
 
 		}
@@ -648,28 +617,25 @@ public class ProtegeKBQA {
 		// Check that there is one and only one Full-Syn NCI|PT
 		// If AQ or CTRM concept, flag it as antiquated. Perhaps separate them
 		// into own HashMap?
-//		final Vector<String> syns = getNCIPTFullSyn(cls);
-		 Vector<String> syns=getFullSynBySourceAndGroup(cls,"NCI","PT");
-		 if(syns.size()<1){
-			 syns = getFullSynBySourceAndGroup(cls,"NCI","HD");
-		 }
-		 if(syns.size()<1){
-			 syns= getFullSynBySourceAndGroup(cls, "CTRM", "PT");
-		 }
+		// final Vector<String> syns = getNCIPTFullSyn(cls);
+		Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
+		if (syns.size() < 1) {
+			syns = getFullSynBySourceAndGroup(cls, "NCI", "HD");
+		}
+		if (syns.size() < 1) {
+			syns = getFullSynBySourceAndGroup(cls, "CTRM", "PT");
+		}
 		if (syns.size() < 1) {
 			// if the concept has an AQ Full-Syn, this can replace the NCI|PT
-//			final Vector<String> aqs = getAQ_CTRMFullSyn(cls);
-			final Vector<String> aqs = getFullSynByGroup(cls,"AQ");
+			// final Vector<String> aqs = getAQ_CTRMFullSyn(cls);
+			final Vector<String> aqs = getFullSynByGroup(cls, "AQ");
 			if (aqs.size() == 0) {
-				this.no_PT.put(cls.getCode(),
-				        new Integer(syns.size()).toString() + " PTs"); //$NON-NLS-1$
+				this.no_PT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
 			} else {
-				this.antiquated_noPT.put(cls.getCode(),
-				        new Integer(syns.size()).toString() + " PTs"); //$NON-NLS-1$
+				this.antiquated_noPT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
 			}
 		} else if (syns.size() > 1) {
-			this.multiple_PT.put(cls.getCode(),
-			        new Integer(syns.size()).toString() + " PTs"); //$NON-NLS-1$
+			this.multiple_PT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
 		}
 	}
 
@@ -682,15 +648,13 @@ public class ProtegeKBQA {
 	private void checkPNExistenceAndUniqueness(ConceptProxy cls) {
 		// Check that concept has one and only one Preferred Name
 		// Vector<String> pn = getPropertyValues(cls, "Preferred_Name");
-		final Vector<Property> pn = cls.getProperties(Messages.getString("ProtegeKBQA.PreferredName")); //$NON-NLS-1$
+		final Vector<Property> pn = cls.getProperties(messages.getString("ProtegeKBQA.PreferredName"));
 
 		// String sCode = getConceptCode(cls);
 		if (pn.size() < 1) {
-			this.no_PN.put(cls.getCode(), new Integer(pn.size()).toString()
-			        + " PNs"); //$NON-NLS-1$
+			this.no_PN.put(cls.getCode(), new Integer(pn.size()).toString() + " PNs");
 		} else if (pn.size() > 1) {
-			this.multiple_PN.put(cls.getCode(),
-			        new Integer(pn.size()).toString() + " PNs"); //$NON-NLS-1$
+			this.multiple_PN.put(cls.getCode(), new Integer(pn.size()).toString() + " PNs");
 		}
 	}
 
@@ -703,16 +667,18 @@ public class ProtegeKBQA {
 	private void checkPNFullSynMatch(ConceptProxy cls) {
 		// check that value of PreferredTerm is the same as Full-Syn NCI|PT
 
-//		final Vector<String> syns = getNCIPTFullSyn(cls);
-		final Vector<String> syns = getFullSynBySourceAndGroup(cls,"NCI","PT");
-		final Property pn = cls.getProperty(Messages.getString("ProtegeKBQA.PreferredName")); //$NON-NLS-1$
+		// final Vector<String> syns = getNCIPTFullSyn(cls);
+		final Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
+		final Property pn = cls.getProperty(messages.getString("ProtegeKBQA.PreferredName"));
+		if(syns==null || pn==null ||syns.size()==0){
+			System.out.println("Unable to do FullSynMatch for "+ cls.getCode());
+		}else {
 		for (int i = 0; i < syns.size(); i++) {
 			final String pt = syns.get(i);
 			if (!pt.equals(pn.getValue())) {
-				this.nomatch_pnpt.put(cls.getCode(), "PN:" + pn.getValue() //$NON-NLS-1$
-				        + " PT:" + pt); //$NON-NLS-1$
+				this.nomatch_pnpt.put(cls.getCode(), "PN:" + pn.getValue() + " PT:" + pt);
 			}
-		}
+		}}
 	}
 
 	/**
@@ -724,39 +690,37 @@ public class ProtegeKBQA {
 	private void checkSameAtoms(ConceptProxy cls) {
 		// Check for different concepts that have the same Full-Syn NCI|PT
 
-		final Vector<Property> props = cls.getProperties(Messages.getString("ProtegeKBQA.FULL_SYN")); //$NON-NLS-1$
+		final Vector<Property> props = cls.getProperties(messages.getString("ProtegeKBQA.FULL_SYN"));
 
 		for (final Property prop : props) {
 			final String pt = prop.getValue();
-//			if (pt.indexOf("<ncicp:term-source>NCI</ncicp:term-source>") > 0 //$NON-NLS-1$
-//			        & pt.indexOf("<ncicp:term-group>PT</ncicp:term-group>") > 0) { //$NON-NLS-1$
-//				if (!this.pt_tbl.containsKey(pt)) {
-//					// if the list of pt's doesn't include this, then add it
-//					this.pt_tbl.put(pt, cls.getCode());
-//				} else {
-//					// if the list of pt's includes this, we have a duplicate
-//					// record the id's of the two classes for reporting
-//					final String firstCode = this.pt_tbl.get(pt);
-//					final String storeCode = firstCode + " " + cls.getCode(); //$NON-NLS-1$
-//					this.duplicate_pt.put(XML2Pipe(pt), storeCode);
-//				}
-//			} else if (prop.getQualifiers().size() > 0) {
-				final Qualifier source = prop.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")); //$NON-NLS-1$
-				final Qualifier group = prop.getQualifier(Messages.getString("ProtegeKBQA.Term_Group")); //$NON-NLS-1$
-				if (source != null && group != null) {
-					if (source.getValue().equals("NCI") //$NON-NLS-1$
-					        && group.getValue().equals("PT")) { //$NON-NLS-1$
-						if (!this.pt_tbl.containsKey(pt)) {
-							this.pt_tbl.put(pt, cls.getCode());
-						} else {
-							final String firstCode = this.pt_tbl.get(pt);
-							final String storeCode = firstCode + " " //$NON-NLS-1$
-							        + cls.getCode();
-							this.duplicate_pt.put(XML2Pipe(pt), storeCode);
-						}
+			// if (pt.indexOf("<ncicp:term-source>NCI</ncicp:term-source>") > 0
+			// & pt.indexOf("<ncicp:term-group>PT</ncicp:term-group>") > 0) {
+			// if (!this.pt_tbl.containsKey(pt)) {
+			// // if the list of pt's doesn't include this, then add it
+			// this.pt_tbl.put(pt, cls.getCode());
+			// } else {
+			// // if the list of pt's includes this, we have a duplicate
+			// // record the id's of the two classes for reporting
+			// final String firstCode = this.pt_tbl.get(pt);
+			// final String storeCode = firstCode + " " + cls.getCode();
+			// this.duplicate_pt.put(XML2Pipe(pt), storeCode);
+			// }
+			// } else if (prop.getQualifiers().size() > 0) {
+			final Qualifier source = prop.getQualifier(messages.getString("ProtegeKBQA.Term_Source"));
+			final Qualifier group = prop.getQualifier(messages.getString("ProtegeKBQA.Term_Group"));
+			if (source != null && group != null) {
+				if (source.getValue().equals("NCI") && group.getValue().equals("PT")) {
+					if (!this.pt_tbl.containsKey(pt)) {
+						this.pt_tbl.put(pt, cls.getCode());
+					} else {
+						final String firstCode = this.pt_tbl.get(pt);
+						final String storeCode = firstCode + " " + cls.getCode();
+						this.duplicate_pt.put(XML2Pipe(pt), storeCode);
 					}
 				}
-//			}
+			}
+			// }
 		}
 
 	}
@@ -769,17 +733,19 @@ public class ProtegeKBQA {
 	 */
 	private void checkSamePreferredName(ConceptProxy cls) {
 
-		final Vector<Property> properties = cls.getProperties(Messages.getString("ProtegeKBQA.Preferred_Name")); //$NON-NLS-1$
+		final Vector<Property> properties = cls.getProperties(messages.getString("ProtegeKBQA.PreferredName"));
 
-		for (final Property prop : properties) {
-			final String pn = prop.getValue();
+		if (properties != null) {
+			for (final Property prop : properties) {
+				final String pn = prop.getValue();
 
-			if (!this.pn_tbl.containsKey(pn)) {
-				this.pn_tbl.put(pn, cls.getCode());
-			} else {
-				final String firstCode = this.pn_tbl.get(pn);
-				final String storeCode = firstCode + " " + cls.getCode(); //$NON-NLS-1$
-				this.duplicate_pn.put(pn, storeCode);
+				if (!this.pn_tbl.containsKey(pn)) {
+					this.pn_tbl.put(pn, cls.getCode());
+				} else {
+					final String firstCode = this.pn_tbl.get(pn);
+					final String storeCode = firstCode + " " + cls.getCode();
+					this.duplicate_pn.put(pn, storeCode);
+				}
 			}
 		}
 
@@ -795,29 +761,24 @@ public class ProtegeKBQA {
 		// Check that any values for the Semantic_Type property are valid by
 		// comparing them to an external semanticType config file.
 
-		final Vector<Property> styValues = cls.getProperties(Messages.getString("ProtegeKBQA.Semantic_Type")); //$NON-NLS-1$
+		final Vector<Property> styValues = cls.getProperties(messages.getString("ProtegeKBQA.Semantic_Type"));
 
 		if (styValues.size() < 1) {
 
 			// check if retired
 			if (!cls.isRetired()) {
 
-				this.no_ST.put(cls.getCode(),
-				        new Integer(styValues.size()).toString()
-				                + " SemanticTypes"); //$NON-NLS-1$
+				this.no_ST.put(cls.getCode(), new Integer(styValues.size()).toString() + " SemanticTypes");
 			}
 		} else if (styValues.size() > 1) {
 			if (!checkSemanticPairs(styValues)) {
-				String semanticTypeValues = ""; //$NON-NLS-1$
+				String semanticTypeValues = "";
 				for (final Property prop : styValues) {
-					semanticTypeValues = semanticTypeValues + prop.getValue()
-					        + "|"; //$NON-NLS-1$
+					semanticTypeValues = semanticTypeValues + prop.getValue() + "|";
 				}
-				semanticTypeValues = semanticTypeValues.substring(0,
-				        semanticTypeValues.length() - 1);
+				semanticTypeValues = semanticTypeValues.substring(0, semanticTypeValues.length() - 1);
 				this.multiple_ST.put(cls.getCode(),
-				        new Integer(styValues.size()).toString()
-				                + " SemanticTypes " + semanticTypeValues); //$NON-NLS-1$
+						new Integer(styValues.size()).toString() + " SemanticTypes " + semanticTypeValues);
 			}
 		}
 	}
@@ -825,9 +786,9 @@ public class ProtegeKBQA {
 	private boolean checkSemanticPairs(Vector<Property> styValues) {
 
 		Collections.sort(styValues);
-		String styValue = ""; //$NON-NLS-1$
+		String styValue = "";
 		for (final Property prop : styValues) {
-			styValue = styValue + prop.getValue() + "|"; //$NON-NLS-1$
+			styValue = styValue + prop.getValue() + "|";
 		}
 		styValue = styValue.substring(0, styValue.length() - 1);
 
@@ -849,7 +810,7 @@ public class ProtegeKBQA {
 	private void checkSemanticTypes(ConceptProxy cls) {
 		// Check that any values for the Semantic_Type property are valid by
 		// comparing them to an external semanticType config file.
-		final Vector<Property> props = cls.getProperties(Messages.getString("ProtegeKBQA.Semantic_Type")); //$NON-NLS-1$
+		final Vector<Property> props = cls.getProperties(messages.getString("ProtegeKBQA.Semantic_Type"));
 		for (final Property prop : props) {
 			if (!this.stys.contains(prop.getValue())) {
 				this.bad_semantictypes.put(cls.getCode(), prop.getValue());
@@ -868,32 +829,28 @@ public class ProtegeKBQA {
 		// Each FULL_SYN term source should have a matching Contributing_Source
 		// ignoreSources.contains(synSource)
 
-		final Vector<Property> syns = cls.getProperties(Messages.getString("ProtegeKBQA.FULL_SYN")); //$NON-NLS-1$
+		final Vector<Property> syns = cls.getProperties(messages.getString("ProtegeKBQA.FULL_SYN"));
 		final Vector<Property> contributingSources = cls
-		        .getProperties(Messages.getString("ProtegeKBQA.Contributing_Source")); //$NON-NLS-1$
+				.getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
 		if (contributingSources.size() > 0 && syns.size() > 0) {
 			final HashMap<String, String> synMap = getSynSources(syns);
 			for (final Property contributingSource : contributingSources) {
 
-				if (!(this.ignoreSources
-				        .contains(contributingSource.getValue()))) {
+				if (!(this.ignoreSources.contains(contributingSource.getValue()))) {
 					boolean hasSource = false;
 					for (final Property syn : syns) {
 						if (syn.getValue().contains(
-						        "<ncicp:term-source>" //$NON-NLS-1$
-						                + contributingSource.getValue()
-						                + "</ncicp:term-source>")) { //$NON-NLS-1$
+								"<ncicp:term-source>" + contributingSource.getValue() + "</ncicp:term-source>")) {
 							hasSource = true;
-						} else if (syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")) != null) { //$NON-NLS-1$
-							if (syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")).getValue() //$NON-NLS-1$
-							        .equals(contributingSource.getValue())) {
+						} else if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")) != null) {
+							if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).getValue()
+									.equals(contributingSource.getValue())) {
 								hasSource = true;
 							}
 						}
 					}
 					if (!hasSource) {
-						this.no_SynForContributingSource.put(cls.getCode(),
-						        contributingSource.getValue());
+						this.no_SynForContributingSource.put(cls.getCode(), contributingSource.getValue());
 					}
 
 				}
@@ -902,9 +859,8 @@ public class ProtegeKBQA {
 				final String fullSyn = concatenateFullSyn(syn);
 				final String synSource = synMap.get(fullSyn);
 				boolean debub = this.ignoreSources.contains(synSource);
-				if (!(synSource.equals("NCI"))) { //$NON-NLS-1$
-					if (!(synSource.equals("")) //$NON-NLS-1$
-					        && !this.ignoreSources.contains(synSource)) {
+				if (!(synSource.equals("NCI"))) {
+					if (!(synSource.equals("")) && !this.ignoreSources.contains(synSource)) {
 						boolean found = false;
 						for (final Property contributingSource : contributingSources) {
 							if (contributingSource.getValue().equals(synSource)) {
@@ -912,8 +868,7 @@ public class ProtegeKBQA {
 							}
 						}
 						if (!found) {
-							this.no_ContributingSourceForSyn.put(cls.getCode(),
-							        syn.getValue() + "|" + synSource); //$NON-NLS-1$
+							this.no_ContributingSourceForSyn.put(cls.getCode(), syn.getValue() + "|" + synSource);
 
 						}
 					}
@@ -937,34 +892,32 @@ public class ProtegeKBQA {
 		// Within these concepts, check for a PT with source FDA. With matching
 		// source code?
 
-		final Vector<Property> unii_syn = cls.getProperties(Messages.getString("ProtegeKBQA.FULL_SYN")); //$NON-NLS-1$
-		final Vector<Property> subsets = cls.getProperties(Messages.getString("ProtegeKBQA.Concept_In_Subset")); //$NON-NLS-1$
+		final Vector<Property> unii_syn = cls.getProperties(messages.getString("ProtegeKBQA.FULL_SYN"));
+		final Vector<Property> subsets = cls.getProperties(messages.getString("ProtegeKBQA.Concept_In_Subset"));
 		boolean hasFULL_SYN = false;
 		boolean hasUNII_Code = true;
 		for (final Property subset : subsets) {
-			if (subset.getValue().contains(Messages.getString("ProtegeKBQA.FDA_UNII_Code_Terminology"))) { //$NON-NLS-1$
-				final String unii_code = cls.getProperty(Messages.getString("ProtegeKBQA.FDA_UNII_Code")) //$NON-NLS-1$
-				        .getValue();
+			if (subset.getValue().contains(messages.getString("ProtegeKBQA.FDA_UNII_Code_Terminology"))) {
+				final String unii_code = cls.getProperty(messages.getString("ProtegeKBQA.FDA_UNII_Code")).getValue();
 				if (unii_code == null || unii_code.length() == 0) {
 					hasUNII_Code = false;
 				}
 				for (final Property syn : unii_syn) {
-//					if (syn.getValue().contains("FDA")) { //$NON-NLS-1$
-//						hasFULL_SYN = true;
-//					}
-					if (getQualifierValue(syn, Messages.getString("ProtegeKBQA.term_source")).equals("FDA")){
+					// if (syn.getValue().contains("FDA")) {
+					// hasFULL_SYN = true;
+					// }
+					if (getQualifierValue(syn, messages.getString("ProtegeKBQA.term_source")).equals("FDA")) {
 						hasFULL_SYN = true;
 					}
-					
-					
+
 				}
 				if (!hasFULL_SYN || !hasUNII_Code) {
-					String message = " "; //$NON-NLS-1$
+					String message = " ";
 					if (!hasFULL_SYN) {
-						message = message.concat("Missing FDA Full Syn "); //$NON-NLS-1$
+						message = message.concat("Missing FDA Full Syn ");
 					}
 					if (!hasUNII_Code) {
-						message = message.concat("Missing UNII Code "); //$NON-NLS-1$
+						message = message.concat("Missing UNII Code ");
 					}
 					this.missingUNII.put(cls.toString(), message);
 				}
@@ -972,9 +925,6 @@ public class ProtegeKBQA {
 		}
 
 	}
-	
-	
-	
 
 	/**
 	 * Config print writer.
@@ -990,7 +940,7 @@ public class ProtegeKBQA {
 			this.pw = new PrintWriter(file, StandardCharsets.UTF_8.name());
 
 		} catch (final Exception e) {
-			System.out.println("Error in PrintWriter"); //$NON-NLS-1$
+			System.out.println("Error in PrintWriter");
 			throw e;
 		}
 	}
@@ -1005,14 +955,11 @@ public class ProtegeKBQA {
 
 			if (args.length > 0) {
 				for (int i = 0; i < args.length; i++) {
-					if (args[i].equalsIgnoreCase("-c") //$NON-NLS-1$
-					        || args[i].equalsIgnoreCase("--config")) { //$NON-NLS-1$
+					if (args[i].equalsIgnoreCase("-c") || args[i].equalsIgnoreCase("--config")) {
 						this.configFile = args[++i];
-					} else if (args[i].equalsIgnoreCase("-i") //$NON-NLS-1$
-					        || args[i].equalsIgnoreCase("--input")) { //$NON-NLS-1$
+					} else if (args[i].equalsIgnoreCase("-i") || args[i].equalsIgnoreCase("--input")) {
 						physicalURI = URI.create(args[++i]);
-					} else if (args[i].equalsIgnoreCase("-o") //$NON-NLS-1$
-					        || args[i].equalsIgnoreCase("--output")) { //$NON-NLS-1$
+					} else if (args[i].equalsIgnoreCase("-o") || args[i].equalsIgnoreCase("--output")) {
 						outputFile = URI.create(args[++i]);
 					} else {
 						printHelp();
@@ -1023,49 +970,49 @@ public class ProtegeKBQA {
 			}
 
 			if (this.configFile == null) {
-				final String filename = sysProp
-				        .getProperty(Messages.getString("ProtegeKBQA.1")); //$NON-NLS-1$
+				final String filename = sysProp.getProperty("nciowlqa.properties");
 				this.configFile = filename;
 			}
-			System.out.println("Config file at: " + this.configFile); //$NON-NLS-1$
+			System.out.println("Config file at: " + this.configFile);
 
 			final Properties props = new Properties();
 			props.load(new FileInputStream(this.configFile));
-			this.ontologyNamespace = props.getProperty("namespace"); //$NON-NLS-1$
+			this.ontologyNamespace = props.getProperty("namespace");
 			if (physicalURI == null) {
-				physicalURI = URI.create(props.getProperty("physicalURI")); //$NON-NLS-1$
+				physicalURI = URI.create(props.getProperty("physicalURI"));
 			}
 			System.out.println("Input file is " + physicalURI.toString());
-			this.stys = setFromConfig(props.getProperty("semantictypefile")); //$NON-NLS-1$
-			this.styPairs = setFromConfig(props
-			        .getProperty("semanticPairsFile")); //$NON-NLS-1$
-			this.ignoreSources = setFromConfig(props.getProperty("ignorefile")); //$NON-NLS-1$
-			this.retiredBranch = URI.create(props.getProperty("deprecatedConceptBranch")); //$NON-NLS-1$
+			this.stys = setFromConfig(props.getProperty("semantictypefile"));
+			this.styPairs = setFromConfig(props.getProperty("semanticPairsFile"));
+			this.ignoreSources = setFromConfig(props.getProperty("ignorefile"));
+			this.drugEditors = setFromConfig(props.getProperty("drugeditorsfile"));
+			this.retiredBranch = URI.create(props.getProperty("deprecatedConceptBranch"));
+			this.messages = new Messages(props.getProperty("messagesLocation"));
 
 			if (outputFile == null) {
-				outputFile = URI.create(props.getProperty("outputfile")); //$NON-NLS-1$
+				outputFile = URI.create(props.getProperty("outputfile"));
 			}
 			if (outputFile == null || outputFile.toString().length() == 0) {
-				System.out.println("No output file specified"); //$NON-NLS-1$
+				System.out.println("No output file specified");
 				printHelp();
 			}
-			System.out.println("Output file is " + outputFile.toString()); //$NON-NLS-1$
+			System.out.println("Output file is " + outputFile.toString());
 
-			readSymbolMap(props.getProperty("symbolMap")); //$NON-NLS-1$
+			readSymbolMap(props.getProperty("symbolMap"));
 
 			configPrintWriter(outputFile);
 			this.ontology = new OWLKb(physicalURI, this.ontologyNamespace);
 
 		} catch (final java.io.FileNotFoundException e) {
-			System.out.println("Error in reading config files"); //$NON-NLS-1$
+			System.out.println("Error in reading config files");
 			e.printStackTrace();
 			System.exit(1);
 		} catch (final IllegalArgumentException e) {
-			System.out.println("Error in parameter"); //$NON-NLS-1$
+			System.out.println("Error in parameter");
 			e.printStackTrace();
 			System.exit(1);
 		} catch (final Exception e) {
-			System.out.println("Error in reading ontology"); //$NON-NLS-1$
+			System.out.println("Error in reading ontology");
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -1080,102 +1027,101 @@ public class ProtegeKBQA {
 	 * @return the uRI
 	 */
 	public URI createURI(String className) {
-		return URI.create(this.ontologyNamespace + "#" + className); //$NON-NLS-1$
+		return URI.create(this.ontologyNamespace + "#" + className);
 	}
 
 	private Vector<String> getAQ_CTRMFullSyn(ConceptProxy c) {
-		final String propertyname = Messages.getString("ProtegeKBQA.FULL_SYN"); //$NON-NLS-1$
+		final String propertyname = messages.getString("ProtegeKBQA.FULL_SYN");
 		final Vector<String> out = new Vector<String>();
 		final Vector<Property> v = c.getProperties(propertyname);
 		for (final Property prop : v) {
 			final String pt = prop.getValue();
-			if (pt.indexOf("ncicp:") > 0) { //$NON-NLS-1$
-				if (pt.indexOf("<ncicp:term-source>CTRM</ncicp:term-source>") > 0 //$NON-NLS-1$
-				        || pt.indexOf("<ncicp:term-group>AQ</ncicp:term-group>") > 0 //$NON-NLS-1$
-				        || pt.indexOf("<ncicp:term-group>HD</ncicp:term-group>") > 0) { //$NON-NLS-1$
-					final int start = pt.indexOf("<ncicp:term-name>") + 17; //$NON-NLS-1$
-					final int end = pt.indexOf("</ncicp:term-name>"); //$NON-NLS-1$
+			if (pt.indexOf("ncicp:") > 0) {
+				if (pt.indexOf("<ncicp:term-source>CTRM</ncicp:term-source>") > 0
+						|| pt.indexOf("<ncicp:term-group>AQ</ncicp:term-group>") > 0
+						|| pt.indexOf("<ncicp:term-group>HD</ncicp:term-group>") > 0) {
+					final int start = pt.indexOf("<ncicp:term-name>") + 17;
+					final int end = pt.indexOf("</ncicp:term-name>");
 					String fullSyn = pt.substring(start, end);
-					if (fullSyn.indexOf("&amp;") > 0) { //$NON-NLS-1$
+					if (fullSyn.indexOf("&amp;") > 0) {
 						fullSyn = removeAmpersandReplacement(fullSyn);
 					}
 					out.add(fullSyn);
 				}
 			} else {
 
-				if (prop.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")).equals("CTRM") //$NON-NLS-1$ //$NON-NLS-2$
-				        || prop.getQualifier(Messages.getString("ProtegeKBQA.Term_Group")).getValue() //$NON-NLS-1$
-				                .equals("AQ") //$NON-NLS-1$
-				        || prop.getQualifier(Messages.getString("ProtegeKBQA.Term_Group")).getValue() //$NON-NLS-1$
-				                .equals("HD")) { //$NON-NLS-1$
+				if (prop.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).equals("CTRM") //$NON-NLS-2$
+						|| prop.getQualifier(messages.getString("ProtegeKBQA.Term_Group")).getValue().equals("AQ")
+						|| prop.getQualifier(messages.getString("ProtegeKBQA.Term_Group")).getValue().equals("HD")) {
 					out.add(prop.getValue());
 				}
 			}
 		}
 		return out;
 	}
-	
-	private Vector<String> getFullSynBySourceAndGroup(ConceptProxy c, String source, String group){
+
+	private Vector<String> getFullSynBySourceAndGroup(ConceptProxy c, String source, String group) {
 		final Vector<String> out = new Vector<String>();
-		for(Property prop:c.getProperties()){
-			String sourceQual = getQualifierValue(prop,Messages.getString("ProtegeKBQA.Term_Source") );
-			String groupQual = getQualifierValue(prop, Messages.getString("ProtegeKBQA.Term_Group"));
-			if(sourceQual!=null && groupQual !=null){
-			if(sourceQual.equals(source) &&
-					groupQual.equals(group)){
-				out.add(prop.getValue());
-			}}
+		for (Property prop : c.getProperties()) {
+			String sourceQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Source"));
+			String groupQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Group"));
+			if (sourceQual != null && groupQual != null) {
+				if (sourceQual.equals(source) && groupQual.equals(group)) {
+					out.add(prop.getValue());
+				}
+			}
 		}
 		return out;
 	}
-	
-	
-	private Vector<String> getFullSynBySource(ConceptProxy c, String source){
+
+	private Vector<String> getFullSynBySource(ConceptProxy c, String source) {
 		final Vector<String> out = new Vector<String>();
-		for(Property prop:c.getProperties()){
-			String sourceQual = getQualifierValue(prop,Messages.getString("ProtegeKBQA.Term_Source") );
-			if(sourceQual!=null ){
-			if(sourceQual.equals(source)){
-				out.add(prop.getValue());
-			}}
+		for (Property prop : c.getProperties()) {
+			String sourceQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Source"));
+			if (sourceQual != null) {
+				if (sourceQual.equals(source)) {
+					out.add(prop.getValue());
+				}
+			}
 		}
 		return out;
 	}
-	
-	private Vector<String> getFullSynByGroup(ConceptProxy c, String group){
+
+	private Vector<String> getFullSynByGroup(ConceptProxy c, String group) {
 		final Vector<String> out = new Vector<String>();
-		for(Property prop:c.getProperties()){
-			String groupQual = getQualifierValue(prop, Messages.getString("ProtegeKBQA.Term_Group"));
-			if( groupQual !=null){
-			if(	groupQual.equals(group)){
-				out.add(prop.getValue());
-			}}
+		for (Property prop : c.getProperties()) {
+			String groupQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Group"));
+			if (groupQual != null) {
+				if (groupQual.equals(group)) {
+					out.add(prop.getValue());
+				}
+			}
 		}
 		return out;
 	}
 
 	private Vector<String> getNCIPTFullSyn(ConceptProxy c) {
-		final String propertyname = Messages.getString("ProtegeKBQA.FULL_SYN"); //$NON-NLS-1$
+		final String propertyname = messages.getString("ProtegeKBQA.FULL_SYN");
 		final Vector<String> out = new Vector<String>();
 		final Vector<Property> v = c.getProperties(propertyname);
 		for (final Property prop : v) {
 			final String pt = prop.getValue();
-			if (pt.indexOf("<ncicp:term-source>NCI</ncicp:term-source>") > 0 //$NON-NLS-1$
-			        & pt.indexOf("<ncicp:term-group>PT</ncicp:term-group>") > 0) { //$NON-NLS-1$
-				final int start = pt.indexOf("<ncicp:term-name>") + 17; //$NON-NLS-1$
-				final int end = pt.indexOf("</ncicp:term-name>"); //$NON-NLS-1$
+			if (pt.indexOf("<ncicp:term-source>NCI</ncicp:term-source>") > 0
+					& pt.indexOf("<ncicp:term-group>PT</ncicp:term-group>") > 0) {
+				final int start = pt.indexOf("<ncicp:term-name>") + 17;
+				final int end = pt.indexOf("</ncicp:term-name>");
 				String fullSyn = pt.substring(start, end);
-				if (fullSyn.indexOf("&amp;") > 0) { //$NON-NLS-1$
+				if (fullSyn.indexOf("&amp;") > 0) {
 					fullSyn = removeAmpersandReplacement(fullSyn);
 				}
 				out.add(fullSyn);
 			} else {
 				boolean isPT = false, isNCI = false;
 				for (final Qualifier qual : prop.getQualifiers()) {
-					if (qual.getValue().equals(Messages.getString("ProtegeKBQA.PT"))) { //$NON-NLS-1$
+					if (qual.getValue().equals(messages.getString("ProtegeKBQA.PT"))) {
 						isPT = true;
 					}
-					if (qual.getValue().equals("NCI")) { //$NON-NLS-1$
+					if (qual.getValue().equals("NCI")) {
 						isNCI = true;
 					}
 				}
@@ -1197,71 +1143,75 @@ public class ProtegeKBQA {
 	private HashMap<String, String> getSynSources(Vector<Property> syns) {
 		final HashMap<String, String> synMap = new HashMap<String, String>();
 		for (final Property synProp : syns) {
-			
+
 			final String syn = synProp.getValue();
-			String source = getQualifierValue(synProp, Messages.getString("ProtegeKBQA.Term_Source"));
-			
-//			
-//			final int beginning = syn.indexOf("<ncicp:term-source>"); //$NON-NLS-1$
-//			final int end = syn.indexOf("</ncicp:term-source>"); //$NON-NLS-1$
-//			if (beginning > 0 && end > 20) {
-//				source = syn.substring(beginning + 19, end);
-//			} else if (synProp.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")) != null) { //$NON-NLS-1$
-//				source = synProp.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")).getValue(); //$NON-NLS-1$
-//				// System.out.println("Bad property " + syn);
-//			}
+			String source = getQualifierValue(synProp, messages.getString("ProtegeKBQA.Term_Source"));
+
+			//
+			// final int beginning = syn.indexOf("<ncicp:term-source>");
+			// final int end = syn.indexOf("</ncicp:term-source>");
+			// if (beginning > 0 && end > 20) {
+			// source = syn.substring(beginning + 19, end);
+			// } else if
+			// (synProp.getQualifier(messages.getString("ProtegeKBQA.Term_Source"))
+			// != null) {
+			// source =
+			// synProp.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).getValue();
+			// // System.out.println("Bad property " + syn);
+			// }
 			final String fullSyn = concatenateFullSyn(synProp);
-//			if (beginning > 0) {
-//				source = syn.substring(beginning + 19, end);
-//			} else {
-//				final Vector<Qualifier> quals = synProp.getQualifiers();
-//				for (final Qualifier qual : quals) {
-//					if (qual.getName().equals(Messages.getString("ProtegeKBQA.Term_Source"))) { //$NON-NLS-1$
-//						source = qual.getValue();
-//					}
-//				}
-//			}
+			// if (beginning > 0) {
+			// source = syn.substring(beginning + 19, end);
+			// } else {
+			// final Vector<Qualifier> quals = synProp.getQualifiers();
+			// for (final Qualifier qual : quals) {
+			// if
+			// (qual.getName().equals(messages.getString("ProtegeKBQA.Term_Source")))
+			// {
+			// source = qual.getValue();
+			// }
+			// }
+			// }
 
+			synMap.put(fullSyn, source != null ? source : "");
 
-
-			synMap.put(fullSyn, source!=null ? source : "" );
-			
 		}
 		return synMap;
 	}
 
-//	private String concatenateFullSyn(String FSvalue) {
-//		// <ncicp:ComplexTerm><ncicp:term-name>11-Cyclopropyl-5,11-dihydro-4-methyl-6H-dipyrido(3,2-b:2',3'-e)(1,4)diazepin-6-one</ncicp:term-name><ncicp:term-group>SN</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm>
-//
-//		String source = ""; //$NON-NLS-1$
-//		int beginning = FSvalue.indexOf("<ncicp:term-source>"); //$NON-NLS-1$
-//		int end = FSvalue.indexOf("</ncicp:term-source>"); //$NON-NLS-1$
-//		source = FSvalue.substring(beginning + 19, end);
-//
-//		String group = ""; //$NON-NLS-1$
-//		beginning = FSvalue.indexOf("<ncicp:term-group>"); //$NON-NLS-1$
-//		end = FSvalue.indexOf("</ncicp:term-group>"); //$NON-NLS-1$
-//		group = FSvalue.substring(beginning + 18, end);
-//
-//		String value = ""; //$NON-NLS-1$
-//		beginning = FSvalue.indexOf("<ncicp:term-name>"); //$NON-NLS-1$
-//		end = FSvalue.indexOf("</ncicp:term-name>"); //$NON-NLS-1$
-//		value = FSvalue.substring(beginning + 17, end);
-//		
-//
-//		return source + "|" + group + "|" + value; //$NON-NLS-1$ //$NON-NLS-2$
-//	}
+	// private String concatenateFullSyn(String FSvalue) {
+	// //
+	// <ncicp:ComplexTerm><ncicp:term-name>11-Cyclopropyl-5,11-dihydro-4-methyl-6H-dipyrido(3,2-b:2',3'-e)(1,4)diazepin-6-one</ncicp:term-name><ncicp:term-group>SN</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm>
+	//
+	// String source = "";
+	// int beginning = FSvalue.indexOf("<ncicp:term-source>");
+	// int end = FSvalue.indexOf("</ncicp:term-source>");
+	// source = FSvalue.substring(beginning + 19, end);
+	//
+	// String group = "";
+	// beginning = FSvalue.indexOf("<ncicp:term-group>");
+	// end = FSvalue.indexOf("</ncicp:term-group>");
+	// group = FSvalue.substring(beginning + 18, end);
+	//
+	// String value = "";
+	// beginning = FSvalue.indexOf("<ncicp:term-name>");
+	// end = FSvalue.indexOf("</ncicp:term-name>");
+	// value = FSvalue.substring(beginning + 17, end);
+	//
+	//
+	// return source + "|" + group + "|" + value; //$NON-NLS-2$
+	// }
 
 	private String concatenateFullSyn(Property synProp) {
-		String source = ""; //$NON-NLS-1$
-		String group = ""; //$NON-NLS-1$
-		String value = ""; //$NON-NLS-1$
+		String source = "";
+		String group = "";
+		String value = "";
 
 		final Vector<Qualifier> quals = synProp.getQualifiers();
 		for (final Qualifier qual : quals) {
-			if (qual.getName().equals(Messages.getString("ProtegeKBQA.Term_Source"))) { //$NON-NLS-1$
+			if (qual.getName().equals(messages.getString("ProtegeKBQA.Term_Source"))) {
 				source = qual.getValue();
-			} else if (qual.getName().equals(Messages.getString("ProtegeKBQA.Term_Group"))) { //$NON-NLS-1$
+			} else if (qual.getName().equals(messages.getString("ProtegeKBQA.Term_Group"))) {
 				group = qual.getValue();
 			}
 
@@ -1269,7 +1219,7 @@ public class ProtegeKBQA {
 
 		}
 
-		return source + "|" + group + "|" + value; //$NON-NLS-1$ //$NON-NLS-2$
+		return source + "|" + group + "|" + value; //$NON-NLS-2$
 	}
 
 	/**
@@ -1279,6 +1229,13 @@ public class ProtegeKBQA {
 
 		// Retired concepts should not be considered for QA
 		// qaRetiredConcepts();
+		boolean metricsGood = checkMetrics();
+		if (!metricsGood) {
+			System.out.println("Metrics Failed");
+			pw.println("Metrics failed");
+			pw.close();
+			System.exit(0);
+		}
 
 		// This will loop through the classes, writing the findings to a set of
 		// global HashMaps or Vectors. At the end, will write out the results to
@@ -1325,210 +1282,216 @@ public class ProtegeKBQA {
 		this.pw.close();
 	}
 
+	private boolean checkMetrics() {
+
+		// check axiom count
+		if (ontology.getAxiomCount() == 0) {
+			return false;
+		}
+		if (ontology.getAxiomCount() < 2000000 || ontology.getAxiomCount() > 3000000) {
+			return false;
+		}
+		if (ontology.getGciCount() == 0) {
+			return false;
+		}
+		if (ontology.getMultiInheritanceCount() == 0) {
+			return false;
+		}
+		if (ontology.getDLExpressivity() == null) {
+			return false;
+		}
+		if (!ontology.getDLExpressivity().equals("SH")) {
+			return false;
+		}
+
+		if (ontology.getRootConceptCodes().size() != 22) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean assessResults() {
+		boolean QApassed = false;
+
+		return QApassed;
+	}
+
 	/**
 	 * Prints the report.
 	 */
 	@SuppressWarnings({ "rawtypes" })
 	private void printReport() {
 
-		this.pw.println("Replaced high bit characters: " //$NON-NLS-1$
-		        + this.replacedHighBitCharacters.size());
+		this.pw.println("Replaced high bit characters: " + this.replacedHighBitCharacters.size());
 		List sortedReturn = sortHashMapByKey(this.replacedHighBitCharacters);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
-		
+
 		this.pw.println();
-		this.pw.println("Property values containing an incorrect Semantic_Type: " //$NON-NLS-1$
-		        + this.bad_semantictypes.size());
+		this.pw.println("Property values containing an incorrect Semantic_Type: " + this.bad_semantictypes.size());
 		sortedReturn = sortHashMapByKey(this.bad_semantictypes);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with no Semantic_Type property: " //$NON-NLS-1$
-		        + this.no_ST.size());
+		this.pw.println("Concepts with no Semantic_Type property: " + this.no_ST.size());
 		sortedReturn = sortHashMapByKey(this.no_ST);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Retired Concepts with bad Concept_Status: " //$NON-NLS-1$
-		        + this.badCS.size());
+		this.pw.println("Retired Concepts with bad Concept_Status: " + this.badCS.size());
 		sortedReturn = sortHashMapByKey(this.badCS);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Active concepts with retired Concept_Status: " //$NON-NLS-1$
-		        + this.badCS_active.size());
+		this.pw.println("Active concepts with retired Concept_Status: " + this.badCS_active.size());
 		sortedReturn = sortHashMapByKey(this.badCS_active);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with duplicate roles within: " //$NON-NLS-1$
-		        + this.duplicate_role.size());
+		this.pw.println("Concepts with duplicate roles within: " + this.duplicate_role.size());
 		sortedReturn = sortHashMapByKey(this.duplicate_role);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with duplicate properties within: " //$NON-NLS-1$
-		        + this.duplicate_property.size());
+		this.pw.println("Concepts with duplicate properties within: " + this.duplicate_property.size());
 		sortedReturn = sortHashMapByKey(this.duplicate_property);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with multiple NCI|PT FULL-SYN properties: " //$NON-NLS-1$
-		        + this.multiple_PT.size());
+		this.pw.println("Concepts with multiple NCI|PT FULL-SYN properties: " + this.multiple_PT.size());
 		sortedReturn = sortHashMapByKey(this.multiple_PT);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with quotes around entire definition: " //$NON-NLS-1$
-		        + this.quoted_DEF.size());
+		this.pw.println("Concepts with quotes around entire definition: " + this.quoted_DEF.size());
 		sortedReturn = sortHashMapByKey(this.quoted_DEF);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with no Preferred_Name property: " //$NON-NLS-1$
-		        + this.no_PN.size());
+		this.pw.println("Concepts with no Preferred_Name property: " + this.no_PN.size());
 		sortedReturn = sortHashMapByKey(this.no_PN);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with multiple Preferred_Name properties: " //$NON-NLS-1$
-		        + this.multiple_PN.size());
+		this.pw.println("Concepts with multiple Preferred_Name properties: " + this.multiple_PN.size());
 		sortedReturn = sortHashMapByKey(this.multiple_PN);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts where the NCI|PT and Preferred_Name don't match: " //$NON-NLS-1$
-		        + this.nomatch_pnpt.size());
+		this.pw.println("Concepts where the NCI|PT and Preferred_Name don't match: " + this.nomatch_pnpt.size());
 		sortedReturn = sortHashMapByKey(this.nomatch_pnpt);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
-		
 
 		this.pw.println();
-		this.pw.println("Possible instances of Preferred_Name / Last property bug: " //$NON-NLS-1$
-		        + this.PNbug.size());
+		this.pw.println("Possible instances of Preferred_Name / Last property bug: " + this.PNbug.size());
 		sortedReturn = sortHashMapByKey(this.PNbug);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
-		
 
 		this.pw.println();
-		this.pw.println("Concepts with no NCT|PT FULL-SYN property (Excludes HD, AQ and CTRM concepts): " //$NON-NLS-1$
-		        + this.no_PT.size());
+		this.pw.println(
+				"Concepts with no NCT|PT FULL-SYN property (Excludes HD, AQ and CTRM concepts): " + this.no_PT.size());
 		sortedReturn = sortHashMapByKey(this.no_PT);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Empty properties and qualifiers:" //$NON-NLS-1$
-		        + this.emptyValue.size());
+		this.pw.println("Empty properties and qualifiers:" + this.emptyValue.size());
 		sortedReturn = sortHashMapByKey(this.emptyValue);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
-		
+
 		this.pw.println();
-		this.pw.println("High bit characters: " + this.highBitCharacters.size()); //$NON-NLS-1$
+		this.pw.println("High bit characters: " + this.highBitCharacters.size());
 		sortedReturn = sortHashMapByKey(this.highBitCharacters);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Property values containing character @: " //$NON-NLS-1$
-		        + this.badchar_at.size());
+		this.pw.println("Property values containing character @: " + this.badchar_at.size());
 		sortedReturn = sortHashMapByKey(this.badchar_at);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Property values containing character \\n : " //$NON-NLS-1$
-		        + this.badchar_newline.size());
+		this.pw.println("Property values containing character \\n : " + this.badchar_newline.size());
 		sortedReturn = sortHashMapByKey(this.badchar_newline);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Property values containing character | : " //$NON-NLS-1$
-		        + this.badchar_pipe.size());
+		this.pw.println("Property values containing character | : " + this.badchar_pipe.size());
 		sortedReturn = sortHashMapByKey(this.badchar_pipe);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Property values containing \\t : " //$NON-NLS-1$
-		        + this.badchar_tab.size());
+		this.pw.println("Property values containing \\t : " + this.badchar_tab.size());
 		sortedReturn = sortHashMapByKey(this.badchar_tab);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
-
 		this.pw.println();
-		this.pw.println("Concepts where the FDA_UNII_Code or FDA PT are missing for UNII Concepts: " //$NON-NLS-1$
-		        + this.missingUNII.size());
+		this.pw.println(
+				"Concepts where the FDA_UNII_Code or FDA PT are missing for UNII Concepts: " + this.missingUNII.size());
 		sortedReturn = sortHashMapByKey(this.missingUNII);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("Concepts with an LLT FULL_SYN that is not MedDRA: " //$NON-NLS-1$
-		        + this.lltNotMedDRA.size());
+		this.pw.println("Concepts with an LLT FULL_SYN that is not MedDRA: " + this.lltNotMedDRA.size());
 		sortedReturn = sortHashMapByKey(this.lltNotMedDRA);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
-
-
-
 		this.pw.println();
-		this.pw.println("Concepts with multiple DEFINITION properties: " //$NON-NLS-1$
-		        + this.multiple_DEF.size());
+		this.pw.println("Concepts with multiple DEFINITION properties: " + this.multiple_DEF.size());
 		sortedReturn = sortHashMapByKey(this.multiple_DEF);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
-
 		this.pw.println();
-		this.pw.println("Def_Curator concepts without proper Definition_Review_Name: " //$NON-NLS-1$
-		        + this.no_DefReview.size());
+		this.pw.println("Def_Curator concepts without proper Definition_Review_Name: " + this.no_DefReview.size());
 		sortedReturn = sortHashMapByKey(this.no_DefReview);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
-		
 		this.pw.println();
 		this.pw.println("NCI-DEFCURATOR sources Definitions without proper Definition_Reviewer_Name: "
 				+ this.no_DefCurator.size());
@@ -1536,15 +1499,17 @@ public class ProtegeKBQA {
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
-		
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("*  Concepts with multiple Semantic_Type properties: " //$NON-NLS-1$
-		        + this.multiple_ST.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("*  Concepts with multiple Semantic_Type properties: " + this.multiple_ST.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 
 		sortedReturn = sortHashMapByKey(this.multiple_ST);
 		for (final Object o : sortedReturn) {
@@ -1552,37 +1517,45 @@ public class ProtegeKBQA {
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("Preferred Names duplicated between concepts: " //$NON-NLS-1$
-		        + this.duplicate_pn.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("Preferred Names duplicated between concepts: " + this.duplicate_pn.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.duplicate_pn);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("NCI|PT duplicated between concepts: " //$NON-NLS-1$
-		        + this.duplicate_pt.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("NCI|PT duplicated between concepts: " + this.duplicate_pt.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.duplicate_pt);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
-
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("Contributing source concepts without proper ALT_DEFINITION: " //$NON-NLS-1$
-		        + this.no_alt_def.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("Contributing source concepts without proper ALT_DEFINITION: " + this.no_alt_def.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.altDefSourceCount);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
@@ -1593,48 +1566,61 @@ public class ProtegeKBQA {
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("Contributing sources with no matching FULL_SYN: " //$NON-NLS-1$
-		        + this.no_SynForContributingSource.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("Contributing sources with no matching FULL_SYN: " + this.no_SynForContributingSource.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.no_SynForContributingSource);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("FULL_SYNs with no matching contributing source: " //$NON-NLS-1$
-		        + this.no_ContributingSourceForSyn.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("FULL_SYNs with no matching contributing source: " + this.no_ContributingSourceForSyn.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.no_ContributingSourceForSyn);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("Antiquated, Header or CTRM concepts with no NCT|PT FULL-SYN property : " //$NON-NLS-1$
-		        + this.antiquated_noPT.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("Antiquated, Header or CTRM concepts with no NCT|PT FULL-SYN property : "
+				+ this.antiquated_noPT.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByKey(this.antiquated_noPT);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
 		}
 
 		this.pw.println();
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("Concepts with no DEFINITION property, sorted by Semantic Type: " //$NON-NLS-1$
-		        + this.no_DEF.size());
-		this.pw.println("*                                                                                                      *"); //$NON-NLS-1$
-		this.pw.println("********************************************************************************************************"); //$NON-NLS-1$
+		this.pw.println(
+				"********************************************************************************************************");
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println("Concepts with no DEFINITION property, sorted by Semantic Type: " + this.no_DEF.size());
+		this.pw.println(
+				"*                                                                                                      *");
+		this.pw.println(
+				"********************************************************************************************************");
 		sortedReturn = sortHashMapByValue(this.no_DEF);
 		for (final Object o : sortedReturn) {
 			this.pw.println(o.toString());
@@ -1666,8 +1652,7 @@ public class ProtegeKBQA {
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			// Closing the streams
 			try {
 				buff.close();
@@ -1690,15 +1675,14 @@ public class ProtegeKBQA {
 		try {
 			// configFile = new FileReader(filename);
 			// buff = new BufferedReader(configFile);
-			buff = new BufferedReader(new InputStreamReader(
-			        new FileInputStream(filename),
-			        StandardCharsets.UTF_8.name()));
+			buff = new BufferedReader(
+					new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8.name()));
 			boolean eof = false;
 			while (!eof) {
 				final String line = buff.readLine();
 				if (line == null) {
 					eof = true;
-				} else if (!line.startsWith("#")) { //$NON-NLS-1$
+				} else if (!line.startsWith("#")) {
 					UnicodeConverter uc = new UnicodeConverter(line);
 					symbolMap.put(uc.getUnicodeChar(), uc);
 					v.add(line);
@@ -1706,8 +1690,7 @@ public class ProtegeKBQA {
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			// Closing the streams
 			try {
 				buff.close();
@@ -1748,7 +1731,7 @@ public class ProtegeKBQA {
 		// This messes up the attempt to compare preferred_name with
 		// the Full-Syn. This method replaces &amp; with the &
 		// Broken into separate methods for ease of reuse.
-		final String ret = s.replace("&amp;", "&"); //$NON-NLS-1$ //$NON-NLS-2$
+		final String ret = s.replace("&amp;", "&"); //$NON-NLS-2$
 		return ret;
 	}
 
@@ -1769,7 +1752,7 @@ public class ProtegeKBQA {
 		// be fixed.
 		// URI branchToDelete = createURI("Retired_Kind");
 
-//		final URI branchToDelete = createURI(this.retiredBranch);
+		// final URI branchToDelete = createURI(this.retiredBranch);
 		this.ontology.setDeprecatedBranch(this.retiredBranch);
 		checkRetiredConceptStatus(this.retiredBranch);
 		removeBranch(this.retiredBranch);
@@ -1784,28 +1767,23 @@ public class ProtegeKBQA {
 	private void checkRetiredConceptStatus(URI classURI) {
 		final Vector<ConceptProxy> retiredBranchClasses = new Vector<ConceptProxy>();
 
-		final ConceptProxy retiredRoot = this.ontology
-		        .getConcept(this.retiredBranch);
+		final ConceptProxy retiredRoot = this.ontology.getConcept(this.retiredBranch);
 		retiredBranchClasses.add(retiredRoot);
-		final Vector<URI> retiredConceptCodes = retiredRoot
-		        .getAllDescendantCodes();
+		final Vector<URI> retiredConceptCodes = retiredRoot.getAllDescendantCodes();
 		if (retiredConceptCodes != null) {
 			for (final URI code : retiredConceptCodes) {
 				final ConceptProxy concept = this.ontology.getConcept(code);
 				retiredBranchClasses.add(concept);
-				final Vector<Property> v = concept
-				        .getProperties("Concept_Status"); //$NON-NLS-1$
+				final Vector<Property> v = concept.getProperties("Concept_Status");
 				if (v == null || v.size() == 0) {
-					this.badCS.put(code.getFragment(), "no Concept Status"); //$NON-NLS-1$
+					this.badCS.put(code.getFragment(), "no Concept Status");
 				} else if (v.size() > 1) {
 					if (!isRetiredInSet(v)) {
-						this.badCS.put(code.getFragment(),
-						        "Multiple Concept Status, no Retired Status"); //$NON-NLS-1$
+						this.badCS.put(code.getFragment(), "Multiple Concept Status, no Retired Status");
 					}
 
-				} else if (!v.get(0).getValue().equals("Retired_Concept")) { //$NON-NLS-1$
-					this.badCS.put(code.getFragment(), "Concept Status = " //$NON-NLS-1$
-					        + v.get(0).getValue());
+				} else if (!v.get(0).getValue().equals("Retired_Concept")) {
+					this.badCS.put(code.getFragment(), "Concept Status = " + v.get(0).getValue());
 				}
 			}
 		}
@@ -1814,12 +1792,10 @@ public class ProtegeKBQA {
 			final ConceptProxy activeConcept = this.ontology.getConcept(code);
 			final boolean retired = this.ontology.isDeprecated(code);
 			if (!retired) {
-				final Vector<Property> v = activeConcept
-				        .getProperties("Concept_Status"); //$NON-NLS-1$
+				final Vector<Property> v = activeConcept.getProperties("Concept_Status");
 				for (final Property prop : v) {
-					if (prop.getValue().equals("Retired_Concept")) { //$NON-NLS-1$
-						this.badCS_active.put(code.getFragment(),
-						        "Active marked Retired_Concept"); //$NON-NLS-1$
+					if (prop.getValue().equals("Retired_Concept")) {
+						this.badCS_active.put(code.getFragment(), "Active marked Retired_Concept");
 					}
 				}
 			}
@@ -1837,7 +1813,7 @@ public class ProtegeKBQA {
 	private boolean isRetiredInSet(Vector<Property> statusSet) {
 		boolean isRetired = false;
 		for (final Property status : statusSet) {
-			if (status.getValue().equals("Retired_Concept")) { //$NON-NLS-1$
+			if (status.getValue().equals("Retired_Concept")) {
 				isRetired = true;
 			}
 		}
@@ -1877,13 +1853,11 @@ public class ProtegeKBQA {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	List sortHashMapByKey(HashMap hm) {
 		// Get a list of the entries in the map
-		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(
-		        hm.entrySet());
+		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(hm.entrySet());
 
 		final Comparator byValue = new Comparator<Map.Entry<String, String>>() {
 			@Override
-			public int compare(Map.Entry<String, String> entry,
-			        Map.Entry<String, String> entry1) {
+			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
 				// Return 0 for a match, -1 for less than and +1 for more then
 				return (entry.getValue().compareTo(entry1.getValue()));
 			}
@@ -1891,15 +1865,13 @@ public class ProtegeKBQA {
 
 		final Comparator byKey = new Comparator<Map.Entry<String, String>>() {
 			@Override
-			public int compare(Map.Entry<String, String> entry,
-			        Map.Entry<String, String> entry1) {
+			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
 				// Return 0 for a match, -1 for less than and +1 for more then
 				return (entry.getKey().compareTo(entry1.getKey()));
 			}
 		};
 
-		java.util.Collections.sort(list,
-		        new CompositeComparator(byKey, byValue));
+		java.util.Collections.sort(list, new CompositeComparator(byKey, byValue));
 
 		return list;
 
@@ -1915,13 +1887,11 @@ public class ProtegeKBQA {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	List sortHashMapByValue(HashMap hm) {
 		// Get a list of the entries in the map
-		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(
-		        hm.entrySet());
+		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(hm.entrySet());
 
 		final Comparator byValue = new Comparator<Map.Entry<String, String>>() {
 			@Override
-			public int compare(Map.Entry<String, String> entry,
-			        Map.Entry<String, String> entry1) {
+			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
 				// Return 0 for a match, -1 for less than and +1 for more then
 				if (entry.getValue() == null) {
 					return -1;
@@ -1935,8 +1905,7 @@ public class ProtegeKBQA {
 
 		final Comparator byKey = new Comparator<Map.Entry<String, String>>() {
 			@Override
-			public int compare(Map.Entry<String, String> entry,
-			        Map.Entry<String, String> entry1) {
+			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
 				// Return 0 for a match, -1 for less than and +1 for more then
 				return (entry.getKey().compareTo(entry1.getKey()));
 			}
@@ -1945,8 +1914,7 @@ public class ProtegeKBQA {
 		// Sort the list using an annonymous inner class implementing Comparator
 		// for the compare method
 
-		java.util.Collections.sort(list,
-		        new CompositeComparator(byValue, byKey));
+		java.util.Collections.sort(list, new CompositeComparator(byValue, byKey));
 
 		return list;
 
@@ -1977,19 +1945,20 @@ public class ProtegeKBQA {
 	 */
 	private String XML2Pipe(String pattern) {
 		// string pattern =
-		// "<term-name>Basal Transcription Factor</term-name><term-group>PT</term-group><term-source>NCI</term-source>";
+		// "<term-name>Basal Transcription
+		// Factor</term-name><term-group>PT</term-group><term-source>NCI</term-source>";
 
 		// <ncicp:ComplexTerm><ncicp:term-name>Third</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm>
 
 		// Find the first ">"
-		int n = pattern.indexOf(">"); //$NON-NLS-1$
-		String retstr = ""; //$NON-NLS-1$
+		int n = pattern.indexOf(">");
+		String retstr = "";
 		int lcv = 0;
 		while (n != -1) {
 			String tag = pattern.substring(0, n + 1);
 			pattern = pattern.substring(n + 1, pattern.length());
 			// Find the first "<" after the first ">"
-			n = pattern.indexOf("<"); //$NON-NLS-1$
+			n = pattern.indexOf("<");
 			if (n == -1) {
 				break;
 			}
@@ -2000,13 +1969,13 @@ public class ProtegeKBQA {
 			// Check to see if any value was actually returned
 			if (value.length() > 0) {
 				retstr = retstr + value;
-				retstr = retstr + "|"; //$NON-NLS-1$
+				retstr = retstr + "|";
 				lcv++;
 			}
 
 			pattern = pattern.substring(n, pattern.length());
 
-			n = pattern.indexOf(">"); //$NON-NLS-1$
+			n = pattern.indexOf(">");
 			if (n == -1) {
 				break;
 			}
@@ -2026,36 +1995,36 @@ public class ProtegeKBQA {
 	private void checkPreferredNameBug(ConceptProxy c) {
 		// checks to see if there are any properties that exactly match the
 		// preferred name.
-		final String propertyName = Messages.getString("ProtegeKBQA.PreferredName"); //$NON-NLS-1$
+		final String propertyName = messages.getString("ProtegeKBQA.PreferredName");
 		final String code = c.getCode();
 		Property propPreferredName = c.getProperty(propertyName);
-		if(propPreferredName!=null){
-		final String preferredName = c.getProperty(propertyName).getValue();
-		final Vector<Property> properties = c.getProperties();
-		for (final Property prop : properties) {
-			if (prop.getValue().equals(preferredName)) {
-				if (!prop.getCode().equals(Messages.getString("ProtegeKBQA.PreferredName")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.FULL_SYN")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.rdfs_Label")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.Legacy_Name")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.Display_Name")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.Has_Salt_Form")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.NICHD_Hierarchy_Term")) //$NON-NLS-1$
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.Semantic_Type"))
-				        && !prop.getCode().equals(Messages.getString("ProtegeKBQA.Maps_To"))) { //$NON-NLS-1$
-					this.PNbug
-					        .put(code, prop.getCode() + " " + prop.getValue()); //$NON-NLS-1$
-				} else if (prop.getCode().equals(Messages.getString("ProtegeKBQA.Semantic_Type"))) { //$NON-NLS-1$
-					// check to see if it is a legitimate semantic type. If not,
-					// report
-					if (!this.stys.contains(prop.getValue())) {
-						this.PNbug.put(code,
-						        prop.getCode() + " " + prop.getValue()); //$NON-NLS-1$
+		if (propPreferredName != null) {
+			final String preferredName = c.getProperty(propertyName).getValue();
+			final Vector<Property> properties = c.getProperties();
+			for (final Property prop : properties) {
+				if (prop.getValue().equals(preferredName)) {
+					if (!prop.getCode().equals(messages.getString("ProtegeKBQA.PreferredName"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.FULL_SYN"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.rdfs_Label"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Legacy_Name"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Display_Name"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Has_Salt_Form"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.NICHD_Hierarchy_Term"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Semantic_Type"))
+							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Maps_To"))) {
+						this.PNbug.put(code, prop.getCode() + " " + prop.getValue());
+					} else if (prop.getCode().equals(messages.getString("ProtegeKBQA.Semantic_Type"))) {
+						// check to see if it is a legitimate semantic type. If
+						// not,
+						// report
+						if (!this.stys.contains(prop.getValue())) {
+							this.PNbug.put(code, prop.getCode() + " " + prop.getValue());
+						}
 					}
 				}
 			}
-		}} else {
-			System.out.println("Preferred Name bug not checked on "+ code);
+		} else {
+			System.out.println("Preferred Name bug not checked on " + code);
 		}
 	}
 
@@ -2070,8 +2039,7 @@ public class ProtegeKBQA {
 			if (qualifiers != null) {
 				for (final Qualifier qual : qualifiers) {
 					if (qual.getValue().length() == 0) {
-						this.emptyValue.put(code,
-						        prop.getCode() + " " + qual.getName()); //$NON-NLS-1$
+						this.emptyValue.put(code, prop.getCode() + " " + qual.getName());
 					}
 				}
 			}
@@ -2080,54 +2048,58 @@ public class ProtegeKBQA {
 
 	private void checkMedDRA_LLT(ConceptProxy cls) {
 		// This will check that all LLT full-syns have a MedDRA source.
-		final Vector<Property> fullsyns = cls.getProperties(Messages.getString("ProtegeKBQA.FULL_SYN")); //$NON-NLS-1$
+		final Vector<Property> fullsyns = cls.getProperties(messages.getString("ProtegeKBQA.FULL_SYN"));
 		for (final Property syn : fullsyns) {
-			if(getQualifierValue(syn, Messages.getString("ProtegeKBQA.Term_Group")).equals("LLT") &&
-					!(getQualifierValue(syn,Messages.getString("protegeKBQA.Term_Source")).equals("MedDRA"))){
+			if (getQualifierValue(syn, messages.getString("ProtegeKBQA.Term_Group")).equals("LLT")
+					&& !(getQualifierValue(syn, messages.getString("protegeKBQA.Term_Source")).equals("MedDRA"))) {
 				lltNotMedDRA.put(cls.getCode(), syn.getValue());
-			
-			
-//			if (syn.getValue().contains(
-//			        "<ncicp:term-group>LLT</ncicp:term-group>")) { //$NON-NLS-1$
-//				if (syn.getValue().contains(
-//				        "<ncicp:term-source>MedDRA</ncicp:term-source>")) { //$NON-NLS-1$
-//					// is MedDRA
-//
-//				} else {
-//					lltNotMedDRA.put(cls.getCode(), syn.getValue());
-//				}
-//			} else if (syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Group")) != null) { //$NON-NLS-1$
-//				if (syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Group")).getValue().equals(Messages.getString("ProtegeKBQA.LLT"))) { //$NON-NLS-1$ //$NON-NLS-2$
-//					if (syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")).getValue() //$NON-NLS-1$
-//					        .equals("MedDRA")) { //$NON-NLS-1$
-//						// isMedDRA
-//					} else {
-//						lltNotMedDRA.put(
-//						        cls.getCode(),
-//						        syn.getQualifier(Messages.getString("ProtegeKBQA.Term_Source")) + " " //$NON-NLS-1$ //$NON-NLS-2$
-//						                + syn.getValue());
-//					}
-//				}
+
+				// if (syn.getValue().contains(
+				// "<ncicp:term-group>LLT</ncicp:term-group>")) {
+				// if (syn.getValue().contains(
+				// "<ncicp:term-source>MedDRA</ncicp:term-source>")) {
+				// // is MedDRA
+				//
+				// } else {
+				// lltNotMedDRA.put(cls.getCode(), syn.getValue());
+				// }
+				// } else if
+				// (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Group"))
+				// != null) {
+				// if
+				// (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Group")).getValue().equals(messages.getString("ProtegeKBQA.LLT")))
+				// { //$NON-NLS-2$
+				// if
+				// (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).getValue()
+				// .equals("MedDRA")) {
+				// // isMedDRA
+				// } else {
+				// lltNotMedDRA.put(
+				// cls.getCode(),
+				// syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source"))
+				// + " " //$NON-NLS-2$
+				// + syn.getValue());
+				// }
+				// }
 			}
 		}
 	}
-	
+
 	private void checkDefCurator(ConceptProxy cls) {
-		//TODO Externalize strings. 
+		// TODO Externalize strings.
 		Vector<Property> defs = cls.getProperties("P97");
-		for( Property def : defs ) {
+		for (Property def : defs) {
 			Vector<Qualifier> quals = def.getQualifiers();
 			boolean hasDefCurator = false;
 			String editor = null;
-			for( Qualifier qual : quals ) {
-				if( qual.getName().equals("Definition Source") && qual.getValue().equals("NCI-DEFCURATOR") ) {
+			for (Qualifier qual : quals) {
+				if (qual.getName().equals("Definition Source") && qual.getValue().equals("NCI-DEFCURATOR")) {
 					hasDefCurator = true;
-				}
-				else if( qual.getName().equals("Definition_Reviewer_Name") ) {
+				} else if (qual.getName().equals("Definition_Reviewer_Name")) {
 					editor = qual.getValue();
 				}
 			}
-			if( hasDefCurator && !drugEditors.contains(editor) ) {
+			if (hasDefCurator && !drugEditors.contains(editor)) {
 				no_DefCurator.put(cls.getCode(), editor);
 			}
 		}
