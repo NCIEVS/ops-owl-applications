@@ -1,6 +1,7 @@
 package gov.nih.nci.evs.hgnc;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.Vector;
@@ -18,7 +19,10 @@ public class HgncConcept {
 	HashMap<String, String> properties = new HashMap<String, String>();
 	HashMap<String, String> simpleProperties = new HashMap<String, String>();
 	HashMap<String, String> specialistDatabaseIds = new HashMap<String, String>();
+	HashSet<String> lsdb = new HashSet<String>();
 	HashMap<String, String> specialistDatabaseLinks = new HashMap<String, String>();
+	HashSet<SpecialistDatabase> lsdbs = new HashSet<SpecialistDatabase>();
+	
 
 	public HgncConcept(HashMap<String, String> propertyValueList) {
 		// Assume that HGNC ID is the identifier
@@ -29,7 +33,7 @@ public class HgncConcept {
 		separateDelimitedProperties();
 		delimitDelimitedProperties();
 		loadSimpleProperties();
-		loadSpecialistDatabase();
+//		loadSpecialistDatabase();
 		// family = tokenizedDelimitedProperties.get("Gene Family Name");
 		// if (family == null) {
 		// family = new Vector<String>();
@@ -44,6 +48,8 @@ public class HgncConcept {
 		//TODO - externalize string
 		parent = propertyValueList.get("locus_type");
 	}
+
+
 
 	private void separateDelimitedProperties() {
 		Set<String> keys = properties.keySet();
@@ -66,23 +72,19 @@ public class HgncConcept {
 			        delimiterName);
 			String value = properties.get(key);
 			if (value != null && value.length() > 0) {
-				Vector<String> delimitedString;
+				Vector<String> delimitedString= new Vector<String>();;
 				//TODO externalize string
-				if (key.contains("lsdb")) {
+//				if (key.contains("lsdb")) {
+				if(delimiterName.equals("NVP")){
 					// System.out.println(value);
-					delimitedString = new Vector<String>();
-					if (value.endsWith(delimiter)) {
-						value = value + " ";
-					}
-					String[] result = value.split(delimiter);
-					for (String element : result)
-						// System.out.println(x + " " + result[x]);
-						delimitedString.add(element.trim());
+					loadSpecialistDatabase(value);
+
 				} else {
 					Pattern p = Pattern.compile(delimiter);
 					delimitedString = HgncCsvParser.tokenizeString(value, p);
+					tokenizedDelimitedProperties.put(key, delimitedString);
 				}
-				tokenizedDelimitedProperties.put(key, delimitedString);
+				
 			}
 		}
 	}
@@ -97,6 +99,30 @@ public class HgncConcept {
 		}
 	}
 
+	private void loadSpecialistDatabase(String value){
+		String delimiter = "\\|";
+		Vector<String> delimitedString = new Vector<String>();
+		String[] result = value.split(delimiter);
+		if(result.length %2 ==0){
+			//These are name/value pairs.  If an odd number then something is wrong
+			for (int x=0;x<result.length;x++){
+				specialistDatabaseIds.put(result[x] , result[x+1]);
+				lsdb.add(result[x] + "|" + result[x+1]);
+				
+				lsdbs.add(new SpecialistDatabase(result[x],result[x+1]));
+				x++;
+			}
+		}
+		else {
+			System.out.println("Error parsing "+ value);
+		}
+//		for (String element : result)
+//			// System.out.println(x + " " + result[x]);
+//			delimitedString.add(element.trim());
+	}
+	
+	
+	
 	private void loadSpecialistDatabase() {
 		String prefix = (String) HgncToOwl.getSpecialistDatabases().get("name");
 		// System.out.println("Start LOAD: " + this.code);
@@ -183,6 +209,14 @@ public class HgncConcept {
 
 	public String getParent() {
 		return parent;
+	}	
+	
+	public HashSet<SpecialistDatabase> getSpecialistDatabase() {
+		return lsdbs;
+	}
+	
+	public HashSet<String> getLsdb(){
+		return lsdb;
 	}
 
 }
