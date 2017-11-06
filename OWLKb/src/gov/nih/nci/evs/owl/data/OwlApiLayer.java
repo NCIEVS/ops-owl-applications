@@ -2987,10 +2987,15 @@ public class OwlApiLayer {
 				return vChildren;
 			}
 			for (final OWLClassExpression child : children) {
+				if( child.asOWLClass().equals(cls) ) {
+					System.out.println(cls.toStringID() + " is a child of itself!!!");
+					return vChildren;
+				}				
 				vChildren.add(child.asOWLClass());
 			}
 			if (!directOnly) {
 				for (int i = 0; i < vChildren.size(); i++) {
+//					System.out.println(vChildren.elementAt(i).asOWLClass().toStringID());
 					final Vector<OWLClass> w = this.getSubClasses(vChildren
 					        .elementAt(i).asOWLClass(), false);
 					if (w != null) {
