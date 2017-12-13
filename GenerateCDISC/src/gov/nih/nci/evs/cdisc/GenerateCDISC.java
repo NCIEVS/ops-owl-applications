@@ -108,6 +108,10 @@ public class GenerateCDISC {
 		HashMap<String,ArrayList<String>> codelist2Elements = new HashMap<String,ArrayList<String>>();
 		Vector<URI> codelistConcepts = kb.getAllDescendantsForConcept(rootURI);
 		
+		//Glossary has no children
+		if(codelistConcepts.size()==0){
+			codelistConcepts.add(rootURI);
+		}
 		codelistConcepts.remove("Nothing");
 		
 		for(URI codelistConcept : codelistConcepts ) {
@@ -138,6 +142,12 @@ public class GenerateCDISC {
 					//Per Erin: codelist submission value cannot be more than 8 characters in length
 					if( checkShortNameLength && termName.length() > 8 ) {
 						System.out.println("Warning: Codelist Submission Value (CDISC PT) over 8 characters - " + codelistConcept + " (" + termName + ")");
+					}
+					if( !cdiscsy2Codelist.containsKey(termName) ) {
+						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
+					}
+					else {
+						System.out.println("There was an issue adding synonym " + termName);
 					}
 				}
 				if( termSource.equals("CDISC") && termGroup.equals("SY") ) {
@@ -173,11 +183,6 @@ public class GenerateCDISC {
 						foundDef = true;
 					}
 				}
-//				if( altDef.contains("<ncicp:def-source>CDISC</ncicp:def-source>") ) {
-//					String cdiscDef = getQualVal(altDef, "ncicp:def-definition");
-//					codelist2Def.put(codelistConcept, cdiscDef);
-//					foundDef = true;
-//				}
 			}
 			if( !foundDef ) {
 				System.out.println("No CDISC Definition!\n\tCodelist concept: " + codelistConcept);
@@ -186,35 +191,11 @@ public class GenerateCDISC {
 			codelist2Code.put(codelistConcept.getFragment(), kb.getConcept(codelistConcept).getCode());
 			
 
-			
-//			pw.print(codelist2Code.get(codelistConcept) + "\t");
-//			pw.print("" + "\t");
-//			pw.print(codelist2Extensible.get(codelistConcept) + "\t");
-//			pw.print(codelist2CDISCSY.get(codelistConcept) + "\t");
-//			pw.print(codelist2CDISCPT.get(codelistConcept) + "\t");
-//			pw.print(codelist2CDISCSY.get(codelistConcept) + "\t");
-//			pw.print(codelist2Def.get(codelistConcept) + "\t");
-//			pw.print(codelist2NCIPT.get(codelistConcept) + "\n");	
 		}
 		
 		System.out.println("Done phase 1");
 
-//		URI testURI = null;
-//		try {
-//			testURI = new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C100000");
-//		} catch (URISyntaxException e2) {
-//			// TODO Auto-generated catch block
-//			e2.printStackTrace();
-//		}
-//		Vector<Association> assocs1 = kb.getAssociationsForSource(testURI);
-//		if( assocs1.size() > 0 ) {
-//			for( Association assoc1 : assocs1 ) {
-//				System.out.println(assoc1.getName() + " " + assoc1.getRelAndTarget() );
-//			}
-//		}
-//		else {
-//			System.out.println("No associations for " + testURI.getFragment());
-//		}
+
 		
 		HashMap<URI,ConceptProxy> concepts =  kb.getAllConcepts();
 		int m = 0;
@@ -223,33 +204,15 @@ public class GenerateCDISC {
 			if( m % 100 == 0 ) {
 //				System.out.println(m + " processed");
 			}
+			try{
 			Vector<Association> assocs = kb.getAssociationsForSource(concept);
+			
+			if(concept.toString().equals("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C94618")){
+				String debug = "Stop here";
+			}
+
 			for(Relationship assoc : assocs ) {
-//				if( assoc.toString().contains("Concept_In_Subset") ) {
-//
-//					
-//					
-//					String[] vals = assoc.toString().split(" ");
-//					if( vals.length == 3 ) {
-//						String codelistId = vals[2];
-//						String element = vals[0];
-//						if( codelistConcepts.contains(codelistId) ) {
-//							if( codelist2Elements.containsKey(codelistId) ) {
-//								ArrayList<String> tmp = codelist2Elements.get(codelistId);
-//								if( !tmp.contains(element) ) {
-//									tmp.add(element);
-//								}
-//								codelist2Elements.put(codelistId, tmp);
-//							}
-//							else {
-//								ArrayList<String> tmp = new ArrayList<String>();
-//								tmp.add(element);
-//								codelist2Elements.put(codelistId, tmp);
-//							}
-//						}
-//					}
-//				} 
-//				String name = assoc.getName();
+
 				if (assoc.getName().equals("Concept_In_Subset")) {
 					String element = assoc.getSource().getCode();
 					String codelistId = assoc.getTarget().getCode();
@@ -268,38 +231,16 @@ public class GenerateCDISC {
 							codelist2Elements.put(codelistId, tmp);
 						}
 					}
-				}
+				}			
+			}} catch (Exception e){
+				System.out.println("Error in "+ concept.toString());
+				e.printStackTrace();
 			}
 		}
 		
 		System.out.println("Done phase 2");
 
 		
-//		HSSFWorkbook wb = new HSSFWorkbook();		
-//		String sheetName = root;
-//		Sheet sheet = wb.createSheet(sheetName);
-//		Row r = null;
-//		Cell c = null;
-//		HSSFCellStyle cs = wb.createCellStyle();
-//		HSSFCellStyle cs2 = wb.createCellStyle();
-//		HSSFCellStyle cs3 = wb.createCellStyle();
-//		Font f = wb.createFont();
-//		Font f2 = wb.createFont();
-//		Font f3 = wb.createFont();
-//		f.setFontHeightInPoints((short) 10);
-//		f2.setFontHeightInPoints((short) 10);
-//		f3.setBoldweight(Font.BOLDWEIGHT_BOLD);
-//		f3.setFontHeightInPoints((short) 10);		
-//		cs.setFont(f);
-//		cs2.setFont(f2);
-//		cs3.setFont(f3);
-//		cs2.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-//		cs2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);	
-//		cs3.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
-//		cs3.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-//		int rownum = 0;
-//		int cellnum = 0;
-//		r = sheet.createRow(rownum);
 		
 		String[] header = { "Code", "Codelist Code", "Codelist Extensible (Yes/No)", "Codelist Name", "CDISC Submission Value", "CDISC Synonym(s)", "CDISC Definition", "NCI Preferred Term"};
 		for( int i = 0; i < header.length; i++ ) {
@@ -312,41 +253,7 @@ public class GenerateCDISC {
 		
 		for( String codelistName : cdiscsy2Codelist.keySet() ) {
 			String codelistConcept = cdiscsy2Codelist.get(codelistName);
-			
-//			cellnum = 0;
-//			r = sheet.createRow(++rownum);
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2Code.get(codelistConcept));
-//			c.setCellStyle(cs2);
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue("");
-//			c.setCellStyle(cs2);
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2Extensible.get(codelistConcept));
-//			c.setCellStyle(cs2);	
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2CDISCSY.get(codelistConcept));
-//			c.setCellStyle(cs2);
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2CDISCPT.get(codelistConcept));
-//			c.setCellStyle(cs2);
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2CDISCSY.get(codelistConcept));
-//			c.setCellStyle(cs2);	
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2Def.get(codelistConcept));
-//			c.setCellStyle(cs2);			
-//			
-//			c = r.createCell(cellnum++);
-//			c.setCellValue(codelist2NCIPT.get(codelistConcept));
-//			c.setCellStyle(cs2);			
+					
 			
 			pw.print(codelist2Code.get(codelistConcept) + "\t");
 			pw.print("" + "\t");
@@ -410,10 +317,10 @@ public class GenerateCDISC {
 							termGroup = qual.getValue();
 						}
 					}
-					if( termSource.equals("CDISC") && termGroup.equals("PT") ) {
+					if( (termSource.equals("CDISC")||termSource.equals("CDISC-GLOSS")) && termGroup.equals("PT") ) {
 						submissionValues.add(synonym);
 					}
-					if( termSource.equals("CDISC") && termGroup.equals("SY") ) {
+					if( (termSource.equals("CDISC")||termSource.equals("CDISC-GLOSS")) && termGroup.equals("SY") ) {
 						cdiscSynonyms.add(cdiscSy);
 					}
 				}
@@ -451,7 +358,7 @@ public class GenerateCDISC {
 				for( Property definition : definitions ) {
 					Vector<Qualifier> quals = definition.getQualifiers();
 					for( Qualifier qual : quals ) {
-						if( qual.getName().equals("Definition Source") && qual.getValue().equals("CDISC")) {
+						if( qual.getName().equals("Definition Source") && (qual.getValue().equals("CDISC"))||qual.getValue().equals("CDISC-GLOSS") ){
 							element2Definition.put(element, definition.getValue());
 						}
 					}
@@ -474,52 +381,7 @@ public class GenerateCDISC {
 					if( i + 1 < cdiscSynonyms.size() ) cellFormattedSynonyms = cellFormattedSynonyms.concat("; ");
 				}
 				
-//				cellnum = 0;
-//				r = sheet.createRow(++rownum);
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(element2Code.get(submission2Element.get(submission)));
-//				c.setCellStyle(cs);
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(element2CodelistCode.get(submission2Element.get(submission)));
-//				c.setCellStyle(cs);				
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue("");
-//				c.setCellStyle(cs);
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(codelistName);
-//				c.setCellStyle(cs);
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(submission);
-//				c.setCellStyle(cs);
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(cellFormattedSynonyms);
-//				c.setCellStyle(cs);					
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(element2Definition.get(submission2Element.get(submission)));
-//				c.setCellStyle(cs);	
-//				
-//				c = r.createCell(cellnum++);
-//				c.setCellValue(element2PreferredName.get(submission2Element.get(submission)));
-//				c.setCellStyle(cs);				
-				
-//				if( element2Code.get(submission2Element.get(submission)).equals("C74924") ) {
-//				pw.print(element2Code.get(submission2Element.get(submission)) + "\t");
-//				pw.print(element2CodelistCode.get(submission2Element.get(submission)) + "\t");
-//				pw.print("" + "\t");
-//				pw.print(codelistName + "\t");
-//				pw.print(submission + "\t");
-// 				pw.print(cellFormattedSynonyms);
-//				pw.print("\t" + element2Definition.get(submission2Element.get(submission)) + "\t");
-//				pw.print(element2PreferredName.get(submission2Element.get(submission)) + "\n");
-//				}
-//				else {
+
 					pw.print(element2Code.get(submission2Element.get(submission)) + "\t");
 					pw.print(element2CodelistCode.get(submission2Element.get(submission)) + "\t");
 					pw.print("" + "\t");
@@ -528,34 +390,12 @@ public class GenerateCDISC {
 	 				pw.print(cellFormattedSynonyms);
 					pw.print("\t" + element2Definition.get(submission2Element.get(submission)) + "\t");
 					pw.print(element2PreferredName.get(submission2Element.get(submission)) + "\n");				
-//				}
 			}
 			
-//			File fil = new File(root + ".xls");
-//			try {
-//				FileOutputStream out = new FileOutputStream(fil);
-////				for( int i=0; i < 8; i++ ) sheet.autoSizeColumn(i);
-//				wb.write(out);
-//				out.close();				
-//			} catch (IOException e) {
-//				System.err.println("Couldn't create the Excel file. (Close if it is open.)");
-//				System.exit(0);
-//			}			
+	
 			
 		}		
 
-//		for( String codelistConcept : codelistConcepts ) {
-//			System.out.println(codelistConcept);
-//			if( codelist2Elements.containsKey(codelistConcept) ) {
-//				ArrayList<String> tmp = codelist2Elements.get(codelistConcept);
-//				Collections.sort(tmp);
-//				System.out.print("\t");
-//				for( String element : tmp ) {
-//					System.out.print(element + "\t");
-//				}
-//				System.out.print("\n");
-//			}		
-//		}
 		
 		pw.close();
 		
