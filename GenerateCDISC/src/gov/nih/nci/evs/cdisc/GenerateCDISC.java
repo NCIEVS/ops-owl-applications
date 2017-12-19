@@ -29,6 +29,7 @@ public class GenerateCDISC {
 	
 	OWLKb kb = null;
 	private final String namespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
+	private static String gTermSource="CDISC";
 	boolean checkShortNameLength = true;
 	
 	/**
@@ -41,7 +42,9 @@ public class GenerateCDISC {
 		System.out.println("Initializing OWLKb...");
 		report.init(args[0]);
 		System.out.println("Generating report...");
-		
+		if (args.length==3){
+			gTermSource = args[2];
+		}
 		//TODO: Iterate over a list of reports to generate	
 		report.generate(args[1]);
 		System.out.println("Finished report in "
@@ -137,20 +140,21 @@ public class GenerateCDISC {
 				if( termSource.equals("NCI") && termGroup.equals("AB") ) {
 					codelist2NCIAB.put(codelistConcept.getFragment(), termName);
 				}
-				if( termSource.equals("CDISC") && termGroup.equals("PT") ) {
+				if( termSource.equals(gTermSource) && termGroup.equals("PT") ) {
 					codelist2CDISCPT.put(codelistConcept.getFragment(), termName);
 					//Per Erin: codelist submission value cannot be more than 8 characters in length
 					if( checkShortNameLength && termName.length() > 8 ) {
 						System.out.println("Warning: Codelist Submission Value (CDISC PT) over 8 characters - " + codelistConcept + " (" + termName + ")");
 					}
-					if( !cdiscsy2Codelist.containsKey(termName) ) {
+					//TODO come up with better logic
+					if( gTermSource.equals("CDISC-GLOSS") ) {
 						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
 					}
 					else {
 						System.out.println("There was an issue adding synonym " + termName);
 					}
 				}
-				if( termSource.equals("CDISC") && termGroup.equals("SY") ) {
+				if( termSource.equals(gTermSource) && termGroup.equals("SY") ) {
 					codelist2CDISCSY.put(codelistConcept.getFragment(), termName);
 					if( !cdiscsy2Codelist.containsKey(termName) ) {
 						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
@@ -207,9 +211,6 @@ public class GenerateCDISC {
 			try{
 			Vector<Association> assocs = kb.getAssociationsForSource(concept);
 			
-			if(concept.toString().equals("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C94618")){
-				String debug = "Stop here";
-			}
 
 			for(Relationship assoc : assocs ) {
 
@@ -317,10 +318,10 @@ public class GenerateCDISC {
 							termGroup = qual.getValue();
 						}
 					}
-					if( (termSource.equals("CDISC")||termSource.equals("CDISC-GLOSS")) && termGroup.equals("PT") ) {
+					if( (termSource.equals(gTermSource)) && termGroup.equals("PT") ) {
 						submissionValues.add(synonym);
 					}
-					if( (termSource.equals("CDISC")||termSource.equals("CDISC-GLOSS")) && termGroup.equals("SY") ) {
+					if( (termSource.equals(gTermSource)) && termGroup.equals("SY") ) {
 						cdiscSynonyms.add(cdiscSy);
 					}
 				}
@@ -358,7 +359,7 @@ public class GenerateCDISC {
 				for( Property definition : definitions ) {
 					Vector<Qualifier> quals = definition.getQualifiers();
 					for( Qualifier qual : quals ) {
-						if( qual.getName().equals("Definition Source") && (qual.getValue().equals("CDISC"))||qual.getValue().equals("CDISC-GLOSS") ){
+						if( qual.getName().equals("Definition Source") && (qual.getValue().equals(gTermSource))){
 							element2Definition.put(element, definition.getValue());
 						}
 					}
