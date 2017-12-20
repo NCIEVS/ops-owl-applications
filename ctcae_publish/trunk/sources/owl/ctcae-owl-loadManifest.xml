@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodingSchemeManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://LexGrid.org/schema/2009/01/LexOnt/CodingSchemeManifest http://LexGrid.org/schema/2009/01/LexOnt/CodingSchemeManifest.xsd" xmlns:lgNaming="http://LexGrid.org/schema/2009/01/LexGrid/naming" xmlns:owldef="http://LexGrid.org/schema/2009/01/LexOnt/CodingSchemeManifest" xmlns="http://LexGrid.org/schema/2009/01/LexOnt/CodingSchemeManifest" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#">
+		<codingScheme>CTCAE</codingScheme>
+		<entityDescription>Common Terminology Criteria for Adverse Events (CTCAE)</entityDescription>
+		<formalName>Common Terminology Criteria for Adverse Events</formalName>
+		<codingSchemeURI>http://ncicb.nci.nih.gov/xml/owl/EVS/ctcae.owl#</codingSchemeURI>
+		<defaultLanguage>en</defaultLanguage>
+		<representsVersion>4</representsVersion>
+		<localName>CTCAE</localName>
+		<owldef:mappings>
+			<lgNaming:supportedCodingScheme localId="CTCAE" uri="http://ncicb.nci.nih.gov/xml/owl/EVS/ctcae.owl#" isImported="false">CTCAE</lgNaming:supportedCodingScheme>
+		</owldef:mappings>
+		<owldef:associationDefinitions />
+</CodingSchemeManifest>

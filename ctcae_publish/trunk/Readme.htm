@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns="http://www.w3.org/TR/REC-html40" xmlns:v = 
+"urn:schemas-microsoft-com:vml" xmlns:o = 
+"urn:schemas-microsoft-com:office:office" xmlns:w = 
+"urn:schemas-microsoft-com:office:word"><HEAD><TITLE>RE: CTCAE VCDE Review Criteria</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=us-ascii">
+<META content="MSHTML 6.00.6000.16809" name=GENERATOR>
+<STYLE>@font-face {
+	font-family: MS Mincho;
+}
+@font-face {
+	font-family: @MS Mincho;
+}
+@page Section1 {size: 8.5in 11.0in; margin: 1.0in 1.25in 1.0in 1.25in; }
+P.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"
+}
+LI.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"
+}
+DIV.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"
+}
+A:link {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+SPAN.MsoHyperlink {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+SPAN.MsoHyperlinkFollowed {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+P {
+	FONT-SIZE: 12pt; MARGIN-LEFT: 0in; MARGIN-RIGHT: 0in; FONT-FAMILY: "Times New Roman"; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto
+}
+SPAN.EmailStyle18 {
+	COLOR: navy; FONT-FAMILY: Arial; mso-style-type: personal
+}
+SPAN.EmailStyle19 {
+	COLOR: navy; FONT-FAMILY: Arial; mso-style-type: personal-reply
+}
+DIV.Section1 {
+	page: Section1
+}
+</STYLE>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1" />
+ </o:shapelayout></xml><![endif]--></HEAD>
+<BODY lang=EN-US vLink=blue link=blue><B>From:</B> Johnson, Thomas 
+M.<BR><B>Sent:</B> Monday, February 23, 2009 1:52 PM<BR><B>To:</B> 'Lewis Frey'; 
+'Srivastava, Ranjana [USA]'; 'bdavis@3rdmill.com'; 'turner.stuart@gmail.com'; 
+'Hartel, Frank (NIH/NCI) [E]'; 'lwright@mail.nih.gov'; 'decorons@MAIL.NIH.GOV'; 
+'Salvatore Mungal'; 'stuart.turner@ucdmc.ucdavis.edu'; 'Riben,Michael Warren'; 
+'Keller, Michael [USA]'; 'setsera@ctep.nci.nih.gov'<BR><B>Cc:</B> Buntrock, 
+James D.; St Martin, Traci<BR><B>Subject:</B> Proposal and Prototype for CTCAE 
+v4 Publish Process<BR><BR><B>Attachments:</B> CTCAEQuickReference.pdf; 
+ctcae.quickRef.draft.zip<BR>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial><FONT 
+color=#0000ff><FONT size=2>Hi to all,</FONT></FONT></FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>In fulfillment of VCDE responsibilities, I was responsible 
+for prototyping and proposing&nbsp;a potential process for publishing CTCAE v4 
+(and future revisions).&nbsp; I have reached a point where I would like to share 
+the preliminary results.</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>To develop the process, I focused on creating an updated 
+version of the CTCAE quick reference, which is the hardcopy that I 
+received.&nbsp; Code was developed in Java to generate&nbsp;documents for 
+publication.</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>I believe the general publication process is in keeping 
+with prior discussions, and goes as follows:</FONT></SPAN></DIV>
+<UL dir=ltr>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>Develop CTCAE either in LexWIKI or OWL.&nbsp; It doesn't matter which, 
+  as long as the end result can be imported to a LexBIG/EVS repository.&nbsp; 
+  There are also certain properties expected by the document generation code 
+  (e.g. 'Grade 1', 'Grade 2', 'Short Name').&nbsp; The current names were taken 
+  from the LexWIKI-derived source, with the expectation that OWL source would 
+  use similar naming conventions.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>Load CTCAE source to the LexBIG/EVS repository.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>Run the Java program 
+  'org.LexGrid.LexBIG.util.ctcae.QuickRefPublisher'.&nbsp; All source and 
+  dependencies&nbsp;for this program are released and available in svn (links 
+  provided below).&nbsp; Note that the program currently uses the direct Java 
+  API to talk to&nbsp;the LexBIG repository, but could be modified to run 
+  against the caGrid API if necessary.&nbsp; We only need query 
+  capability.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>When launched, the program will present a menu of all code systems 
+  loaded in the LexBIG/EVS repository.&nbsp; The user needs to select CTCAE from 
+  the list.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>The program generates PDF, HTML, and RTF versions of the 
+  document.&nbsp; Each of these has advantages and may be worth considering 
+  (more on this below).&nbsp; It takes about 5 seconds to 
+  run.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>To get a feel for what is generated, please see the attached PDF.&nbsp; 
+  Note that this is not being submitted for review of the content at this 
+  point.&nbsp; It is possible that some of the content that I had is not in 
+  final form.&nbsp; The intent is to give you a feel for how the content could 
+  be packaged and submitted for review (or everyday use) by end 
+  users.</FONT></SPAN></DIV></LI></UL>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>So that's the basics... here are some details 
+...</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>The CTCAE&nbsp;quick reference is divided roughly&nbsp;into 
+4 sections: front cover, introduction, body (event tables), and back 
+cover.&nbsp; The table of contents could be considered a fifth section.&nbsp; 
+Here are the approaches taken for each piece of the 
+puzzle...</FONT></SPAN></DIV>
+<UL dir=ltr>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><U><STRONG>Front cover</STRONG></U>: The cover is auto-generated by 
+  taking some 'stock' wording and inserting the version number of the 
+  CTCAE&nbsp;selected by the user.&nbsp; I spent some time futzing to get things 
+  to look like the hard copy, perhaps too long, but I&nbsp;felt it was 
+  important&nbsp;to ensure that we could deliver something that looked 
+  reasonably close to the v3.0 publication.&nbsp; Overall dimensions for the 
+  document were also kept as faithful as possible to the original (~5" x 
+  7").</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>Introduction</U></STRONG>:&nbsp;This is the first&nbsp;page 
+  beyond the cover, which&nbsp;provides a narrative overview of the document 
+  contents.&nbsp; It is also tricky to automate, since the content is&nbsp;not 
+  generated.&nbsp; Instead of generating it on the fly, the program looks 
+  for&nbsp;a standard rtf file with this content.&nbsp; This allows the rtf 
+  to&nbsp;be edited through a standard word processor such as MS Word, WordPad, 
+  or Open Office.&nbsp; I think this makes the most sense, since it will allow 
+  the authors to revise the wording using familiar tools without needing to dive 
+  into code.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>Once this intro page is&nbsp;edited, it must be exported to PDF and PNG 
+  versions for use by the program.&nbsp; This is a manual 
+  step.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>There are free programs that enable this (e.g. PDF995 can print to PDF, 
+  and many programs&nbsp;such as&nbsp;Windows&nbsp;Paint can be used to take a 
+  snapshot&nbsp;for export to PNG).&nbsp; The exported size is recommended to be 
+  ISO B6 dimensions (~5" x 7", to match the target document).&nbsp; The program 
+  takes it from there.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>Event Tables</U></STRONG>: These are automatically generated 
+  by querying the vocabulary through LexBIG/EVS.&nbsp;&nbsp;Note that the draft 
+  does not contain annotations such as 'Remark' or 'Also Consider'.&nbsp; They 
+  are not currently&nbsp;in our repository.&nbsp; In the future, the program 
+  could by modified to recognize and deal with them.&nbsp; An alternative is to 
+  edit the generated RTF afterward to include additional not in the repository 
+  itself (see comments on RTF below).</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>Back Cover:</U></STRONG> The HHS, NIH, and NCI Logos and 
+  document barcode are inserted to this page.&nbsp; Each of these is located in 
+  a separate graphic file that is imported and dynamically inserted to the 
+  document, so a logo or barcode can change without requiring code 
+  change.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>Table of Contents</U></STRONG>: Note here...&nbsp; this was 
+  previously covered in the Introduction section.&nbsp; It could be added there 
+  again via manual edits (as described in the Introduction section above).&nbsp; 
+  However,&nbsp;the author&nbsp;would need to see a&nbsp;generated document 
+  first to know what page numbers to enter.&nbsp; As an alternative, 'chapter' 
+  references are now generated automatically, and can be used in&nbsp;PDF 
+  viewers (as PDF Bookmarks) or RTF navigation (e.g. view the 'Document Map' in 
+  Word).</FONT></SPAN></DIV></LI></UL>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009></SPAN><SPAN 
+class=089031117-23022009><FONT face=Arial color=#0000ff size=2>A few thoughts as 
+well&nbsp;on the various formats...</FONT></SPAN></DIV>
+<UL dir=ltr>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>PDF</U></STRONG>: This is the primary format that I was 
+  targeting originally.&nbsp; PDF is nice in terms of being portable across OS 
+  platforms, carries a relatively light footprint, and allows the publisher a 
+  great deal of control over what the end user can do with it..&nbsp; The 
+  thought here is that it may make sense to distribute CTCAE in a downloadable 
+  format rather than hardcopy.&nbsp; If so, PDF would be a good choice.&nbsp; It 
+  would also be a good choice for making printouts.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>There is a lot of power here potentially for the future.&nbsp; By 
+  default, I generated PDFs with AES 128 bit encryption.&nbsp; Encryption can 
+  help prevent unwanted tampering (e.g. someone trying to alter and distribute 
+  as if it came from NCI).&nbsp; I also enabled permissions for printing, 
+  introducing annotations/comments, screen readers, but no encryption of 
+  metadata.&nbsp; You can password-protect to control access to 
+  various&nbsp;capabilities by user or owner, etc.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>There is a method in the publish program where this can all be 
+  customized (I take no credit here, it was provided to me by the API that I 
+  relied on, named iText).</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>HTML</U></STRONG>: In addition to redistribution and print, 
+  it seemed likely that NCI might want to serve a standard web page (html) with 
+  the CTCAE content.&nbsp; This is also generated by the program.&nbsp; The 
+  output is not quite as polished as the PDF, but it is functional and could be 
+  prettied up further by those with web-guru-ish 
+  capabilities.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2><STRONG><U>RTF</U></STRONG>: This is also generated by the 
+  program.&nbsp; While not recommended as a redistribution format or for serving 
+  on the web, it does offer the advantage of being editable by standard office 
+  tools.&nbsp; So, basically, if the program doesn't generate something quite 
+  right it provides an intermediate format that authors can modify without 
+  requiring changes to the program itself.&nbsp; While we would like the program 
+  to be turn-key and generate everything 100% correct right off the bat, reality 
+  doesn't always cooperate.&nbsp; It is nice to have an edit 
+  option.</FONT></SPAN></DIV>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>The generated RTF, like the HTML, isn't quite as pretty as the 
+  PDF.&nbsp; However, I think it is passable as a starting point for applying 
+  edit and polish.</FONT></SPAN></DIV></LI></UL>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>One additional note... </FONT></SPAN></DIV>
+<UL dir=ltr>
+  <LI>
+  <DIV align=left><SPAN class=089031117-23022009><FONT face=Arial color=#0000ff 
+  size=2>You might notice that the 'Introduction' section in the generated RTF 
+  (and HTML) is inserted as an image instead of editable text.&nbsp; This may 
+  seem confusing, since RTF is intended to be editable, and&nbsp;in my 
+  description of the 'Introduction' section above&nbsp;I said we start from RTF 
+  source.&nbsp; To make a long story short, it was too messy to try and take the 
+  RTF from one source and insert it into another programmatically.&nbsp; Because 
+  of formatting mismatches, automated insertion of&nbsp;text from one RTF file 
+  to another can start to look like junk rather quickly.&nbsp;&nbsp;So by 
+  default I inserted the image.&nbsp; However, if an author really wants to edit 
+  the intro material in the RTF output, they can manually copy/paste the content 
+  from one file to the other and be on their way.</FONT></SPAN></DIV></LI></UL>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>So there it is.&nbsp; I propose adhering to the above 
+process moving forward with V4 publication, but would be happy to discuss 
+further as necessary.&nbsp; I have attached copies of the pdf, html, and rtf 
+output (unaltered) for comment.&nbsp; All source files are available in the NCI 
+Subversion repository under the "LexEVS" GForge project.&nbsp; The direct URL is 
+at <A 
+href="https://gforge.nci.nih.gov/svnroot/lexevs/contrib/trunk/ctcae_publish">https://gforge.nci.nih.gov/svnroot/lexevs/contrib/trunk/ctcae_publish</A>.&nbsp; 
+I will add the above to a readme for documentation.</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>Please have a look and let me know how you would like to 
+proceed from here.</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>Thanks,</FONT></SPAN></DIV>
+<DIV dir=ltr align=left><SPAN class=089031117-23022009><FONT face=Arial 
+color=#0000ff size=2>Tom<br><br>If running in Eclipse against LexBIG projects, will need lbImpl and lbInterfaces.<br></FONT></SPAN></DIV></BODY></HTML>
