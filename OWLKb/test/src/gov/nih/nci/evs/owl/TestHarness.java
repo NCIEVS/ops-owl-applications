@@ -16,6 +16,7 @@ import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -45,7 +46,7 @@ public class TestHarness {
 	String url = "file:///Users/safrant/EVS/data/OWL2/Thesaurus-170424-17.04d.owl";
 
 	private final String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
-	
+
 	OWLKb owlKb1;
 
 	// private final String ontologyNamespace =
@@ -58,71 +59,63 @@ public class TestHarness {
 		HashMap<URI, String> props = owlKb1.getAllProperties();
 		owlKb1.getAllAssociations();
 		owlKb1.getAllRoles();
-		
-	}
-	
 
-	private void testAssociation(){
-        URI testURI = null;
-        URI testURI2 = null;
-        try {
-               testURI = new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C100000");
-               testURI2 = new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C101859");
-        } catch (URISyntaxException e2) {
-                       // TODO Auto-generated catch block
-                       e2.printStackTrace();
-        }
-        Vector<Association> assocs1 = owlKb1.getAssociationsForSource(testURI);
-        if( assocs1.size() > 0 ) {
-                       for( Association assoc1 : assocs1 ) {
-                                      System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget() );
-                       }
-        }
-        else {
-                       System.out.println("No outgoing associations for " + testURI.getFragment());
-        }
-        
-        assocs1 = owlKb1.getAssociationsForTarget(testURI);
-        if( assocs1.size() > 0 ) {
-                       for( Association assoc1 : assocs1 ) {
-                                      System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget() );
-                       }
-        }
-        else {
-                       System.out.println("No outgoing associations for " + testURI.getFragment());
-        }
-        
-        
-        assocs1 = owlKb1.getAssociationsForSource(testURI2);
-        if( assocs1.size() > 0 ) {
-                       for( Association assoc1 : assocs1 ) {
-                                      System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget() );
-                       }
-        }
-        else {
-                       System.out.println("No outgoing associations for " + testURI2.getFragment());
-        }
-        
-        assocs1 = owlKb1.getAssociationsForTarget(testURI2);
-        if( assocs1.size() > 0 ) {
-                       for( Association assoc1 : assocs1 ) {
-                                      System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget() );
-                       }
-        }
-        else {
-                       System.out.println("No outgoing associations for " + testURI2.getFragment());
-        }
-		
-		
-		
 	}
-	
-	private void testGetRolesForSource(){
+
+	private void testAssociation() {
+		URI testURI = null;
+		URI testURI2 = null;
+		try {
+			testURI = new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C100000");
+			testURI2 = new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C101859");
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		Vector<Association> assocs1 = owlKb1.getAssociationsForSource(testURI);
+		if (assocs1.size() > 0) {
+			for (Association assoc1 : assocs1) {
+				System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget());
+			}
+		} else {
+			System.out.println("No outgoing associations for " + testURI.getFragment());
+		}
+
+		assocs1 = owlKb1.getAssociationsForTarget(testURI);
+		if (assocs1.size() > 0) {
+			for (Association assoc1 : assocs1) {
+				System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget());
+			}
+		} else {
+			System.out.println("No outgoing associations for " + testURI.getFragment());
+		}
+
+		assocs1 = owlKb1.getAssociationsForSource(testURI2);
+		if (assocs1.size() > 0) {
+			for (Association assoc1 : assocs1) {
+				System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget());
+			}
+		} else {
+			System.out.println("No outgoing associations for " + testURI2.getFragment());
+		}
+
+		assocs1 = owlKb1.getAssociationsForTarget(testURI2);
+		if (assocs1.size() > 0) {
+			for (Association assoc1 : assocs1) {
+				System.out.println(assoc1.getSourceCode() + " " + assoc1.getName() + " " + assoc1.getRelAndTarget());
+			}
+		} else {
+			System.out.println("No outgoing associations for " + testURI2.getFragment());
+		}
+
+	}
+
+	private void testGetRolesForSource() {
 		owlKb1.getAllRoles();
 
 		ConceptProxy concept0 = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C49329");
 		Vector<String> parentCodes = owlKb1
-		        .getParentsForConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C49329");
+				.getParentsForConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C49329");
 		Vector<Role> relTest1 = owlKb1.getRolesForSource(concept0);
 		Vector<Role> relTest2 = owlKb1.getRolesForTarget(concept0);
 
@@ -150,14 +143,17 @@ public class TestHarness {
 			roleDef.getDomain();
 		}
 	}
-	
-	private void testGetProperties(){
 
-		ConceptProxy concept = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C49424");
+	private void testGetProperties() {
+
+		ConceptProxy concept = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C111756");
 		Vector<Property> names = concept.getProperties();
 		for (Property prop : names) {
 			prop.getValue();
 		}
+
+		Property propTest = concept.getProperty("P375");
+		propTest = concept.getProperty("P90");
 
 		concept = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C49329");
 		names = concept.getProperties();
@@ -168,10 +164,9 @@ public class TestHarness {
 		// concept = owlKb1.getConcept("CDISC_Questionnaire_Terminology");
 		concept = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C106812");
 
-
 	}
-	
-	private void testRoleDomainAndRange(){
+
+	private void testRoleDomainAndRange() {
 		ConceptProxy concept2 = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28421");
 		// ConceptProxy concept2 = owlKb1.getConcept("C38389");
 		// // C38389
@@ -203,7 +198,7 @@ public class TestHarness {
 				roleDef.getDomain();
 			}
 		}
-		
+
 		concept2 = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C18369");
 		names2 = concept2.getProperties();
 		for (Property prop : names2) {
@@ -233,8 +228,8 @@ public class TestHarness {
 			}
 		}
 	}
-	
-	private void testIsDeprecated(){
+
+	private void testIsDeprecated() {
 
 		try {
 			ConceptProxy concept2 = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C38389");
@@ -247,12 +242,11 @@ public class TestHarness {
 			e.printStackTrace();
 		}
 	}
-	
-	private void testGetRolesAssocsForTarget(){
+
+	private void testGetRolesAssocsForTarget() {
 		Vector<Association> assocTest = owlKb1
-		        .getAssociationsForSource("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C106667");
-		ConceptProxy concept = owlKb1
-		        .getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C106667");
+				.getAssociationsForSource("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C106667");
+		ConceptProxy concept = owlKb1.getConcept("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C106667");
 		Vector<Role> relTest = owlKb1.getRolesForSource(concept);
 		relTest = owlKb1.getRolesForTarget(concept);
 		assocTest = owlKb1.getAssociationsForTarget(concept);
@@ -262,7 +256,21 @@ public class TestHarness {
 
 		Vector<Role> r1 = owlKb1.getRolesForTarget(concept);
 
-
 	}
 
+	private void testMapsTo() {
+		Set<URI> codes = owlKb1.getAllConceptCodes();
+		for (URI code : codes) {
+			ConceptProxy concept = owlKb1.getConcept(code);
+			if (!concept.isRetired()) {
+				Vector<Property> mapsToProperties = concept.getProperties("P375");
+				System.out.println("In " + concept.getName());
+				if (concept.getCode().equals("C111756")) {
+					for (Property mapToProperty : mapsToProperties) {
+						System.out.println(mapToProperty.getValue());
+					}
+				}
+			}
+		}
+	}
 }

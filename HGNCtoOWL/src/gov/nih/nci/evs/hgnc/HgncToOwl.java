@@ -262,7 +262,7 @@ public class HgncToOwl {
 	public static String underscoredString(String input) {
 
 		return input.trim().replace(" ", "_").replace("(", "_")
-		        .replace(")", "_").replace(",", "");
+		        .replace(")", "_").replace(",", "").replace(":", "_");
 	}
 
 	public static String processToURI(String path) {

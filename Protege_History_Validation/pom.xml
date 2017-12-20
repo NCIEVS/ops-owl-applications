@@ -51,4 +51,9 @@
     		<version>2.0.0</version>
     	</dependency>
     </dependencies>
+    <parent>
+    	<groupId>gov.nih.nci.evs.owl</groupId>
+    	<artifactId>owl2kb</artifactId>
+    	<version>2.0.0</version>
+    </parent>
 </project>

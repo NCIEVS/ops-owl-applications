@@ -1,11 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>gov.nih.nci.evs.owl</groupId>
-	<artifactId>owlnciqa</artifactId>
-	<version>2.0.0</version>
-	<build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gov.nih.nci.evs.owl</groupId>
+  <artifactId>UpdateCUI</artifactId>
+  <version>2.0</version>
+  <build>
+
 		<sourceDirectory>src</sourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -22,7 +31,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>gov.nih.nci.evs.owl.ProtegeKBQA</mainClass>
+							<mainClass>gov.nih.nci.evs.owl.UpdateCUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -40,16 +49,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>gov.nih.nlm.nls.lvg</groupId>
-			<artifactId>lvg2010dist</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>gov.nih.nci.evs.owl</groupId>
-			<artifactId>owl2kb</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-	</dependencies>
+
+  <dependencies>
+  	<dependency>
+  		<groupId>gov.nih.nci.evs.owl</groupId>
+  		<artifactId>owl2kb</artifactId>
+  		<version>2.0.0</version>
+  	</dependency>
+  </dependencies>
 </project>

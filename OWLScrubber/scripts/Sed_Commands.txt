@@ -28,5 +28,6 @@ cat <file> | grep "Term Type"
 cat <file> | grep "term-source"
 cat <file> | grep "term-group"
 
-
+sed -i s%"xmlns:Thesaurus=%xmlns:ncit=%" <file>
+head <file>
  

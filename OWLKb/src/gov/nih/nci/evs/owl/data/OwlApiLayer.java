@@ -9,6 +9,7 @@ import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Qualifier;
 import gov.nih.nci.evs.owl.meta.RelationDef;
+import gov.nih.nci.evs.owl.metrics.NCIt_metrics;
 import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 import gov.nih.nci.evs.owl.proxy.PropertyProxy;
 import gov.nih.nci.evs.owl.proxy.QualifierProxy;
@@ -138,7 +139,7 @@ public class OwlApiLayer {
 	private OWLOntology ontology = null;
 
 	/** The ontology namespace. */
-	private String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
+	private static String defaultNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
 
 	// /** The default ontology namespace. */
 	// private String defaultOntologyNamespace =
@@ -181,6 +182,7 @@ public class OwlApiLayer {
 	Vector<IRI> removedClasses = new Vector<IRI>();
 	
 	AssociationGraph associationGraph;
+	NCIt_metrics metrics;
 
 	/**
 	 * Instantiates a new owl api layer.
@@ -190,12 +192,7 @@ public class OwlApiLayer {
 	 */
 	public OwlApiLayer(final OWLOntology inOntology) {
 		// super();
-		this.manager = OWLManager.createOWLOntologyManager();
-
-		// this.manager.setSilentMissingImportsHandling(true);
-		this.ontology = inOntology;
-		this.instantiateMaps();
-
+		this(inOntology, defaultNamespace);
 	}
 
 	/**
@@ -210,9 +207,9 @@ public class OwlApiLayer {
 		// super();
 		this.manager = OWLManager.createOWLOntologyManager();
 		this.ontology = inOntology;
-		this.ontologyNamespace = namespace;
+		this.defaultNamespace = namespace;
 		this.instantiateMaps();
-
+		this.metrics = new NCIt_metrics(this.ontology);
 	}
 
 	/**
@@ -225,21 +222,23 @@ public class OwlApiLayer {
 	 */
 
 	public OwlApiLayer(final URI uri) throws OWLOntologyCreationException {
-		this.manager = OWLManager.createOWLOntologyManager();
-		try {
-			// this.manager.setSilentMissingImportsHandling(true);
-			// this.ontology = manager.loadOntology(iri);
-			// IRI iri = createIRI(uri);
-			boolean debug = true;
-			this.ontology = this.manager.loadOntologyFromOntologyDocument(IRI
-			        .create(uri));
-			this.instantiateMaps();
-		} catch (OWLOntologyCreationIOException e) {
-			this.manager = null;
-			e.printStackTrace();
-			System.out.println("Failed to create OwlApiLayer");
-			throw e;
-		}
+		this(uri, defaultNamespace);
+//		this.manager = OWLManager.createOWLOntologyManager();
+//		try {
+//			
+//			// this.manager.setSilentMissingImportsHandling(true);
+//			// this.ontology = manager.loadOntology(iri);
+//			// IRI iri = createIRI(uri);
+//			boolean debug = true;
+//			this.ontology = this.manager.loadOntologyFromOntologyDocument(IRI
+//			        .create(uri));
+//			this.instantiateMaps();
+//		} catch (OWLOntologyCreationIOException e) {
+//			this.manager = null;
+//			e.printStackTrace();
+//			System.out.println("Failed to create OwlApiLayer");
+//			throw e;
+//		}
 	}
 
 	/**
@@ -252,25 +251,26 @@ public class OwlApiLayer {
 	 * @throws OWLOntologyCreationException
 	 *             the OWL ontology creation exception
 	 */
-	public OwlApiLayer(final URI uri, String namespace)
-	        throws OWLOntologyCreationException {
-		this.manager = OWLManager.createOWLOntologyManager();
-		try {
-			IRI iri = IRI.create(uri);
-			// this.manager.setSilentMissingImportsHandling(true);
-			// this.ontology = manager.loadOntology(iri);
-			this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
-			this.ontologyNamespace = namespace;
-			this.instantiateMaps();
-
-		} catch (OWLOntologyCreationIOException e) {
-			System.out.println("File not found: " + uri.toString());
-			throw e;
-		} catch (OWLOntologyCreationException e) {
-			System.out
-			        .println("Failed to create OwlApiLayer. Owl file invalid or not found.");
-			throw e;
-		}
+	public OwlApiLayer(final URI uri, String namespace) throws OWLOntologyCreationException
+	        {
+		this(OWLManager.createOWLOntologyManager().loadOntology(IRI.create(uri)), namespace);
+//		this.manager = OWLManager.createOWLOntologyManager();
+//		try {
+//			IRI iri = IRI.create(uri);
+//			// this.manager.setSilentMissingImportsHandling(true);
+//			// this.ontology = manager.loadOntology(iri);
+//			this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
+//			this.defaultNamespace = namespace;
+//			this.instantiateMaps();
+//
+//		} catch (OWLOntologyCreationIOException e) {
+//			System.out.println("File not found: " + uri.toString());
+//			throw e;
+//		} catch (OWLOntologyCreationException e) {
+//			System.out
+//			        .println("Failed to create OwlApiLayer. Owl file invalid or not found.");
+//			throw e;
+//		}
 	}
 
 	/**
@@ -1882,7 +1882,7 @@ public class OwlApiLayer {
 		if(classes.size()>0){
 			return true;
 		}
-		return EntitySearcher.isDefined(this.getOWLClass(conceptCode),
+		return EntitySearcher.isDefined(cls,
 		        this.ontology);
 	}
 
@@ -1904,7 +1904,7 @@ public class OwlApiLayer {
 	 * @return the namespace
 	 */
 	public String getNamespace() {
-		return this.ontologyNamespace;
+		return this.defaultNamespace;
 	}
 
 	/**
@@ -2987,10 +2987,15 @@ public class OwlApiLayer {
 				return vChildren;
 			}
 			for (final OWLClassExpression child : children) {
+				if( child.asOWLClass().equals(cls) ) {
+					System.out.println(cls.toStringID() + " is a child of itself!!!");
+					return vChildren;
+				}				
 				vChildren.add(child.asOWLClass());
 			}
 			if (!directOnly) {
 				for (int i = 0; i < vChildren.size(); i++) {
+//					System.out.println(vChildren.elementAt(i).asOWLClass().toStringID());
 					final Vector<OWLClass> w = this.getSubClasses(vChildren
 					        .elementAt(i).asOWLClass(), false);
 					if (w != null) {
@@ -4014,7 +4019,7 @@ public class OwlApiLayer {
 	 */
 	public String removeNamespaceFromIdentifier(String rawID) {
 		String cleanID = rawID;
-		if (rawID.contains(this.ontologyNamespace)) {
+		if (rawID.contains(this.defaultNamespace)) {
 			final int beginning = rawID.indexOf("#") + 1;
 			final int end = rawID.length() - 1;
 			if ((beginning > 0) && (end > 0)) {
@@ -4143,7 +4148,7 @@ public class OwlApiLayer {
 	 *            the new namespace
 	 */
 	public void setNamespace(String namespace) {
-		this.ontologyNamespace = namespace;
+		this.defaultNamespace = namespace;
 	}
 
 	/**
@@ -4356,6 +4361,20 @@ public class OwlApiLayer {
         }
     }
 
+	public int getAxiomCount() {
+		return metrics.getAxiomCount();
+	}
 
+	public int getGciCount(){
+		return metrics.getGciCount();
+	}
+	
+	public int getMultiParentCount(){
+		return metrics.getMultipleInheritanceCount();
+	}
+
+	public String getDLExpressivity() {
+		return metrics.getDLexpressivity();
+	}
 
 }

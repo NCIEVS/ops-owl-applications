@@ -78,7 +78,7 @@ public class OWLScrubber {
 			e.printStackTrace();
 		}
 	}
-	
+
 	OWLReasoner reasoner;
 
 	/** The ontology namespace. */
@@ -152,7 +152,7 @@ public class OWLScrubber {
 
 	/** The complex data to delete. */
 	Vector<String> complexDataToDelete;
-	
+
 	/** The properties to be substituted **/
 	Vector<String> propertySubs;
 
@@ -174,6 +174,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#configure(java.lang.String[])
 	 */
 
@@ -183,31 +184,23 @@ public class OWLScrubber {
 				String option = args[i];
 				if (option.equalsIgnoreCase("--help")) {
 					this.printHelp();
-				} else if (option.equalsIgnoreCase("-E")
-						|| option.equalsIgnoreCase("--Empty")) {
+				} else if (option.equalsIgnoreCase("-E") || option.equalsIgnoreCase("--Empty")) {
 					this.scrubEmpty = true;
-				} else if (option.equalsIgnoreCase("-I")
-						|| option.equalsIgnoreCase("--Individuals")) {
+				} else if (option.equalsIgnoreCase("-I") || option.equalsIgnoreCase("--Individuals")) {
 					this.suppressIndividuals = false;
-				} else if (option.equalsIgnoreCase("-L")
-						|| option.equalsIgnoreCase("--Literals")) {
+				} else if (option.equalsIgnoreCase("-L") || option.equalsIgnoreCase("--Literals")) {
 					this.hasLiterals = true;
 					this.prefix = args[++i] + ":";
-				} else if (option.equalsIgnoreCase("-C")
-						|| option.equalsIgnoreCase("--Config")) {
+				} else if (option.equalsIgnoreCase("-C") || option.equalsIgnoreCase("--Config")) {
 					this.configFile = args[++i];
-				} else if (option.equalsIgnoreCase("-F")
-						|| option.equalsIgnoreCase("-Flat")) {
+				} else if (option.equalsIgnoreCase("-F") || option.equalsIgnoreCase("-Flat")) {
 					this.generateFlatFile = true;
 					this.flatFileURI = new URI(args[++i]);
-				} else if (option.equalsIgnoreCase("-P")
-						|| option.equalsIgnoreCase("--Pretty")) {
+				} else if (option.equalsIgnoreCase("-P") || option.equalsIgnoreCase("--Pretty")) {
 					this.prettyPrint = true;
-				} else if (option.equalsIgnoreCase("-N")
-						|| option.equalsIgnoreCase("--iNput")) {
+				} else if (option.equalsIgnoreCase("-N") || option.equalsIgnoreCase("--iNput")) {
 					this.physicalURI = new URI(args[++i]);
-				} else if (option.equalsIgnoreCase("-O")
-						|| option.equalsIgnoreCase("--Output")) {
+				} else if (option.equalsIgnoreCase("-O") || option.equalsIgnoreCase("--Output")) {
 					this.saveURI = new URI(args[++i]);
 				} else {
 					this.printHelp();
@@ -240,14 +233,12 @@ public class OWLScrubber {
 			propertySubFile = props.getProperty("property_substitution");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out
-			.println("Unable to find owlscrubber.properties file in this directory.  Aborting.");
+			System.out.println("Unable to find owlscrubber.properties file in this directory.  Aborting.");
 			System.exit(1);
 		}
 		try {
 			this.manager = OWLManager.createOWLOntologyManager();
-			this.ontology = this.manager.loadOntologyFromOntologyDocument(IRI
-					.create(this.physicalURI));
+			this.ontology = this.manager.loadOntologyFromOntologyDocument(IRI.create(this.physicalURI));
 		} catch (OWLException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -266,6 +257,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#createURI(java.lang.String)
 	 */
 
@@ -281,13 +273,13 @@ public class OWLScrubber {
 	 * @return the OWL class
 	 */
 	private OWLClass getOWLClass(final IRI conceptIRI) {
-		final OWLClass cls = this.manager.getOWLDataFactory().getOWLClass(
-				conceptIRI);
+		final OWLClass cls = this.manager.getOWLDataFactory().getOWLClass(conceptIRI);
 		return cls;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#fixReferences()
 	 */
 	private void fixReferences() {
@@ -295,8 +287,8 @@ public class OWLScrubber {
 		if (this.removedClasses != null) {
 			for (final IRI conceptCode : this.removedClasses) {
 				final OWLClass concept = this.getOWLClass(conceptCode);
-				Collection<OWLAnnotationAssertionAxiom> esAxioms = EntitySearcher
-						.getAnnotationAssertionAxioms(concept, this.ontology);
+				Collection<OWLAnnotationAssertionAxiom> esAxioms = EntitySearcher.getAnnotationAssertionAxioms(concept,
+						this.ontology);
 				for (final OWLAnnotationAxiom axiom : esAxioms) {
 					changes.add(new RemoveAxiom(this.ontology, axiom));
 				}
@@ -305,7 +297,7 @@ public class OWLScrubber {
 		List<OWLOntologyChange> list = new ArrayList<OWLOntologyChange>(changes);
 		this.manager.applyChanges(list);
 	}
-	
+
 	public void startToldReasoner() {
 		System.out.println("Starting TOLD reasoner.");
 		// this.config.reasonerProgressMonitor = new ConsoleProgressMonitor();
@@ -319,25 +311,23 @@ public class OWLScrubber {
 	}
 
 	private Vector<OWLClass> getSuperClasses(OWLClass cls, boolean directOnly) {
-		if(cls.isOWLNothing()){
+		if (cls.isOWLNothing()) {
 			return new Vector<OWLClass>();
 		}
-		
+
 		final Vector<OWLClass> vParents = new Vector<OWLClass>();
 		if (this.reasoner != null) {
-			for (final OWLClass subCls : this.reasoner.getSuperClasses(cls,
-			        directOnly).getFlattened()) {
+			for (final OWLClass subCls : this.reasoner.getSuperClasses(cls, directOnly).getFlattened()) {
 				if (!vParents.contains(subCls) && !subCls.isOWLThing()) {
 					vParents.add(subCls);
 				}
 			}
 		}
 		if (vParents.size() < 1) {
-			final Collection<OWLClassExpression> ods = EntitySearcher
-			        .getSuperClasses(cls, this.ontology);
-			final OWLClassExpression[] parents = ods
-			        .toArray(new OWLClassExpression[ods.size()]);
-			if (parents.length == 0) return vParents;
+			final Collection<OWLClassExpression> ods = EntitySearcher.getSuperClasses(cls, this.ontology);
+			final OWLClassExpression[] parents = ods.toArray(new OWLClassExpression[ods.size()]);
+			if (parents.length == 0)
+				return vParents;
 
 			for (final OWLClassExpression parent : parents) {
 				if (!parent.isAnonymous()) {
@@ -346,12 +336,10 @@ public class OWLScrubber {
 			}
 			if (!directOnly) {
 				for (int i = 0; i < vParents.size(); i++) {
-					final Vector<OWLClass> w = this.getSuperClasses(vParents
-					        .elementAt(i).asOWLClass(), false);
+					final Vector<OWLClass> w = this.getSuperClasses(vParents.elementAt(i).asOWLClass(), false);
 					if (w != null) {
 						for (int j = 0; j < w.size(); j++) {
-							if ((w.elementAt(j) != null)
-							        && !vParents.contains(w.elementAt(j))) {
+							if ((w.elementAt(j) != null) && !vParents.contains(w.elementAt(j))) {
 								vParents.add(w.elementAt(j).asOWLClass());
 							}
 						}
@@ -361,10 +349,10 @@ public class OWLScrubber {
 		}
 		return vParents;
 	}
-	
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#generateFlat()
 	 */
 	@SuppressWarnings("unused")
@@ -377,44 +365,38 @@ public class OWLScrubber {
 			// reasoner.classify();
 			for (OWLClass c : this.ontology.getClassesInSignature()) {
 				// Set<Set<OWLClass>> parents = reasoner.getSuperClasses(c);
-				if (c.getIRI().getFragment().equals("C3163")){
+				if (c.getIRI().getFragment().equals("C3163")) {
 					String debug = "Stop here";
 				}
-				
+
 				Vector<OWLClass> parents = getSuperClasses(c, true);
-				
-//				Collection<OWLClassExpression> parents = EntitySearcher
-//						.getSuperClasses(c, this.ontology);
-//				Collection<OWLClassExpression> parents2 = EntitySearcher
-//				        .getEquivalentClasses(c, this.ontology);
-//				for(OWLClassExpression oce: parents2){
-//					Set<OWLClassExpression> classes = oce.getNestedClassExpressions();
-//					for(OWLClassExpression cls : classes){
-//						if (cls instanceof OWLClassImpl){
-//							parents.add(cls);
-//						}
-//					}
-//				}
+
+				// Collection<OWLClassExpression> parents = EntitySearcher
+				// .getSuperClasses(c, this.ontology);
+				// Collection<OWLClassExpression> parents2 = EntitySearcher
+				// .getEquivalentClasses(c, this.ontology);
+				// for(OWLClassExpression oce: parents2){
+				// Set<OWLClassExpression> classes =
+				// oce.getNestedClassExpressions();
+				// for(OWLClassExpression cls : classes){
+				// if (cls instanceof OWLClassImpl){
+				// parents.add(cls);
+				// }
+				// }
+				// }
 
 				// Set<OWLDescription> parents = c.getSuperClasses(ontology);
 				// Set<OWLDescription> parents2 =
 				// c.getEquivalentClasses(ontology);
-//				parents.addAll(parents2);
+				// parents.addAll(parents2);
 
-				String code = this.getSolePropertyValue(c,
-				        PROPERTY_ALIAS.CODE.iri());
-				String pn = this.getSolePropertyValue(c,
-				        PROPERTY_ALIAS.PREFERRED_NAME.iri());
-				Vector<String> definitions = this.getPropertyValues(c,
-				        PROPERTY_ALIAS.DEFINITION.iri());
-				Vector<String> terms = this.getPropertyValues(c,
-				        PROPERTY_ALIAS.FULL_SYN.iri());
-				Vector<String> dns = this.getPropertyValues(c,
-				        PROPERTY_ALIAS.DISPLAY_NAME.iri());
-				Vector<String> stys = this.getPropertyValues(c,
-				        PROPERTY_ALIAS.SEMANTIC_TYPE.iri());
-				Vector<String> statuses = this.getPropertyValues(c,
-				        PROPERTY_ALIAS.CONCEPT_STATUS.iri());
+				String code = this.getSolePropertyValue(c, PROPERTY_ALIAS.CODE.iri());
+				String pn = this.getSolePropertyValue(c, PROPERTY_ALIAS.PREFERRED_NAME.iri());
+				Vector<String> definitions = this.getPropertyValues(c, PROPERTY_ALIAS.DEFINITION.iri());
+				Vector<String> terms = this.getPropertyValues(c, PROPERTY_ALIAS.FULL_SYN.iri());
+				Vector<String> dns = this.getPropertyValues(c, PROPERTY_ALIAS.DISPLAY_NAME.iri());
+				Vector<String> stys = this.getPropertyValues(c, PROPERTY_ALIAS.SEMANTIC_TYPE.iri());
+				Vector<String> statuses = this.getPropertyValues(c, PROPERTY_ALIAS.CONCEPT_STATUS.iri());
 
 				if (pn.equals("")) {
 					pn = c.asOWLClass().getIRI().getFragment();
@@ -441,18 +423,18 @@ public class OWLScrubber {
 				// for (Set<OWLClass> pSet : parents) {
 				// for (OWLClass p : pSet) {
 				for (OWLClassExpression p : parents) {
-					if(! p.isAnonymous()){
-					String parCode = this.getSolePropertyValue(p.asOWLClass(),
-							PROPERTY_ALIAS.CODE.iri());
-					String par = p.asOWLClass().getIRI().getFragment();
-					if (par.equals("Thing")) {
-						par = "root_node";
+					if (!p.isAnonymous()) {
+						String parCode = this.getSolePropertyValue(p.asOWLClass(), PROPERTY_ALIAS.CODE.iri());
+						String par = p.asOWLClass().getIRI().getFragment();
+						if (par.equals("Thing")) {
+							par = "root_node";
+						}
+						if (parCode != null && parCode.length() > 0) {
+							parentV.add(parCode);
+						} else {
+							parentV.add(par);
+						}
 					}
-					if (parCode != null && parCode.length() > 0) {
-						parentV.add(parCode);
-					} else {
-						parentV.add(par);
-					}}
 				}
 				// }
 				Collections.sort(parentV);
@@ -460,8 +442,7 @@ public class OWLScrubber {
 					parentsString = parentV.elementAt(i) + "|" + parentsString;
 				}
 				if (parentsString.contains("|")) {
-					parentsString = parentsString.substring(0,
-							parentsString.length() - 1);
+					parentsString = parentsString.substring(0, parentsString.length() - 1);
 				}
 
 				datas.add(parentsString);
@@ -507,8 +488,7 @@ public class OWLScrubber {
 				if (statuses.size() >= 1) {
 					for (int i = 0; i < statuses.size(); i++) {
 						if (i != statuses.size() - 1) {
-							statusString = statusString + statuses.elementAt(i)
-									+ "|";
+							statusString = statusString + statuses.elementAt(i) + "|";
 						} else {
 							statusString = statusString + statuses.elementAt(i);
 						}
@@ -540,18 +520,16 @@ public class OWLScrubber {
 			}
 			for (String key : idAndDatas.keySet()) {
 				Vector<String> data = idAndDatas.get(key);
-				this.pw.println(data.elementAt(0) + "\t" + key + "\t"
-						+ data.elementAt(1) + "\t" + data.elementAt(2) + "\t"
-						+ data.elementAt(3) + "\t" + data.elementAt(4) + "\t"
-						+ data.elementAt(5) + "\t" + data.elementAt(6));
+				this.pw.println(data.elementAt(0) + "\t" + key + "\t" + data.elementAt(1) + "\t" + data.elementAt(2)
+						+ "\t" + data.elementAt(3) + "\t" + data.elementAt(4) + "\t" + data.elementAt(5) + "\t"
+						+ data.elementAt(6));
 				this.pw.flush();
 			}
 			for (String key : idAndDatasRetired.keySet()) {
 				Vector<String> data = idAndDatasRetired.get(key);
-				this.pw.println(data.elementAt(0) + "\t" + key + "\t"
-						+ data.elementAt(1) + "\t" + data.elementAt(2) + "\t"
-						+ data.elementAt(3) + "\t" + data.elementAt(4) + "\t"
-						+ data.elementAt(5) + "\t" + data.elementAt(6));
+				this.pw.println(data.elementAt(0) + "\t" + key + "\t" + data.elementAt(1) + "\t" + data.elementAt(2)
+						+ "\t" + data.elementAt(3) + "\t" + data.elementAt(4) + "\t" + data.elementAt(5) + "\t"
+						+ data.elementAt(6));
 				this.pw.flush();
 			}
 		} catch (Exception e) {
@@ -561,21 +539,19 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * gov.nih.nci.owl.OwlScrubberInterface#getDescendants(org.semanticweb.owlapi
-	 * .model.OWLClass)
+	 * 
+	 * @see gov.nih.nci.owl.OwlScrubberInterface#getDescendants(org.semanticweb.
+	 * owlapi .model.OWLClass)
 	 */
 
 	private Collection<OWLClassExpression> getDescendants(OWLClass cls) {
-		Collection<OWLClassExpression> oce = EntitySearcher.getSubClasses(cls,
-				this.ontology);
-		if (oce.isEmpty()) return null;
+		Collection<OWLClassExpression> oce = EntitySearcher.getSubClasses(cls, this.ontology);
+		if (oce.isEmpty())
+			return null;
 
-		Collection<OWLClassExpression> oce2 = EntitySearcher.getSubClasses(cls,
-				this.ontology);
+		Collection<OWLClassExpression> oce2 = EntitySearcher.getSubClasses(cls, this.ontology);
 		for (OWLClassExpression cex : oce) {
-			Collection<OWLClassExpression> w = this
-			        .getDescendants(cex.asOWLClass());
+			Collection<OWLClassExpression> w = this.getDescendants(cex.asOWLClass());
 			if (w != null) {
 				for (OWLClassExpression cex2 : w) {
 					if ((cex2 != null) && (!oce.contains(cex2))) {
@@ -589,6 +565,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#getPropertyValues(org.semanticweb
 	 * .owlapi.model.OWLClass, java.lang.String)
@@ -597,13 +574,13 @@ public class OWLScrubber {
 	private Vector<String> getPropertyValues(OWLClass c, IRI property) {
 		Vector<String> v = new Vector<String>();
 		EntitySearcher.getAnnotationAssertionAxioms(c, this.ontology);
-		for (OWLAnnotationAssertionAxiom anno : EntitySearcher
-				.getAnnotationAssertionAxioms(c, this.ontology)) {
+		for (OWLAnnotationAssertionAxiom anno : EntitySearcher.getAnnotationAssertionAxioms(c, this.ontology)) {
 
 			if (anno.getProperty().getIRI().equals(property)) {
 				OWLLiteral annotationLiteral = anno.getValue().asLiteral().orNull();
-				if(annotationLiteral != null) { 
-				v.add(annotationLiteral.getLiteral().toString());}
+				if (annotationLiteral != null) {
+					v.add(annotationLiteral.getLiteral().toString());
+				}
 			}
 			// }
 		}
@@ -613,57 +590,61 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#getQualifiers(org.semanticweb.owlapi
 	 * .model.OWLClass, java.lang.String, java.lang.String)
 	 */
-//
-//	private Vector<String> getQualifiers(OWLClass c, IRI property, IRI qualifier) {
-//
-//		Vector<String> v = new Vector<String>();
-//		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-//				.getAnnotationAssertionAxioms(c, this.ontology)) {
-//			Set<OWLAnnotation> rawQuals = annAx.getAnnotations();
-//			if (annAx.getProperty().getIRI().equals(property)) {
-//
-//				for (OWLAnnotation anno : annAx.getAnnotations()) {
-//					if (anno.getProperty().getIRI().equals(qualifier)) {
-//						v.add(anno.getValue().toString());
-//					}
-//				}
-//			}
-//		}
-//
-//		return v;
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * @see gov.nih.nci.owl.OwlScrubberInterface#getReferencingClassEntity(org.
-//	 * semanticweb.owlapi.model.OWLAxiom)
-//	 */
-//
-//	private OWLEntity getReferencingClassEntity(OWLAxiom ax) {
-//		OWLEntity ent = null;
-//		// assume only one class referenced for each axiom
-//		ax.getClassesInSignature();
-//		// TODO fix this
-//		boolean debug = true;
-//		// for (OWLEntity e : ax.getReferencedEntities()) {
-//		// if (hasLiterals && !e.toString().equals("XMLLiteral")) {
-//		// ent = e;
-//		// break;
-//		// }
-//		// if (!hasLiterals && !e.toString().equals("string")) {
-//		// ent = e;
-//		// break;
-//		// }
-//		// }
-//		return ent;
-//	}
+	//
+	// private Vector<String> getQualifiers(OWLClass c, IRI property, IRI
+	// qualifier) {
+	//
+	// Vector<String> v = new Vector<String>();
+	// for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
+	// .getAnnotationAssertionAxioms(c, this.ontology)) {
+	// Set<OWLAnnotation> rawQuals = annAx.getAnnotations();
+	// if (annAx.getProperty().getIRI().equals(property)) {
+	//
+	// for (OWLAnnotation anno : annAx.getAnnotations()) {
+	// if (anno.getProperty().getIRI().equals(qualifier)) {
+	// v.add(anno.getValue().toString());
+	// }
+	// }
+	// }
+	// }
+	//
+	// return v;
+	// }
+	//
+	// /*
+	// * (non-Javadoc)
+	// * @see
+	// gov.nih.nci.owl.OwlScrubberInterface#getReferencingClassEntity(org.
+	// * semanticweb.owlapi.model.OWLAxiom)
+	// */
+	//
+	// private OWLEntity getReferencingClassEntity(OWLAxiom ax) {
+	// OWLEntity ent = null;
+	// // assume only one class referenced for each axiom
+	// ax.getClassesInSignature();
+	// // TODO fix this
+	// boolean debug = true;
+	// // for (OWLEntity e : ax.getReferencedEntities()) {
+	// // if (hasLiterals && !e.toString().equals("XMLLiteral")) {
+	// // ent = e;
+	// // break;
+	// // }
+	// // if (!hasLiterals && !e.toString().equals("string")) {
+	// // ent = e;
+	// // break;
+	// // }
+	// // }
+	// return ent;
+	// }
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#getSolePropertyValue(org.semanticweb
 	 * .owlapi.model.OWLClass, java.lang.String)
@@ -671,17 +652,20 @@ public class OWLScrubber {
 
 	private String getSolePropertyValue(OWLClass c, IRI property) {
 		String annotationValue = new String("");
-		for (OWLAnnotationAssertionAxiom anno : EntitySearcher
-				.getAnnotationAssertionAxioms(c, this.ontology)) {
+		for (OWLAnnotationAssertionAxiom anno : EntitySearcher.getAnnotationAssertionAxioms(c, this.ontology)) {
 			OWLLiteral annotationLiteral = anno.getValue().asLiteral().orNull();
-			if(annotationLiteral != null) { annotationValue = annotationLiteral.getLiteral().toString();}
-			if (anno.getProperty().getIRI().equals(property)) return annotationValue;
+			if (annotationLiteral != null) {
+				annotationValue = annotationLiteral.getLiteral().toString();
+			}
+			if (anno.getProperty().getIRI().equals(property))
+				return annotationValue;
 		}
 		return annotationValue;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#isEmpty(org.semanticweb.owlapi.model
 	 * .OWLAxiom)
@@ -690,28 +674,25 @@ public class OWLScrubber {
 	private boolean isEmpty(OWLAxiom ax) {
 		boolean test = false;
 		// EntityAnnotationAxiom(OBI_0000639 Annotation(IAO_0000111 ""^^string))
-//TODO this is false flagging
-		if (ax.toString().contains(" \"\"^^")
-				|| ax.toString().contains(" \"\"@")) {
+		// TODO this is false flagging
+		if (ax.toString().contains(" \"\"^^") || ax.toString().contains(" \"\"@")) {
 			// System.out.println(ax);
-//			test = true;
+			// test = true;
 		}
 		return test;
 	}
 
 	private boolean isRetired(OWLClass c) {
-		
-		for (OWLAnnotationAssertionAxiom anno : EntitySearcher
-				.getAnnotationAssertionAxioms(c, this.ontology)) {
-			if(anno.getProperty().getIRI().equals(PROPERTY_ALIAS.CONCEPT_STATUS) && anno.getValue().toString().contains("Retired_Concept"))
-			{
-//			String annotationValue = anno.toString();
-//			if (annotationValue
-//					.contains("Annotation(Concept_Status \"Retired_Concept")) {
+
+		for (OWLAnnotationAssertionAxiom anno : EntitySearcher.getAnnotationAssertionAxioms(c, this.ontology)) {
+			if (anno.getProperty().getIRI().equals(PROPERTY_ALIAS.CONCEPT_STATUS)
+					&& anno.getValue().toString().contains("Retired_Concept")) {
+				// String annotationValue = anno.toString();
+				// if (annotationValue
+				// .contains("Annotation(Concept_Status \"Retired_Concept")) {
 				return true;
 
-			} else if (anno.isDeprecatedIRIAssertion())
-			{
+			} else if (anno.isDeprecatedIRIAssertion()) {
 				return true;
 			}
 		}
@@ -720,26 +701,25 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#printHelp()
 	 */
 
 	public void printHelp() {
 		System.out.println("");
-		// System.out.println("Usage: OWLScrubber [OPTIONS] ... [OWL] [OUTPUT FILE]");
+		// System.out.println("Usage: OWLScrubber [OPTIONS] ... [OWL] [OUTPUT
+		// FILE]");
 		System.out.println("Usage: OWLScrubber [OPTIONS] ");
 		System.out.println(" ");
-		System.out
-		.println("  -C [configFile]\tTells where to find owlscrubber.properties file");
+		System.out.println("  -C [configFile]\tTells where to find owlscrubber.properties file");
 		System.out.println("  -E, --Empty\t\tScrub empty properties");
 		System.out.println("  -I, --Individuals\t\tOutput OWL Individuals");
-		System.out
-		.println("  -L, --Literals [prefix]\tInput OWL contains XML Literals");
+		System.out.println("  -L, --Literals [prefix]\tInput OWL contains XML Literals");
 		// System.out
-		// .println("  -M, --Meme\t\t\tOutput MEME file for publication");
-		System.out
-		.println("   -F, --Flat\t\t\tURL to print flat file (optional)");
+		// .println(" -M, --Meme\t\t\tOutput MEME file for publication");
+		System.out.println("   -F, --Flat\t\t\tURL to print flat file (optional)");
 		System.out.println("  -P, --Pretty\t\t\tPretty print, scrub nothing");
-		// System.out.println("  -S, --Synonyms\t\tConstruct synonyms");
+		// System.out.println(" -S, --Synonyms\t\tConstruct synonyms");
 		System.out.println("  -N, --iNput\t\t\tURL of input file");
 		System.out.println("  -O, --Output\t\t\tURL of output file");
 		System.out.println("");
@@ -748,6 +728,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#readConfigFile(java.lang.String)
 	 */
@@ -770,8 +751,7 @@ public class OWLScrubber {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			// Closing the streams
 			try {
 				buff.close();
@@ -780,22 +760,22 @@ public class OWLScrubber {
 				e.printStackTrace();
 			}
 		}
-		if (!v.isEmpty()) return v;
+		if (!v.isEmpty())
+			return v;
 		else
 			return null;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#removeBranch(java.net.URI)
 	 */
 
 	private void removeBranch(URI classURI) {
-		OWLEntityRemover remover = new OWLEntityRemover(
-				Collections.singleton(this.ontology));
+		OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(this.ontology));
 
-		OWLClass cls = this.manager.getOWLDataFactory().getOWLClass(
-				IRI.create(classURI));
+		OWLClass cls = this.manager.getOWLDataFactory().getOWLClass(IRI.create(classURI));
 
 		Collection<OWLClassExpression> descendants = this.getDescendants(cls);
 		if (descendants != null) {
@@ -822,12 +802,10 @@ public class OWLScrubber {
 		for (OWLDataProperty dp : this.ontology.getDataPropertiesInSignature()) {
 			this.removeQualifier2(dp);
 		}
-		for (OWLObjectProperty op : this.ontology
-		        .getObjectPropertiesInSignature()) {
+		for (OWLObjectProperty op : this.ontology.getObjectPropertiesInSignature()) {
 			this.removeQualifier2(op);
 		}
-		for (OWLAnnotationProperty ap : this.ontology
-		        .getAnnotationPropertiesInSignature()) {
+		for (OWLAnnotationProperty ap : this.ontology.getAnnotationPropertiesInSignature()) {
 			this.removeQualifier2(ap);
 		}
 		for (OWLNamedIndividual ind : this.ontology.getIndividualsInSignature()) {
@@ -845,18 +823,16 @@ public class OWLScrubber {
 		OWLDataFactory factory = this.manager.getOWLDataFactory();
 
 		List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-		        .getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(),
+				this.ontology)) {
 			boolean match = false;
 			Set<OWLAnnotation> existingAnnotations = annAx.getAnnotations();
 			for (String complex : this.complexDataToDelete) {
 				String[] complexArray = complex.split("\t");
-				if (annAx.getProperty().getIRI().toString()
-				        .equals(complexArray[0])) {
+				if (annAx.getProperty().getIRI().toString().equals(complexArray[0])) {
 
 					for (OWLAnnotation anno : annAx.getAnnotations()) {
-						if (anno.getProperty().getIRI().toString()
-						        .equals(complexArray[1])) {
+						if (anno.getProperty().getIRI().toString().equals(complexArray[1])) {
 							existingAnnotations.remove(anno);
 							match = true;
 						}
@@ -866,16 +842,13 @@ public class OWLScrubber {
 			}
 			if (match) {
 				OWLAnnotation newAnnotation = factory.getOWLAnnotation(
-				        factory.getOWLAnnotationProperty(annAx.getProperty()
-				                .getIRI()), annAx
-				                .getValue());
+						factory.getOWLAnnotationProperty(annAx.getProperty().getIRI()), annAx.getValue());
 				Set<OWLAnnotation> newAnnotations = new HashSet<OWLAnnotation>();
 				for (OWLAnnotation newAnno : existingAnnotations) {
 					newAnnotations.add(newAnno);
 				}
-				OWLAxiom annotatedAxiom = factory
-				        .getOWLAnnotationAssertionAxiom(cls.getIRI(),
-				                newAnnotation, newAnnotations);
+				OWLAxiom annotatedAxiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), newAnnotation,
+						newAnnotations);
 				changes.add(new RemoveAxiom(this.ontology, annAx));
 				changes.add(new AddAxiom(this.ontology, annotatedAxiom));
 
@@ -889,6 +862,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#removeEmpty()
 	 */
 
@@ -905,12 +879,12 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#removeIndividuals()
 	 */
 
 	private void removeNamedIndividuals() {
-		OWLEntityRemover remover = new OWLEntityRemover(
-				Collections.singleton(this.ontology));
+		OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(this.ontology));
 		for (OWLNamedIndividual oi : this.ontology.getIndividualsInSignature()) {
 			oi.accept(remover);
 
@@ -920,6 +894,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * gov.nih.nci.owl.OwlScrubberInterface#removeProperty(java.lang.String)
 	 */
@@ -931,29 +906,28 @@ public class OWLScrubber {
 
 	private void removeAnnotationProperty(IRI property) {
 		try {
-			final OWLEntityRemover remover = new OWLEntityRemover(
-					Collections.singleton(this.ontology));
+			final OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(this.ontology));
 
-			OWLDataProperty prop = this.manager.getOWLDataFactory()
-			        .getOWLDataProperty(property);
+			OWLDataProperty prop = this.manager.getOWLDataFactory().getOWLDataProperty(property);
 			prop.accept(remover);
 
 			OWLAnnotationProperty aProp = this.manager.getOWLDataFactory().getOWLAnnotationProperty(property);
 			aProp.accept(remover);
-			
-//			for(final OWLAnnotationProperty oap: this.ontology.getAnnotationPropertiesInSignature()){
-//				
-//				if(oap.getIRI().equals(property)){
-//				oap.accept(remover);
-//				}
-//			}
-//			
-//			 for (final OWLDataProperty odp : this.ontology
-//			 .getDataPropertiesInSignature()) {
-//			 if (odp.getIRI().equals(property)) {
-//			 odp.accept(remover);
-//			 }
-//			 }
+
+			// for(final OWLAnnotationProperty oap:
+			// this.ontology.getAnnotationPropertiesInSignature()){
+			//
+			// if(oap.getIRI().equals(property)){
+			// oap.accept(remover);
+			// }
+			// }
+			//
+			// for (final OWLDataProperty odp : this.ontology
+			// .getDataPropertiesInSignature()) {
+			// if (odp.getIRI().equals(property)) {
+			// odp.accept(remover);
+			// }
+			// }
 			this.manager.applyChanges(remover.getChanges());
 		} catch (final Exception e) {
 			e.printStackTrace();
@@ -966,8 +940,8 @@ public class OWLScrubber {
 
 		for (OWLClass cls : classes) {
 			List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-			for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-					.getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+			for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(),
+					this.ontology)) {
 
 				if (annAx.getProperty().getIRI().equals(property)) {
 
@@ -986,26 +960,24 @@ public class OWLScrubber {
 		}
 	}
 
-	private void removePropertyWithAnnotationQualifier(IRI property,
-	        IRI annotation, String value) {
+	private void removePropertyWithAnnotationQualifier(IRI property, IRI annotation, String value) {
 		// Find all properties with the given annotation and the given value
 		Set<OWLClass> classes = this.ontology.getClassesInSignature();
 
 		for (OWLClass cls : classes) {
 			List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-			for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-					.getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+			for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(),
+					this.ontology)) {
 
 				if (annAx.getProperty().getIRI().equals(property)) {
 
 					Set<OWLAnnotation> debug = annAx.getAnnotations();
 					for (OWLAnnotation anno : annAx.getAnnotations()) {
 						if (anno.getProperty().getIRI().equals(annotation)) {
-							
-							if (((OWLLiteral)anno.getValue()).getLiteral().toString().equals(value)) {
 
-								changes.add(new RemoveAxiom(this.ontology,
-								        annAx));
+							if (((OWLLiteral) anno.getValue()).getLiteral().toString().equals(value)) {
+
+								changes.add(new RemoveAxiom(this.ontology, annAx));
 								break;
 							}
 						}
@@ -1019,66 +991,61 @@ public class OWLScrubber {
 
 		}
 	}
-	
-	
-	private void substituteProperty(String[] values){
+
+	private void substituteProperty(String[] values) {
 		IRI propIRI = IRI.create(values[0]);
 		String oldValue = values[1];
 		String newValue = values[2];
 		for (OWLClass cls : this.ontology.getClassesInSignature()) {
-			this.substitutePropertyValue(cls,propIRI, oldValue,newValue);
+			this.substitutePropertyValue(cls, propIRI, oldValue, newValue);
 		}
 		for (OWLDataProperty dp : this.ontology.getDataPropertiesInSignature()) {
-			this.substitutePropertyValue(dp,propIRI, oldValue,newValue);
+			this.substitutePropertyValue(dp, propIRI, oldValue, newValue);
 		}
-		for (OWLObjectProperty op : this.ontology
-		        .getObjectPropertiesInSignature()) {
-			this.substitutePropertyValue(op,propIRI, oldValue,newValue);
+		for (OWLObjectProperty op : this.ontology.getObjectPropertiesInSignature()) {
+			this.substitutePropertyValue(op, propIRI, oldValue, newValue);
 		}
-		for (OWLAnnotationProperty ap : this.ontology
-		        .getAnnotationPropertiesInSignature()) {
-			this.substitutePropertyValue(ap,propIRI, oldValue,newValue);
+		for (OWLAnnotationProperty ap : this.ontology.getAnnotationPropertiesInSignature()) {
+			this.substitutePropertyValue(ap, propIRI, oldValue, newValue);
 		}
 		for (OWLNamedIndividual ind : this.ontology.getIndividualsInSignature()) {
-			this.substitutePropertyValue(ind,propIRI, oldValue,newValue);
+			this.substitutePropertyValue(ind, propIRI, oldValue, newValue);
 		}
 		for (OWLDatatype dt : this.ontology.getDatatypesInSignature()) {
-			this.substitutePropertyValue(dt,propIRI, oldValue,newValue);
+			this.substitutePropertyValue(dt, propIRI, oldValue, newValue);
 		}
-		
+
 	}
-	
-	private void substitutePropertyValue(OWLEntity cls, IRI property, String oldValue, String newValue){
+
+	private void substitutePropertyValue(OWLEntity cls, IRI property, String oldValue, String newValue) {
 		OWLDataFactory factory = this.manager.getOWLDataFactory();
 
 		List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-		        .getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(),
+				this.ontology)) {
 			boolean match = false;
 			Set<OWLAnnotation> existingAnnotations = annAx.getAnnotations();
-//			for (String complex : this.complexDataToDelete) {
-//				String[] complexArray = complex.split("\t");
-				if (annAx.getProperty().getIRI()
-				        .equals(property)) {
-					if(annAx.getValue().toString().equals(oldValue)){
-						match=true;
-					}
-					
+			// for (String complex : this.complexDataToDelete) {
+			// String[] complexArray = complex.split("\t");
+			if (annAx.getProperty().getIRI().equals(property)) {
+				if (annAx.getValue().toString().equals(oldValue)) {
+					match = true;
 				}
 
-//			}
+			}
+
+			// }
 			if (match) {
 				OWLAnnotation newAnnotation = factory.getOWLAnnotation(
-				        factory.getOWLAnnotationProperty(annAx.getProperty()
-				                .getIRI()), factory.getOWLLiteral(newValue));
+						factory.getOWLAnnotationProperty(annAx.getProperty().getIRI()),
+						factory.getOWLLiteral(newValue));
 				Set<OWLAnnotation> newAnnotations = new HashSet<OWLAnnotation>();
-				//Add the remaining annoations back onto the property
+				// Add the remaining annoations back onto the property
 				for (OWLAnnotation newAnno : existingAnnotations) {
 					newAnnotations.add(newAnno);
 				}
-				OWLAxiom annotatedAxiom = factory
-				        .getOWLAnnotationAssertionAxiom(cls.getIRI(),
-				                newAnnotation, newAnnotations);
+				OWLAxiom annotatedAxiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), newAnnotation,
+						newAnnotations);
 				changes.add(new RemoveAxiom(this.ontology, annAx));
 				changes.add(new AddAxiom(this.ontology, annotatedAxiom));
 
@@ -1087,81 +1054,66 @@ public class OWLScrubber {
 		if (changes.size() > 0) {
 			this.manager.applyChanges(changes);
 		}
-		
+
 	}
-	
-	
+
 	private void substituteQualifier(String[] values) {
 		IRI propIRI = IRI.create(values[0]);
 		IRI qualIRI = IRI.create(values[1]);
 		String oldValue = values[2];
 		String newValue = values[3];
 		for (OWLClass cls : this.ontology.getClassesInSignature()) {
-			this.substituteQualifierValue(cls,propIRI, qualIRI,oldValue,newValue);
+			this.substituteQualifierValue(cls, propIRI, qualIRI, oldValue, newValue);
 		}
 		for (OWLDataProperty dp : this.ontology.getDataPropertiesInSignature()) {
-			this.substituteQualifierValue(dp,propIRI, qualIRI,oldValue,newValue);
+			this.substituteQualifierValue(dp, propIRI, qualIRI, oldValue, newValue);
 		}
-		for (OWLObjectProperty op : this.ontology
-		        .getObjectPropertiesInSignature()) {
-			this.substituteQualifierValue(op,propIRI, qualIRI,oldValue,newValue);
+		for (OWLObjectProperty op : this.ontology.getObjectPropertiesInSignature()) {
+			this.substituteQualifierValue(op, propIRI, qualIRI, oldValue, newValue);
 		}
-		for (OWLAnnotationProperty ap : this.ontology
-		        .getAnnotationPropertiesInSignature()) {
-			this.substituteQualifierValue(ap,propIRI, qualIRI,oldValue,newValue);
+		for (OWLAnnotationProperty ap : this.ontology.getAnnotationPropertiesInSignature()) {
+			this.substituteQualifierValue(ap, propIRI, qualIRI, oldValue, newValue);
 		}
 		for (OWLNamedIndividual ind : this.ontology.getIndividualsInSignature()) {
-			this.substituteQualifierValue(ind,propIRI, qualIRI,oldValue,newValue);
+			this.substituteQualifierValue(ind, propIRI, qualIRI, oldValue, newValue);
 		}
 		for (OWLDatatype dt : this.ontology.getDatatypesInSignature()) {
-			this.substituteQualifierValue(dt,propIRI, qualIRI,oldValue,newValue);
+			this.substituteQualifierValue(dt, propIRI, qualIRI, oldValue, newValue);
 		}
 
 	}
-	
-	private void substituteQualifierValue(OWLEntity cls, IRI property, IRI qualifier, String oldValue, String newValue){
+
+	private void substituteQualifierValue(OWLEntity cls, IRI property, IRI qualifier, String oldValue,
+			String newValue) {
 		OWLDataFactory factory = this.manager.getOWLDataFactory();
 
 		List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher
-		        .getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(),
+				this.ontology)) {
 			boolean match = false;
 			Set<OWLAnnotation> existingAnnotations = annAx.getAnnotations();
-//			for (String complex : this.complexDataToDelete) {
-//				String[] complexArray = complex.split("\t");
-				if (annAx.getProperty().getIRI()
-				        .equals(property)) {
 
-					for (OWLAnnotation anno : annAx.getAnnotations()) {
-						if (anno.getProperty().getIRI()
-						        .equals(qualifier)) {
-							if(anno.getValue().toString().equals(oldValue)){
-							existingAnnotations.remove(anno);
-							OWLAnnotation newAnno = factory.getOWLAnnotation(anno.getProperty(), factory.getOWLLiteral(newValue));
-							existingAnnotations.add(newAnno);
-							match = true;
+			if (annAx.getProperty().getIRI().equals(property)) {
+				for (OWLAnnotation anno : annAx.getAnnotations()) {
+					if (anno.getProperty().getIRI().equals(qualifier)) {
+						if (anno.getValue().asLiteral().orNull() != null) {
+							if (((OWLLiteral) anno.getValue()).getLiteral().toString().equals(oldValue)) {
+								existingAnnotations.remove(anno);
+								OWLAnnotation newAnno = factory.getOWLAnnotation(anno.getProperty(),
+										factory.getOWLLiteral(newValue));
+								existingAnnotations.add(newAnno);
+								match = true;
 							}
 						}
 					}
 				}
-
-//			}
+			}
 			if (match) {
-				OWLAnnotation newAnnotation = factory.getOWLAnnotation(
-				        factory.getOWLAnnotationProperty(annAx.getProperty()
-				                .getIRI()), factory.getOWLLiteral(annAx
-				                .getValue().toString()));
-				Set<OWLAnnotation> newAnnotations = new HashSet<OWLAnnotation>();
-				//Add the remaining annoations back onto the property
-				for (OWLAnnotation newAnno : existingAnnotations) {
-					newAnnotations.add(newAnno);
-				}
-				OWLAxiom annotatedAxiom = factory
-				        .getOWLAnnotationAssertionAxiom(cls.getIRI(),
-				                newAnnotation, newAnnotations);
+				OWLAnnotation replacedAnnotation = factory.getOWLAnnotation(annAx.getProperty(), annAx.getValue());
+				OWLAxiom annotatedAxiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), replacedAnnotation,
+						existingAnnotations);
 				changes.add(new RemoveAxiom(this.ontology, annAx));
 				changes.add(new AddAxiom(this.ontology, annotatedAxiom));
-
 			}
 		}
 		if (changes.size() > 0) {
@@ -1171,6 +1123,7 @@ public class OWLScrubber {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see gov.nih.nci.owl.OwlScrubberInterface#run()
 	 */
 
@@ -1193,35 +1146,30 @@ public class OWLScrubber {
 					if (values.length == 1) {
 						this.removeProperty(property);
 					} else if (values.length == 2) {
-						this.removePropertyWithAnnotation(
-						        IRI.create(values[0]), IRI.create(values[1]));
+						this.removePropertyWithAnnotation(IRI.create(values[0]), IRI.create(values[1]));
 					} else if (values.length == 3) {
-						this.removePropertyWithAnnotationQualifier(
-						        IRI.create(values[0]), IRI.create(values[1]),
-						        values[2]);
+						this.removePropertyWithAnnotationQualifier(IRI.create(values[0]), IRI.create(values[1]),
+								values[2]);
 
 					} else {
-						System.out
-						        .println("Invalid input format exists for property ("
-						                + property + ") in file prop_del.txt.");
+						System.out.println(
+								"Invalid input format exists for property (" + property + ") in file prop_del.txt.");
 					}
 				}
-				
+
 				System.out.println("Substituting properties");
-				for(String propertySub: this.propertySubs){
+				for (String propertySub : this.propertySubs) {
 					String[] values = propertySub.split("\t");
-					if(values.length==3){
+					if (values.length == 3) {
 						substituteProperty(values);
-					} else if (values.length==4){
+					} else if (values.length == 4) {
 						substituteQualifier(values);
-					}else {
-						System.out
-				        .println("Invalid input format exists for property ("
-				                + propertySub + ") in file prop_value_replace.txt.");
+					} else {
+						System.out.println("Invalid input format exists for property (" + propertySub
+								+ ") in file prop_value_replace.txt.");
 					}
 				}
-				
-				
+
 				this.fixReferences();
 			}
 
