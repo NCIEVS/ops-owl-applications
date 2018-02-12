@@ -7,8 +7,10 @@ package gov.nih.nci.evs.owl;
  * Center for Bioinformatics and Information Technology (CBIIT)
  * Enterprise Vocabulary Services (EVS)
  *
- * Last Modified: 8/18 for Cancer Moonshot Phase 1
+ * Modified: 8/18/16 for Cancer Moonshot Phase 1
  *                In Support of OCPL Clinical Trials Search API
+ *                
+ *           2/5/18 to generate CURIEs from oboInOWL:hasDbXref
  */
 
 import java.io.BufferedReader;
@@ -29,12 +31,12 @@ import java.util.Vector;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -55,8 +57,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 
 /**
  * The Class OWLScrubber.
@@ -971,7 +973,7 @@ public class OWLScrubber {
 
 				if (annAx.getProperty().getIRI().equals(property)) {
 
-					Set<OWLAnnotation> debug = annAx.getAnnotations();
+					Set<OWLAnnotation> debug = annAx.getAnnotations(); //needed?
 					for (OWLAnnotation anno : annAx.getAnnotations()) {
 						if (anno.getProperty().getIRI().equals(annotation)) {
 
@@ -1120,6 +1122,72 @@ public class OWLScrubber {
 			this.manager.applyChanges(changes);
 		}
 	}
+	
+	//Method specific to NCI Thesaurus
+	//Convert annotations with a code value that also have an owl:Axiom
+	//containing an xref-source annotation.  Make them a plain literal annotation of the form
+	//<prefix:hasDbXref>source:code</prefix:hasDbXref>
+	private void convertXrefs() {
+		IRI propIRI = IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref");
+		for(OWLClass cls : this.ontology.getClassesInSignature()) {
+			convertXrefHelper(cls, propIRI);
+		}
+		for(OWLDataProperty op : this.ontology.getDataPropertiesInSignature()) {
+			convertXrefHelper(op, propIRI);
+		}
+		for(OWLAnnotationProperty ap : this.ontology.getAnnotationPropertiesInSignature()) {
+			convertXrefHelper(ap, propIRI);
+		}
+		for(OWLNamedIndividual ind : this.ontology.getIndividualsInSignature()) {
+			convertXrefHelper(ind, propIRI);
+		}
+		for(OWLDatatype dt : this.ontology.getDatatypesInSignature()) {
+			convertXrefHelper(dt, propIRI);
+		}
+	}
+	
+	private void convertXrefHelper(OWLEntity cls, IRI property) {
+		IRI qualifier = IRI.create(ontologyNamespace + "#xref-source");
+		OWLDataFactory factory = this.manager.getOWLDataFactory();
+
+		List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+		Vector<OWLAnnotationAssertionAxiom> removeAxioms = new Vector<OWLAnnotationAssertionAxiom>();
+		for (OWLAnnotationAssertionAxiom annAx : EntitySearcher.getAnnotationAssertionAxioms(cls.getIRI(), this.ontology)) {
+			boolean match = false;
+			Vector<String> sources = new Vector<String>();
+			OWLAnnotationValue value = null;
+			if (annAx.getProperty().getIRI().equals(property)) {
+				removeAxioms.add(annAx);
+				value = annAx.getValue();
+				for (OWLAnnotation anno : annAx.getAnnotations()) {
+					if (anno.getProperty().getIRI().equals(qualifier)) {
+						OWLLiteral annotationLiteral = anno.getValue().asLiteral().orNull();
+						//if(anno.getValue().toString().equals(oldValue)){
+						if( annotationLiteral != null ) {
+							String source = annotationLiteral.getLiteral().toString();
+							sources.add(source);
+							match = true;
+						}
+					}
+				}
+			}
+			if (match) {
+				for( String source : sources ) {
+					OWLAnnotation newAnnotation = factory.getOWLAnnotation(factory.getOWLAnnotationProperty(annAx.getProperty().getIRI()), 
+							factory.getOWLLiteral(source + ":" + value.toString().replaceAll("\"", ""), OWL2Datatype.RDF_PLAIN_LITERAL));
+					OWLAxiom axiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), newAnnotation);
+					changes.add(new AddAxiom(this.ontology, axiom));					
+				}
+				for( OWLAnnotationAssertionAxiom ax : removeAxioms ) {
+					changes.add(new RemoveAxiom(this.ontology, ax));		
+				}
+			}
+		}
+		if (changes.size() > 0) {
+			this.manager.applyChanges(changes);
+		}	
+		
+	}	
 
 	/*
 	 * (non-Javadoc)
@@ -1177,6 +1245,9 @@ public class OWLScrubber {
 				System.out.println("Suppressing Individuals...");
 				this.removeNamedIndividuals();
 			}
+			
+			System.out.println("Creating CURIEs");
+			this.convertXrefs();			
 
 			if (this.scrubEmpty) {
 				System.out.println("Removing empty properties...");
