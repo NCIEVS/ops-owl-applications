@@ -17,3 +17,8 @@ http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P376
 http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	ICSR
 http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	caDSR
 http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P325	http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P381	eManu
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#default_on_create_class
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#default_on_edit_class
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#restricted_by
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#editing_groups-enum
+http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#drug-team
