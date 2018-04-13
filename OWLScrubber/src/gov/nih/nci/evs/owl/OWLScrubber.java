@@ -31,6 +31,7 @@ import java.util.Vector;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -43,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -916,6 +918,12 @@ public class OWLScrubber {
 			OWLAnnotationProperty aProp = this.manager.getOWLDataFactory().getOWLAnnotationProperty(property);
 			aProp.accept(remover);
 
+			for(OWLDeclarationAxiom ax : this.ontology.getAxioms(AxiomType.DECLARATION)) {
+				if( ax.getEntity().getIRI().equals(property) ) {
+					ax.getEntity().accept(remover);
+				}
+			}
+			
 			// for(final OWLAnnotationProperty oap:
 			// this.ontology.getAnnotationPropertiesInSignature()){
 			//
