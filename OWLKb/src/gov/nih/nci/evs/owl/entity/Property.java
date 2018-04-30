@@ -230,13 +230,13 @@ public class Property implements PropertyInterface, Comparable<Property> {
 		return this.propertyDef.getPropertyType();
 	}
 
-	public Qualifier getQualifier(String name) {
+	public Qualifier getQualifier(String id) {
 //		if (this.qualifiers == null) {
 //			this.loadQualifiers();
 //		}
 		if (this.qualifiers != null) {
 			for (Qualifier qual : this.qualifiers) {
-				if (qual.getName().equals(name)) return qual;
+				if (qual.getCode().equals(id)) return qual;
 			}
 		}
 		return null;
