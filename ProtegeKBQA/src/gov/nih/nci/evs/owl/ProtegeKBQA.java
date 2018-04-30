@@ -668,7 +668,13 @@ public class ProtegeKBQA {
 		// check that value of PreferredTerm is the same as Full-Syn NCI|PT
 
 		// final Vector<String> syns = getNCIPTFullSyn(cls);
-		final Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
+		Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
+		if(syns==null || syns.size()==0){
+			syns = getFullSynBySourceAndGroup(cls,"NCI", "HD");
+		}
+		if(syns==null || syns.size()==0){
+			syns = getFullSynBySourceAndGroup(cls,"NCI", "AQ");
+		}
 		final Property pn = cls.getProperty(messages.getString("ProtegeKBQA.PreferredName"));
 		if(syns==null || pn==null ||syns.size()==0){
 			System.out.println("Unable to do FullSynMatch for "+ cls.getCode());
@@ -1207,15 +1213,16 @@ public class ProtegeKBQA {
 		String group = "";
 		String value = "";
 
+		value = synProp.getValue();
 		final Vector<Qualifier> quals = synProp.getQualifiers();
 		for (final Qualifier qual : quals) {
-			if (qual.getName().equals(messages.getString("ProtegeKBQA.Term_Source"))) {
+			if (qual.getCode().equals(messages.getString("ProtegeKBQA.Term_Source"))) {
 				source = qual.getValue();
-			} else if (qual.getName().equals(messages.getString("ProtegeKBQA.Term_Group"))) {
+			} else if (qual.getCode().equals(messages.getString("ProtegeKBQA.Term_Group"))) {
 				group = qual.getValue();
 			}
 
-			value = synProp.getValue();
+			
 
 		}
 

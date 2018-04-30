@@ -348,6 +348,25 @@ public class OWLKb {
 	        e.printStackTrace();
         } 
 	}
+	
+	public OWLKb(URI uri, String namespace, boolean useReasoner, boolean createNew) {
+		this.ontologyURI = uri;
+		try {
+			this.api = new OwlApiLayer(uri, namespace, createNew);
+			this.deprecatedBranch=new URI(defaultDeprecatedBranch);
+
+			if (useReasoner) {
+				// api.startHermitReasoner();
+				this.api.startToldReasoner();
+			}
+		} catch (OWLOntologyCreationException e) {
+			System.out.println("Error thrown by OwlApiLayer.  Abort");
+			this.logger.error("Error thrown by OwlApiLayer.  Abort", e);
+		} catch (URISyntaxException e) {
+	        System.out.println("Deprecated Branch is invalid URI "+ defaultDeprecatedBranch);
+	        e.printStackTrace();
+        } 
+	}
 
 	public void addAnnotationProperty(URI uri, Property newProp) {
 
@@ -356,10 +375,28 @@ public class OWLKb {
 
 	}
 
+
+	//Use attQualifiedAnnotationPropertyToConcept
 	public void addAnnotationProperty(IRI conceptCode, Property prop) {
 		// TODO Auto-generated method stub
-		this.api.addAnnotationAssertionAxiom(IRI.create(prop.getURI()),
-		        conceptCode, prop.getValue(), prop.getQualifiers());
+		this.addQualifiedAnnotationPropertytoConcept(conceptCode, prop);
+	}
+	
+	public void addQualifiedAnnotationPropertytoConcept(IRI conceptCode, Property prop){
+		this.api.addProperty(conceptCode, IRI.create(prop.getURI()), prop.getValue());
+		if(prop.getQualifiers().size()>0){
+		this.api.addAnnotationAssertionAxiom(prop.getCode(), conceptCode, prop.getValue(),
+				prop.getQualifiers());
+		}
+	}
+	
+	public void addQualifiedAnnotationPropertytoConcept(URI conceptCode, Property prop){
+		addQualifiedAnnotationPropertytoConcept(IRI.create(conceptCode), prop);
+	}
+	
+	public void updatePropertyOnConcept(URI conceptCode, Property oldProp, Property newProp){
+		removePropertyFromConcept(conceptCode, oldProp);
+		addQualifiedAnnotationPropertytoConcept(conceptCode, newProp);
 	}
 
 	public void addParent(Concept concept, Concept parent) {
@@ -391,10 +428,15 @@ public class OWLKb {
 		}
 	}
 
-	public void addPropertyDeclarationToOntology(String propertyName,
-	        String propertyValue) {
-
+//	public void addPropertyDeclarationToOntology(String propertyName,
+//	        String propertyValue) {
+//		
+//	}
+	
+	public void assignRdfLabelToConcept(URI conceptCode, String label){
+		this.api.assignRDFLabel(IRI.create(conceptCode), label);
 	}
+	
 
 	// public void diffHeader(OWLKb kb2, PrintWriter pw) {
 	// Diff the header
@@ -607,10 +649,9 @@ public class OWLKb {
 
 			this.concepts.put(id, concept);
 			return concept;
-		} else {
-			System.out.println("Concept already exists " + id);
-			return this.getConcept(id);
 		}
+		System.out.println("Concept already exists " + id);
+		return this.getConcept(id);
 
 	}
 
@@ -687,10 +728,9 @@ public class OWLKb {
 			final ConceptProxy concept = new ConceptProxy(id, name, this);
 			this.concepts.put(id, concept);
 			return concept;
-		} else {
-			System.out.println("Concept already exists " + id);
-			return this.getConcept(id);
 		}
+		System.out.println("Concept already exists " + id);
+		return this.getConcept(id);
 	}
 
 	public Vector<URI> getAllAncestorsForConcept(URI conceptCode) {
@@ -1158,8 +1198,9 @@ public HashMap<URI, String> getAllAssociations(){
 
 	public ConceptProxy getConcept(URI conceptURI) {
 		// final String tempCode = conceptURI.getFragment();
-		final ConceptProxy concept = new ConceptProxy(conceptURI, this);
-		return concept;
+//		final ConceptProxy concept = new ConceptProxy(conceptURI, this);
+//		return concept;
+		return this.concepts.get(conceptURI);
 	}
 
 	@Deprecated
