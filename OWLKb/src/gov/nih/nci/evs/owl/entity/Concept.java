@@ -11,6 +11,8 @@ import gov.nih.nci.evs.owl.interfaces.ConceptInterface;
 import java.net.URI;
 import java.util.Vector;
 
+import org.semanticweb.owlapi.model.IRI;
+
 /**
  * The Class Concept.
  *
@@ -498,6 +500,16 @@ public class Concept implements ConceptInterface, Comparable<Concept> {
 		this.properties.add(newProp);
 
 		this.api.addAnnotationProperty(this.getURI(), newProp);
+	}
+	
+	public void addQualifierToProperty(Property prop, Qualifier qual){
+		if (this.properties == null) {
+			this.loadProperties();
+		}
+		if (this.properties.contains(prop)){
+			api.addQualifiedAnnotationPropertytoConcept(IRI.create(this.uri), prop);
+			
+		}
 	}
 	
 	/*

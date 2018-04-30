@@ -107,22 +107,13 @@ public class Property implements PropertyInterface, Comparable<Property> {
 	        String propertyValue,  OWLKb inApi) {
 		this(new PropertyDef(IRI.create(propertyCode), propertyName), propertyValue,
 		        inApi);
-		// this.propertyDef = new PropertyDef(propertyNamespace, propertyCode,
-		// propertyName);
-		// // this.code = propertyCode;
-		// // this.name = propertyName;
-		// this.value = propertyValue;
-		// this.complexValue = propertyValue;
-		// if (isComplex) {
-		// this.complexValue = propertyValue;
-		// loadQualifiers();
-		// } else
-		// {
-		// this.value = propertyValue;
-		// this.complexValue=null;
-		// }
+
 	}
 
+	public Property(URI propertyCode, String propertyName, String propertyValue, OWLKb inApi, Vector<Qualifier> quals){
+		this(new PropertyDef(IRI.create(propertyCode), propertyName), propertyValue,
+		        inApi, quals);
+	}
 
 /*
  * @deprecated  

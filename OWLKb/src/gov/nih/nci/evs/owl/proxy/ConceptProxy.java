@@ -64,8 +64,9 @@ public class ConceptProxy implements ConceptInterface {
 		this.api = kb;
 		this.namespace = conceptURI.getScheme()
 		        + conceptURI.getSchemeSpecificPart();
-		this.name = kb.getConceptNameByCode(IRI.create(conceptURI)); // TODO get
+//		this.name = kb.getConceptNameByCode(IRI.create(conceptURI)); // TODO get
 																	 // label
+		this.name = name;
 		this.uri = conceptURI;
 	}
 

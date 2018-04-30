@@ -53,6 +53,7 @@ import java.util.Vector;
 //import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.protege.editor.owl.p3.PunnedAnnotationProperties;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 //import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -211,6 +212,7 @@ public class OwlApiLayer {
 		this.instantiateMaps();
 		this.metrics = new NCIt_metrics(this.ontology);
 	}
+	
 
 	/**
 	 * Instantiates a new owl api layer.
@@ -254,23 +256,23 @@ public class OwlApiLayer {
 	public OwlApiLayer(final URI uri, String namespace) throws OWLOntologyCreationException
 	        {
 		this(OWLManager.createOWLOntologyManager().loadOntology(IRI.create(uri)), namespace);
-//		this.manager = OWLManager.createOWLOntologyManager();
-//		try {
-//			IRI iri = IRI.create(uri);
-//			// this.manager.setSilentMissingImportsHandling(true);
-//			// this.ontology = manager.loadOntology(iri);
-//			this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
-//			this.defaultNamespace = namespace;
-//			this.instantiateMaps();
-//
-//		} catch (OWLOntologyCreationIOException e) {
-//			System.out.println("File not found: " + uri.toString());
-//			throw e;
-//		} catch (OWLOntologyCreationException e) {
-//			System.out
-//			        .println("Failed to create OwlApiLayer. Owl file invalid or not found.");
-//			throw e;
-//		}
+	}
+	
+	public OwlApiLayer(URI uri, String namespace, boolean createNew) throws OWLOntologyCreationException{
+		if(createNew){
+			OWLManager.createOWLOntologyManager().createOntology(IRI.create(uri));
+			this.manager = OWLManager.createOWLOntologyManager();
+			this.ontology = manager.createOntology(IRI.create(uri));
+			this.defaultNamespace = namespace;
+			this.instantiateMaps();
+			this.metrics = new NCIt_metrics(this.ontology);
+		} else {
+			this.manager = OWLManager.createOWLOntologyManager();
+			this.ontology = manager.loadOntology(IRI.create(uri));
+			this.defaultNamespace = namespace;
+			this.instantiateMaps();
+			this.metrics = new NCIt_metrics(this.ontology);
+		}
 	}
 
 	/**
@@ -322,7 +324,7 @@ public class OwlApiLayer {
 	public void addAnnotationAssertionAxiom(String propCode, IRI conceptCode,
 	        String value, Vector<Qualifier> qualifiers) {
 
-		IRI propIRI = this.createIRI(this.getNamespace(), propCode);
+		IRI propIRI = this.createIRI(propCode, this.getNamespace());
 		this.addAnnotationAssertionAxiom(propIRI, conceptCode, value,
 		        qualifiers);
 	}
@@ -1562,6 +1564,7 @@ public class OwlApiLayer {
 		return this.getRDFSLabel(owlClass);
 	
 	}
+
 
 	/**
 	 * Gets the concept code.
@@ -4133,8 +4136,7 @@ public class OwlApiLayer {
 			final WriterDocumentTarget target = new WriterDocumentTarget(
 			        new BufferedWriter(new OutputStreamWriter(out,
 			                encodingFormat)));
-			final OWLDocumentFormat format = this.manager
-			        .getOntologyFormat(this.ontology);
+			final OWLDocumentFormat format = new OWLXMLDocumentFormat();
 			storer.storeOntology(this.ontology, target, format);
 		} catch (final Exception e) {
 			e.printStackTrace();
