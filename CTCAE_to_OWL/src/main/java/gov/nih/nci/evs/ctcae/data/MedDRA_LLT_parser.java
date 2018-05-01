@@ -15,9 +15,13 @@ import java.util.regex.Pattern;
 public class MedDRA_LLT_parser {
 
 	HashMap<String,Vector<MedDRA_LLT>> lltLookUp = new HashMap<String,Vector<MedDRA_LLT>>();
+	HashMap<String, Vector<MedDRA_LLT>> medLookUp = new HashMap<String,Vector<MedDRA_LLT>>();
 	
 	public HashMap<String, Vector<MedDRA_LLT>> getLltLookUp() {
 		return lltLookUp;
+	}
+	public HashMap<String, Vector<MedDRA_LLT>> getMedLookUp(){
+		return medLookUp;
 	}
 
 	public MedDRA_LLT_parser(File meddraFile) throws FileNotFoundException {
@@ -45,6 +49,15 @@ public class MedDRA_LLT_parser {
 					meds.add(item);
 					lltLookUp.put(item.getLltCode(), meds);
 				}
+				if (medLookUp.get(item.getMeddraCode())!= null){
+					Vector<MedDRA_LLT> meds = medLookUp.get(item.getMeddraCode());
+					meds.addElement(item);
+					medLookUp.put(item.getMeddraCode(), meds);
+				} else {
+					Vector<MedDRA_LLT> meds = new Vector<MedDRA_LLT>();
+					meds.add(item);
+					medLookUp.put(item.getMeddraCode(), meds);
+				}
 			}
 			
 			
@@ -59,7 +72,7 @@ public class MedDRA_LLT_parser {
 		
 	}
 	
-	public MedDRA_LLT  tokenizeString(String inputString, Pattern delimiter) {
+	public MedDRA_LLT tokenizeString(String inputString, Pattern delimiter) {
 
 
 		Vector<String> tokens = new Vector<>();

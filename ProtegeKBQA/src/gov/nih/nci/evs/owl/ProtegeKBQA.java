@@ -484,6 +484,7 @@ public class ProtegeKBQA {
 
 	private String getQualifierValue(Property prop, String qualCode) {
 		for (Qualifier qual : prop.getQualifiers()) {
+//			System.out.println("Qual code " + qual.getCode());
 			if (qual.getCode().equals(qualCode)) {
 				return qual.getValue();
 			}
@@ -1068,10 +1069,13 @@ public class ProtegeKBQA {
 
 	private Vector<String> getFullSynBySourceAndGroup(ConceptProxy c, String source, String group) {
 		final Vector<String> out = new Vector<String>();
+//		System.out.println("getFullSynBySourceAndGroup");
 		for (Property prop : c.getProperties()) {
+//			System.out.println("Property " + prop.getName());
 			String sourceQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Source"));
 			String groupQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Group"));
 			if (sourceQual != null && groupQual != null) {
+//				System.out.println(sourceQual + " " + groupQual);
 				if (sourceQual.equals(source) && groupQual.equals(group)) {
 					out.add(prop.getValue());
 				}
@@ -1243,6 +1247,9 @@ public class ProtegeKBQA {
 			pw.close();
 			System.exit(0);
 		}
+		
+//		System.out.println( messages.getString("ProtegeKBQA.Term_Source"));
+//		System.out.println( messages.getString("ProtegeKBQA.Term_Group"));
 
 		// This will loop through the classes, writing the findings to a set of
 		// global HashMaps or Vectors. At the end, will write out the results to
@@ -1279,6 +1286,7 @@ public class ProtegeKBQA {
 				checkCharacter(cls, '\t');
 				checkPreferredNameBug(cls);
 				checkForEmptyQualifiers(cls);
+				cls.unloadProperties();
 			}
 		}
 

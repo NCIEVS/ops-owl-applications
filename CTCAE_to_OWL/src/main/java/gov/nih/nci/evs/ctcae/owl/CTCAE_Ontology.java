@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -14,6 +16,7 @@ import gov.nih.nci.evs.owl.entity.Concept;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Qualifier;
 import gov.nih.nci.evs.owl.exceptions.PropertyException;
+import gov.nih.nci.evs.owl.meta.PropertyDef;
 import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 
 public class CTCAE_Ontology extends OWLKb {
@@ -36,24 +39,24 @@ public class CTCAE_Ontology extends OWLKb {
 	private ConceptProxy AEbySOC_root;
 
 	public CTCAE_Ontology(URI outputURI, String namespace) {
-		super(true, outputURI, namespace);
+		super(outputURI, namespace, true, true);
 		this.setDeprecatedBranch(createURI( "deprecated",namespace));
-		createAEseverityTree();
+//		createAEseverityTree();
 		createAEbySOC();
 	}
 
-	@Override
+	
+	
 	public void addAnnotationPropertyToConcept(URI uri, Property newProp) {
 
-		this.api.addAnnotationAssertionAxiom(IRI.create(newProp.getURI()), IRI.create(uri), newProp.getValue(),
-				newProp.getQualifiers());
+		this.addQualifiedAnnotationPropertytoConcept(IRI.create(uri), newProp);
 	}
 
 	public void addAnnotationPropertyToConcept(String conceptCode, Property newProp) {
 		// check the property names versus the properties files then send to the
 		// correct method(s)
 
-		this.addAnnotationPropertyToConcept(IRI.create(getDefaultNamespace() + "#" + conceptCode), newProp);
+		this.addAnnotationPropertyToConcept(URI.create(getDefaultNamespace() + "#" + conceptCode), newProp);
 	}
 
 	private void createAEbySOC() {
@@ -74,24 +77,34 @@ public class CTCAE_Ontology extends OWLKb {
 		 * <code rdf:datatype="&xsd;string">E10002</code> </owl:Class>
 		 */
 		String conceptName = "Adverse Event by System Organ Class";
-		AEbySOC_root = createConcept(createURI( "Adverse_Event_by_System_Organ_Class",this.getDefaultNamespace()),
+		AEbySOC_root = createConcept(createURI( "C143163",this.getDefaultNamespace()),
 				conceptName);
 		URI propURI = createURI("Preferred_Name",this.getDefaultNamespace());
 		Property prop = new Property(propURI, "Preferred_Name", conceptName, this);
 		AEbySOC_root.addProperty(prop);
 
 		try {
+			Vector<Qualifier> quals = new Vector<Qualifier>();
 			propURI = createURI("FULL_SYN",this.getDefaultNamespace());
-			Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this);
-			URI qualURI = createURI( "term-group",this.getDefaultNamespace());
-			Qualifier qual1 = new Qualifier(qualURI, "term-group", "PT", this);
-			prop2.addQualifier(qual1);
-			qualURI = createURI("term-source",this.getDefaultNamespace());
-			Qualifier qual2;
-
-			qual2 = new Qualifier(qualURI, "term-source", "NCI", this);
-			prop2.addQualifier(qual2);
+			
+			URI qualGroupURI = createURI( "term-group",this.getDefaultNamespace());
+			URI qualSourceURI = createURI("term-source",this.getDefaultNamespace());
+			
+			Qualifier qual1 = new Qualifier(qualGroupURI, "term-group", "PT", this);
+			Qualifier qual2 = new Qualifier(qualSourceURI, "term-source", "NCI", this);
+			quals.add(qual1);
+			quals.add(qual2);
+			Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this,quals);
 			AEbySOC_root.addProperty(prop2);
+			
+			quals = new Vector<Qualifier>();
+			qual1 = new Qualifier(qualSourceURI,"term-source", "CTCAE", this);
+			qual2 = new Qualifier(qualGroupURI, "term-group", "PT", this);
+			quals.addElement(qual1);
+			quals.add(qual2);
+			Property prop3 = new Property(propURI, "FULL_SYN", conceptName, this, quals);
+			AEbySOC_root.addProperty(prop3);
+			
 		} catch (PropertyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,12 +112,7 @@ public class CTCAE_Ontology extends OWLKb {
 
 	}
 
-	private void createGradeRole(){
-		/**
-		 * OWLObjectProperty hasFather = df.getOWLObjectProperty(
-IRI.create(example_iri + "#hasFather"));
-		 */
-	}
+
 	
 	private void createAEseverityTree() {
 		/**
@@ -120,15 +128,17 @@ IRI.create(example_iri + "#hasFather"));
 
 		try {
 			propURI = createURI("FULL_SYN",this.getDefaultNamespace());
-			Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this);
+			Vector<Qualifier> quals = new Vector<Qualifier>();
+			
 			URI qualURI = createURI( "term-group",this.getDefaultNamespace());
 			Qualifier qual1 = new Qualifier(qualURI, "term-group", "PT", this);
-			prop2.addQualifier(qual1);
+			quals.add(qual1);
 			qualURI = createURI("term-source",this.getDefaultNamespace());
 			Qualifier qual2;
 
 			qual2 = new Qualifier(qualURI, "term-source", "NCI", this);
-			prop2.addQualifier(qual2);
+			quals.add(qual2);
+			Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this, quals);
 			AEbgrade_root.addProperty(prop2);
 			createGradeConcept(AEbgrade_root);
 		} catch (PropertyException e) {
@@ -146,27 +156,34 @@ IRI.create(example_iri + "#hasFather"));
 			ConceptProxy grade = createConcept(createURI( conceptCode,this.getDefaultNamespace()),
 					conceptName);
 			try {
-				URI propURI = createURI("Preferred_Name",this.getDefaultNamespace());
+				URI propURI = createURI("Preferred_Name",this.getDefaultNamespace());			
 				Property prop = new Property(propURI, "Preferred_Name", conceptName, this);
 				grade.addProperty(prop);
+				
+				
 				propURI = createURI("FULL_SYN",this.getDefaultNamespace());
-				Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this);
+				Vector<Qualifier> quals = new Vector<Qualifier>();
 				URI qualURI = createURI( "term-group",this.getDefaultNamespace());
 				Qualifier qual1 = new Qualifier(qualURI, "term-group", "PT", this);
-				prop2.addQualifier(qual1);
+				quals.add(qual1);
 				qualURI = createURI("term-source",this.getDefaultNamespace());
 				Qualifier qual2;
-
 				qual2 = new Qualifier(qualURI, "term-source", "NCI", this);
-				prop2.addQualifier(qual2);
+				quals.add(qual2);
+				Property prop2 = new Property(propURI, "FULL_SYN", conceptName, this, quals);
 				grade.addProperty(prop2);
-				grade.addParent(root.getConcept());
+				
+				grade.addParent(root.getConcept().getURI());
 			} catch (PropertyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
+	
+	
+
+	
 
 	public ConceptProxy createSOCConcept(URI code, String name, String medDRA_Code) {
 		/**
@@ -182,21 +199,33 @@ IRI.create(example_iri + "#hasFather"));
 		 * <Preferred_Name rdf:datatype="&xsd;string" >Gastrointestinal
 		 * disorders</Preferred_Name> </owl:Class>
 		 */
+		
+		ConceptProxy socConcept2  = this.getConcept(code);
+		if(!(socConcept2 == null)) {
+			return socConcept2;
+			}
 		ConceptProxy socConcept = createConcept(code, name);
 		if (socConcept.getParentCodes().size() == 0) {
-			socConcept.addParent(AEbySOC_root.getConcept());
+			socConcept.addParent(AEbySOC_root.getConcept().getURI());
 			// AddFULLSYN
 			try {
+				URI pnURI = createURI("Preferred_Name",this.getDefaultNamespace());			
+				Property prop = new Property(pnURI, "Preferred_Name", name, this);
+				socConcept.addProperty(prop);
+				this.assignRdfLabelToConcept(code, name);
+				
 				URI propURI = createURI( "FULL_SYN",this.getDefaultNamespace());
-				Property prop2 = new Property(propURI, "FULL_SYN", name, this);
+				Vector<Qualifier> quals = new Vector<Qualifier>();
+				
 				URI qualURI = createURI( "term-group",this.getDefaultNamespace());
 				Qualifier qual1 = new Qualifier(qualURI, "term-group", "PT", this);
-				prop2.addQualifier(qual1);
+				quals.add(qual1);
 				qualURI = createURI( "term-source",this.getDefaultNamespace());
 				Qualifier qual2;
 
 				qual2 = new Qualifier(qualURI, "term-source", "NCI", this);
-				prop2.addQualifier(qual2);
+				quals.add(qual2);
+				Property prop2 = new Property(propURI, "FULL_SYN", name, this, quals);
 				socConcept.addProperty(prop2);
 			} catch (PropertyException e) {
 				// TODO Auto-generated catch block
@@ -213,5 +242,34 @@ IRI.create(example_iri + "#hasFather"));
 		}
 		return socConcept;
 	}
+	
+	public HashMap<String, Vector<ConceptProxy>> sortConceptsBySOC(){
+		HashMap<URI, ConceptProxy> concepts = this.getAllConcepts();
+		Iterator iter = concepts.keySet().iterator();
+		HashMap<String, Vector<ConceptProxy>> conceptsBySOC = new HashMap<String, Vector<ConceptProxy>>();
+		while (iter.hasNext()){
+			ConceptProxy concept = concepts.get(iter.next());
+			if(concept.getProperty("MedDRA_Code")==null){
+				System.out.println("No MedDRA Code " + concept.getCode() + " " + concept.getName());
+			} else {
+			String medCode = concept.getProperty("MedDRA_Code").getValue();
+			if(conceptsBySOC.containsKey(medCode)){
+				//add this concept to the collection
+				Vector<ConceptProxy> medConcepts = conceptsBySOC.get(medCode);
+				medConcepts.addElement(concept);
+				conceptsBySOC.put(medCode, medConcepts);
+			} else {
+				//create medCode reference and add concept
+				Vector<ConceptProxy> medConcepts = new Vector<ConceptProxy>();
+				medConcepts.add(concept);
+				conceptsBySOC.put(medCode, medConcepts);
+			}}
+		}
+		
+		return conceptsBySOC;
+		
+	}
+	
+
 
 }

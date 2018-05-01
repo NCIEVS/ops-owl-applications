@@ -111,5 +111,7 @@ public interface ConceptInterface {
 	public URI getURI();
 
 	public void changeURI(URI newURI);
+	
+	public void unloadProperties();
 
 }

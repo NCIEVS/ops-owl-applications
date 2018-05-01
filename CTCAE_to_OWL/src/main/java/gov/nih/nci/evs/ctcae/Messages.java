@@ -16,7 +16,7 @@ public class Messages {
 
 	private static ResourceBundle RESOURCE_BUNDLE = null;
 
-	Messages(String fileLoc) {
+	public Messages(String fileLoc) {
 		
 		try {
 		File file = new File(fileLoc);

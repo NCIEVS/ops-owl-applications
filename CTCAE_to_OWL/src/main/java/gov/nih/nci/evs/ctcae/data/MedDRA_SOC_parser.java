@@ -56,7 +56,7 @@ public class MedDRA_SOC_parser {
 		String mCode = lineReader.next();
 		String soc = lineReader.next();
 		lineReader.close();
-		socLookUp.put(soc, mCode);
+		socLookUp.put(mCode, soc);
 	}
 	
 }

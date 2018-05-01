@@ -7,37 +7,46 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import gov.nih.nci.evs.ctcae.Messages;
+
 /**
  * Read the Excel file and hold data for processing into objects.
+ * 
+ * Separate row for each grade.  Grades can be grouped by MedDRA Code
  * 
  * @author safrant
  *
  */
 
 public class CTCAE_parser {
-
+	
 	Vector<String> headers = new Vector<String>();
-	HashMap<String, HashMap<String, String>> rowData = new HashMap<String, HashMap<String, String>>();
-
-	public HashMap<String, HashMap<String, String>> getRowData() {
+	TreeMap<String, TreeMap<String, String>> rowData = new TreeMap<String, TreeMap<String, String>>();
+	TreeMap<String,String> socNameLookup = new TreeMap<String,String>();
+	public static Messages messages;
+	
+	public TreeMap<String, TreeMap<String, String>> getRowData() {
 		return rowData;
 	}
 
 	public CTCAE_parser(File file) throws Exception {
-
+		this.messages = new Messages("./config/");
 		try {
+			
 			InputStream inputStream = new FileInputStream(file);
 
 			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-			XSSFSheet sheet = workbook.getSheetAt(3);
+			XSSFSheet sheet = workbook.getSheetAt(1);
 			Iterator rows = sheet.rowIterator();
 			XSSFRow row;
 
@@ -45,12 +54,13 @@ public class CTCAE_parser {
 			parseHeader((XSSFRow) rows.next());
 
 			while (rows.hasNext()) {
-				HashMap<String, String> singleRow = parseRow((XSSFRow) rows.next());
-				String rowName = singleRow.get("CTCAE Term");
+				TreeMap<String, String> singleRow = parseRow((XSSFRow) rows.next());
+				String rowName = singleRow.get(messages.getString("id"));
 				rowData.put(rowName, singleRow);
 			}
 
 			inputStream.close();
+			workbook.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,10 +73,10 @@ public class CTCAE_parser {
 
 	}
 
-	private HashMap<String, String> parseRow(XSSFRow row) {
+	private TreeMap<String, String> parseRow(XSSFRow row) {
 		XSSFCell cell;
 		Iterator cells = row.cellIterator();
-		HashMap<String, String> cellValues = new HashMap<String, String>();
+		TreeMap<String, String> cellValues = new TreeMap<String, String>();
 		Iterator<String> headerIt = headers.iterator();
 
 		while (cells.hasNext()) {
@@ -79,15 +89,23 @@ public class CTCAE_parser {
 			}
 
 		}
-		if (cellValues.size() != 13) {
+		System.out.println();
+		if (cellValues.size() != 10) {
+			String id = cellValues.get(messages.getString("id"));
+			String name = cellValues.get(messages.getString("NCI_PT"));
+			if(name.contains(", CTCAE")){
+			name = name.substring(0, name.lastIndexOf(","));
+			}
+			socNameLookup.put(id, name);
 			String debug = "stop here";
 		}
-		System.out.println();
+		
 		return cellValues;
 	}
 
 	private void parseHeader(XSSFRow headerRow) {
 		// TODO Auto-generated method stub
+		
 		Iterator cells = headerRow.cellIterator();
 
 		while (cells.hasNext()) {
@@ -99,17 +117,13 @@ public class CTCAE_parser {
 				// System.out.print(cell.getStringCellValue()+" ");
 			}
 
-			// if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
-			// {
-			// System.out.print(cell.getStringCellValue()+" ");
-			// }
-			// else
-			// {
-			// System.out.println("Unable to parse header");
-			// }
 		}
-		// System.out.println();
 
+
+	}
+	
+	public String socName(String code){
+		return socNameLookup.get(code);
 	}
 
 }

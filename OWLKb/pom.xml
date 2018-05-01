@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gov.nih.nci.evs.owl</groupId>
 	<artifactId>owl2kb</artifactId>
-	<version>2.1.0</version>
+	<version>2.1.0.1</version>
 	<name>OWLKb</name>
 	<description>wrapper to owlapi to apply NCI EVS business rules</description>
 	<build>
