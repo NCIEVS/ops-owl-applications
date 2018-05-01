@@ -234,8 +234,10 @@ public class Property implements PropertyInterface, Comparable<Property> {
 //		if (this.qualifiers == null) {
 //			this.loadQualifiers();
 //		}
+//		System.out.println("Checking quals for "+ id);
 		if (this.qualifiers != null) {
 			for (Qualifier qual : this.qualifiers) {
+//				System.out.println("Checking qual "+ qual.getCode());
 				if (qual.getCode().equals(id)) return qual;
 			}
 		}

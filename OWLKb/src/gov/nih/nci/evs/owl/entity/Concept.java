@@ -457,6 +457,11 @@ public class Concept implements ConceptInterface, Comparable<Concept> {
 			this.loadProperties();
 		}
 	}
+	
+	public void unloadProperties(){
+		this.properties = null;
+		this.roles = null;
+	}
 
 	private void checkRolesLoad() {
 		if ((this.roles == null) || (this.roles.size() < 1)) {

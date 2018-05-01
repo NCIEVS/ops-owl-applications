@@ -315,5 +315,9 @@ public class ConceptProxy implements ConceptInterface {
 		this.checkConceptLoad();
 		this.ci.changeURI(newURI);
 	}
+	
+	public void unloadProperties() {
+		this.ci.unloadProperties();
+	}
 
 }
