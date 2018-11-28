@@ -1,4 +1,4 @@
-This application takes NCI Thesaurus and checks it against several criteria to determine if it requires and fixes.  
+This application takes NCI Thesaurus and checks it against several criteria to determine if it requires any fixes.  
 All issues are reported out as tab-delimited text, which is then loaded into Excel and presented to the editors.
 
 A series of config files controls the program
