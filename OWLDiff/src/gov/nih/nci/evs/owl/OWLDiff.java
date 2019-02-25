@@ -260,17 +260,23 @@ public class OWLDiff {
 		return extraValues;
 	}
 
-	private void configureKb(URI previousFile, URI currentFile) {
-		current = new OWLKb(currentFile, namespace);
-		if (current == null) {
-			System.out.println("Unable to instantiate OWLKb for current URI");
-			System.exit(0);
-		}
-		previous = new OWLKb(previousFile, namespace);
-		if (previous == null) {
+	private void configureKb(URI previousFile1, URI currentFile1) {
+
+			current = new OWLKb(currentFile1, namespace);
+			if (current == null || !current.isLoadValid()) {
+				System.out.println("Unable to instantiate OWLKb for current URI");
+				System.exit(0);
+			}
+
+
+
+			previous = new OWLKb(previousFile1, namespace);
+
+		if (previous == null || !previous.isLoadValid()) {
 			System.out.println("Unable to instantiate OWLKb for previous URI");
 			System.exit(0);
 		}
+
 
 	}
 
@@ -385,7 +391,7 @@ public class OWLDiff {
 		for (URI code : codes) {
 			try{
 //			ConceptProxy firstConcept = firstSetConcepts.get(code);
-			ConceptProxy secondConcept = previous.getConcept(code);
+//			ConceptProxy secondConcept = previous.getConcept(code);
 			if(previousCodes.contains(code))
 			{
 				diff = diff(code);
@@ -416,6 +422,7 @@ public class OWLDiff {
 			diff = new Vector<String>();}
 			catch(Exception e){
 				previous.getConcept(code).getProperties();
+				System.out.println("Null pointer within "+ code);
 			}
 		}
 		// flip and look for concepts in kb2 that aren't in sceondSetConcepts
@@ -755,6 +762,7 @@ public class OWLDiff {
 				        + " " + parent.getName());
 			}
 			match = false;
+			parent.unloadProperties();
 		}
 
 		// change in Associations - alphabetical
@@ -783,7 +791,8 @@ public class OWLDiff {
 		}
 
 
-
+		c1.unloadProperties();
+		c2.unloadProperties();
 		if (changesmade) return diff;
 		return new Vector<String>();
 	}
@@ -822,6 +831,7 @@ public class OWLDiff {
 		for (Property myProperty : myProperties) {
 			diff.add("         Property:    " + myProperty.toString());
 		}
+		current.getConcept(c1).unloadProperties();
 		return diff;
 
 	}
