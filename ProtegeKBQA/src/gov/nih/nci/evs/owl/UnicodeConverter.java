@@ -18,6 +18,7 @@ public class UnicodeConverter {
     public UnicodeConverter(String line) throws Exception{
 
         String[] symbolArray = line.split("\\.\\|\\.", 0);
+        
         if(symbolArray.length==4){
             unicodeString = symbolArray[0];
             charDescription = symbolArray[3];

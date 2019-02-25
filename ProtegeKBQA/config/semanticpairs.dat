@@ -1,29 +1,84 @@
-Carbohydrate|Pharmacologic Substance
-Amino Acid, Peptide, or Protein|Biologically Active Substance
-Amino Acid, Peptide, or Protein|Pharmacologic Substance
-Amino Acid, Peptide, or Protein|Enzyme
-Amino Acid, Peptide, or Protein|Immunologic Factor
-Amino Acid, Peptide, or Protein|Receptor
+Acquired Abnormality|Disease or Syndrome
 Amino Acid, Peptide, or Protein|Antibiotic
+Amino Acid, Peptide, or Protein|Biologically Active Substance
+Amino Acid, Peptide, or Protein|Cell Component
+Amino Acid, Peptide, or Protein|Cell Component|Enzyme
+Amino Acid, Peptide, or Protein|Enzyme
+Amino Acid, Peptide, or Protein|Enzyme|Receptor
+Amino Acid, Peptide, or Protein|Hazardous or Poisonous Substance
 Amino Acid, Peptide, or Protein|Hormone
-Antibiotic|Organic Chemical
+Amino Acid, Peptide, or Protein|Immunologic Factor
+Amino Acid, Peptide, or Protein|Immunologic Factor|Indicator, Reagent, or Diagnostic Aid
+Amino Acid, Peptide, or Protein|Immunologic Factor|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Immunologic Factor|Receptor
+Amino Acid, Peptide, or Protein|Indicator, Reagent, or Diagnostic Aid
+Amino Acid, Peptide, or Protein|Indicator, Reagent, or Diagnostic Aid|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Organic Chemical|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Pharmacologic Substance
+Amino Acid, Peptide, or Protein|Receptor
+Anatomical Abnormality|Disease or Syndrome
+Anatomical Structure|Body Space or Junction
 Antibiotic|Carbohydrate
+Antibiotic|Chemical Viewed Functionally
+Antibiotic|Organic Chemical
+Antibiotic|Organic Chemical|Pharmacologic Substance
+Antibiotic|Pharmacologic Substance
+Bacterium|Pharmacologic Substance
+Biologically Active Substance|Nucleic Acid, Nucleoside, or Nucleotide|Pharmacologic Substance
+Biologically Active Substance|Organic Chemical
+Biologically Active Substance|Organic Chemical|Pharmacologic Substance
+Biomedical or Dental Material|Inorganic Chemical|Pharmacologic Substance
+Biomedical or Dental Material|Organic Chemical
 Carbohydrate|Pharmacologic Substance
+Carbohydrate|Pharmacologic Substance
+Cell|Immunologic Factor
+Cell|Immunologic Factor|Pharmacologic Substance
+Cell|Indicator, Reagent, or Diagnostic Aid
+Cell|Pharmacologic Substance
+Chemical|Indicator, Reagent, or Diagnostic Aid
+Chemical Viewed Functionally|Hazardous or Poisonous Substance
+Chemical Viewed Functionally|Immunologic Factor
+Chemical Viewed Functionally|Nucleic Acid, Nucleoside, or Nucleotide
+Chemical Viewed Functionally|Pharmacologic Substance
+Chemical Viewed Structurally|Organic Chemical
+Congenital Abnormality|Disease or Syndrome
+Disease or Syndrome|Neoplastic Process
 Eicosanoid|Pharmacologic Substance
+Element, Ion, or Isotope|Hazardous or Poisonous Substance
 Element, Ion, or Isotope|Pharmacologic Substance
+Enzyme|Pharmacologic Substance
+Finding|Laboratory or Test Result
+Finding|Sign or Symptom
+Food|Pharmacologic Substance
+Food|Plant
+Gene or Genome|Organic Chemical|Pharmacologic Substance
+Gene or Genome|Pharmacologic Substance
+Hazardous or Poisonous Substance|Indicator, Reagent, or Diagnostic Aid|Organic Chemical
+Hazardous or Poisonous Substance|Inorganic Chemical
+Hazardous or Poisonous Substance|Inorganic Chemical|Pharmacologic Substance
 Hazardous or Poisonous Substance|Organic Chemical
+Hazardous or Poisonous Substance|Organic Chemical|Pharmacologic Substance
+Hazardous or Poisonous Substance|Pharmacologic Substance
+Health Care Related Organization|Professional or Occupational Group
+Hormone|Organic Chemical
+Hormone|Organic Chemical|Pharmacologic Substance
 Hormone|Steroid
+Immunologic Factor|Organic Chemical
+Immunologic Factor|Organic Chemical|Pharmacologic Substance
 Immunologic Factor|Pharmacologic Substance
 Indicator, Reagent, or Diagnostic Aid|Inorganic Chemical
+Hazardous or Poisonous Substance|Inorganic Chemical|Pharmacologic Substance
 Indicator, Reagent, or Diagnostic Aid|Organic Chemical
+Indicator, Reagent, or Diagnostic Aid|Organic Chemical|Pharmacologic Substance
+Indicator, Reagent, or Diagnostic Aid|Pharmacologic Substance
 Inorganic Chemical|Pharmacologic Substance
 Lipid|Pharmacologic Substance
 Nucleic Acid, Nucleoside, or Nucleotide|Pharmacologic Substance
+Nucleic Acid, Nucleoside, or Nucleotide|Research Device
 Organic Chemical|Pharmacologic Substance
+Organic Chemical|Pharmacologic Substance|Vitamin
 Organic Chemical|Vitamin
+Pharmacologic Substance|Plant
 Pharmacologic Substance|Steroid
 Pharmacologic Substance|Virus
-
-
-
-
+Pharmacologic Substance|Vitamin

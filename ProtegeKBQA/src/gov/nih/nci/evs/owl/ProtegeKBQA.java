@@ -401,6 +401,123 @@ public class ProtegeKBQA {
 		}
 	}
 
+	private boolean checkContributingSouceAndAltDef(ConceptProxy cls, Property source) {
+		// check that concepts with a contributing source and a Definition
+		// should also have an Alt-def
+		// ignoreSources.contains(synSource)
+		// final Vector<Property> contributingSources = cls
+		// .getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
+
+		final Vector<Property> defs = cls.getProperties(messages.getString("ProtegeKBQA.Definition"));
+		// concepts with FDA_UNII_Code should not check for FDA alt-def
+		final Vector<Property> unii_codes = cls.getProperties(messages.getString("ProtegeKBQA.FDA_UNII_Code"));
+		boolean hasUNII = cls.getProperties().size() > 0;
+
+		final String sCode = cls.getCode();
+		List<String> exclude = Arrays.asList("UCUM", "MedDRA", "ICH", "HL7", "NCPDP"); //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		// if there are contributing sources and definitions
+		// if (contributingSources.size() > 0) {
+		// check if there are any alt_defs.
+		final Vector<Property> alt_defs = cls.getProperties(messages.getString("ProtegeKBQA.Alt_Definition"));
+		if (alt_defs.size() > 0) {
+
+			// check to see if the alt_def corresponds to the contributing
+			// sources
+			// for (final Property source : contributingSources) {
+			// Check if the source is on the ignore list
+			if (!this.ignoreSources.contains(source.getValue())) {
+				// boolean hasSource = false;
+				for (final Property def : alt_defs) {
+					// if (def.getValue().contains("<def-source>" +
+					// source.getValue() + "</def-source>")) {
+					// hasSource = true;
+					// }
+					if (def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")) != null
+							&& def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")).getValue()
+									.equals(source.getValue())) {
+						return true;
+					} else if (source.getValue().equals("FDA") && hasUNII) {
+						return true;
+					}
+				}
+				// if (!hasSource) {
+				// UCUM, MedDRA, ICH, HL7 and NCPDP will never have
+				// alt-def
+
+				if (!exclude.contains(source.getValue())) {
+
+					this.no_alt_def.put(sCode, "No ALT_DEFINITION for " + source.getValue());
+					if (altDefSourceCount.containsKey(source.getValue())) {
+						Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+						altDefSourceCount.put(source.getValue(), tempInt);
+					} else {
+						altDefSourceCount.put(source.getValue(), 1);
+					}
+					return false;
+				}
+				// }
+			}
+			// }
+		} else {
+			// if there is one contributing source of FDA and there is a
+			// UNII_Code, discard
+			if (hasUNII && source.getValue().equals("FDA")) {
+				// if there is only one CS and it is FDA, and there is a
+				// UNII_Code, don't add it.
+				return true;
+			}
+			// else if (contributingSources.size() > 1) {
+			// boolean hasSource = true;
+			//// for (final Property source : contributingSources) {
+			// // check each source against the ignore list. If any are
+			// // not on it, then it should have an alt-def
+			// if (!this.ignoreSources.contains(source.getValue())) {
+			// if (hasUNII && source.getValue().equals("FDA")) {
+			// // if the source is FDA and there is a
+			// // UNII_Code, discard
+			// return true;
+			// }
+			// if (!exclude.contains(source.getValue())) {
+			// hasSource = false;
+			// if (altDefSourceCount.containsKey(source.getValue())) {
+			// Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+			// altDefSourceCount.put(source.getValue(), tempInt);
+			// } else {
+			// altDefSourceCount.put(source.getValue(), 1);
+			// }
+			// this.no_alt_def.put(sCode, "0 ALT_DEFINTIONs");
+			// return false;
+			// }
+			// }
+			//// }
+			//
+			// }
+			// else {
+			// only one contributing source and no alt-defs
+			if (this.ignoreSources.contains(source.getValue())) {
+
+				return true;
+			}
+
+			if (exclude.contains(source.getValue())) {
+				return true;
+			}
+
+			this.no_alt_def.put(sCode, "No ALT_DEFINITION for " + source.getValue());
+			if (altDefSourceCount.containsKey(source.getValue())) {
+				Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+				altDefSourceCount.put(source.getValue(), tempInt);
+			} else {
+				altDefSourceCount.put(source.getValue(), 1);
+			}
+
+			// }
+
+		}
+		return false;
+	}
+
 	/**
 	 * Check definition existence and uniqueness.
 	 * 
@@ -450,10 +567,34 @@ public class ProtegeKBQA {
 			for (final Property def : defs) {
 				final String reviewerName = getQualifierValue(def,
 						messages.getString("ProtegeKBQA.Definition_Reviewer_Name"));
-				if (!(reviewerName.equalsIgnoreCase(messages.getString("ProtegeKBQA.Special_Review"))
+				if ((reviewerName.equalsIgnoreCase(messages.getString("ProtegeKBQA.Special_Review"))
 						|| reviewerName.equalsIgnoreCase(messages.getString("ProtegeKBQA.Default_Review")))) {
-					this.no_DefReview.put(cls.getCode(), def.getValue());
+					return;
 				}
+				if (drugEditors.contains(reviewerName)) {
+					return;
+				}
+				no_DefCurator.put(cls.getCode(), reviewerName);
+			}
+		}
+	}
+
+	private void checkDefCurator(ConceptProxy cls) {
+		// TODO Externalize strings.
+		Vector<Property> defs = cls.getProperties("P97");
+		for (Property def : defs) {
+			Vector<Qualifier> quals = def.getQualifiers();
+			boolean hasDefCurator = false;
+			String editor = null;
+			for (Qualifier qual : quals) {
+				if (qual.getName().equals("Definition Source") && qual.getValue().equals("NCI-DEFCURATOR")) {
+					hasDefCurator = true;
+				} else if (qual.getName().equals("Definition_Reviewer_Name")) {
+					editor = qual.getValue();
+				}
+			}
+			if (hasDefCurator && !drugEditors.contains(editor)) {
+				no_DefCurator.put(cls.getCode(), editor);
 			}
 		}
 	}
@@ -484,7 +625,7 @@ public class ProtegeKBQA {
 
 	private String getQualifierValue(Property prop, String qualCode) {
 		for (Qualifier qual : prop.getQualifiers()) {
-//			System.out.println("Qual code " + qual.getCode());
+			// System.out.println("Qual code " + qual.getCode());
 			if (qual.getCode().equals(qualCode)) {
 				return qual.getValue();
 			}
@@ -587,19 +728,28 @@ public class ProtegeKBQA {
 			if (cast >= 32 && cast <= 126) {
 				// No problems. These are accepted characters
 				// No need to go iterating through the unicode converter
-			} else if (symbolMap.containsKey(c)) {
-				returnString = returnString + "Character replaced " + "Char: " //$NON-NLS-2$
-						+ propertyValue.charAt(i) + " Ascii code:" + cast + " " //$NON-NLS-2$
-						+ symbolMap.get(c).getCharDescription() + " Position: " + iPosition + "    \t";
-				// throw new Exception("Replaced character " +
-				// Character.toString(c) + " " +
-				// symbolMap.get(c).getCharDescription());
-			} else {
-				// Allow string to pass through, but note it.
-				// throw new Exception("Unexpected character " +
-				// Character.toString(c));
+			} else if (cast >= 127 && cast <= 191) {
+				if (symbolMap.containsKey(c)) // magic number for em-dash
+				{
+					returnString = returnString + "Character replaced " + "Char: " //$NON-NLS-2$
+							+ propertyValue.charAt(i) + " Windows-1252 code:" + cast + " " //$NON-NLS-2$
+							+ symbolMap.get(c).getCharDescription() + " Position: " + iPosition + "    \t";
+					// throw new Exception("Replaced character " +
+					// Character.toString(c) + " " +
+					// symbolMap.get(c).getCharDescription());
+
+				} else {
+					// Allow string to pass through, but note it.
+					// throw new Exception("Unexpected character " +
+					// Character.toString(c));
+					returnString = returnString + "Unexpected Character " + "Char: " + propertyValue.charAt(i)
+							+ " Windows-1252:" //$NON-NLS-1$
+							+ cast + " Position: " + iPosition + "   \t "; //$NON-NLS-2$
+				}
+
+			} else if (cast == 215 || cast == 247) {
 				returnString = returnString + "Unexpected Character " + "Char: " + propertyValue.charAt(i)
-						+ " Ascii code:" //$NON-NLS-1$
+						+ " Windows-1252:" //$NON-NLS-1$
 						+ cast + " Position: " + iPosition + "   \t "; //$NON-NLS-2$
 			}
 
@@ -670,22 +820,23 @@ public class ProtegeKBQA {
 
 		// final Vector<String> syns = getNCIPTFullSyn(cls);
 		Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
-		if(syns==null || syns.size()==0){
-			syns = getFullSynBySourceAndGroup(cls,"NCI", "HD");
+		if (syns == null || syns.size() == 0) {
+			syns = getFullSynBySourceAndGroup(cls, "NCI", "HD");
 		}
-		if(syns==null || syns.size()==0){
-			syns = getFullSynBySourceAndGroup(cls,"NCI", "AQ");
+		if (syns == null || syns.size() == 0) {
+			syns = getFullSynBySourceAndGroup(cls, "NCI", "AQ");
 		}
 		final Property pn = cls.getProperty(messages.getString("ProtegeKBQA.PreferredName"));
-		if(syns==null || pn==null ||syns.size()==0){
-			System.out.println("Unable to do FullSynMatch for "+ cls.getCode());
-		}else {
-		for (int i = 0; i < syns.size(); i++) {
-			final String pt = syns.get(i);
-			if (!pt.equals(pn.getValue())) {
-				this.nomatch_pnpt.put(cls.getCode(), "PN:" + pn.getValue() + " PT:" + pt);
+		if (syns == null || pn == null || syns.size() == 0) {
+			System.out.println("Unable to do FullSynMatch for " + cls.getCode());
+		} else {
+			for (int i = 0; i < syns.size(); i++) {
+				final String pt = syns.get(i);
+				if (!pt.equals(pn.getValue())) {
+					this.nomatch_pnpt.put(cls.getCode(), "PN:" + pn.getValue() + " PT:" + pt);
+				}
 			}
-		}}
+		}
 	}
 
 	/**
@@ -846,18 +997,30 @@ public class ProtegeKBQA {
 				if (!(this.ignoreSources.contains(contributingSource.getValue()))) {
 					boolean hasSource = false;
 					for (final Property syn : syns) {
-						if (syn.getValue().contains(
-								"<ncicp:term-source>" + contributingSource.getValue() + "</ncicp:term-source>")) {
-							hasSource = true;
-						} else if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")) != null) {
+//						if (syn.getValue().contains(
+//								"<ncicp:term-source>" + contributingSource.getValue() + "</ncicp:term-source>")) {
+//							hasSource = true;
+//						} 
+						 if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")) != null) {
 							if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).getValue()
 									.equals(contributingSource.getValue())) {
 								hasSource = true;
 							}
+							//Special case for CTCAE - term source is CTCAE 3 but CS is CTCAE
+							if(contributingSource.getValue().equals("CTCAE")){
+								if (syn.getQualifier(messages.getString("ProtegeKBQA.Term_Source")).getValue()
+										.contains(contributingSource.getValue())) {
+									hasSource = true;
+								}
+							}
 						}
 					}
 					if (!hasSource) {
+						boolean hasDef = checkContributingSouceAndAltDef(cls, contributingSource);
+						boolean hasValueSet = checkPreferredNameToSource(cls,contributingSource.getValue());
+						if(!hasDef && !hasValueSet){
 						this.no_SynForContributingSource.put(cls.getCode(), contributingSource.getValue());
+						}
 					}
 
 				}
@@ -883,6 +1046,19 @@ public class ProtegeKBQA {
 			}
 		}
 	}
+	
+	
+	private boolean checkPreferredNameToSource(ConceptProxy cls,String source){
+		//If the PT is "CDISC Value Set of Something", then we can consider the contributing source to have a match
+		final Vector<Property> vsl = cls.getProperties(messages.getString("ProtegeKBQA.PreferredName"));
+		for(Property prop:vsl){
+			if(prop.getValue().contains(source)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 	/**
 	 * Check FDA UNII
@@ -1069,13 +1245,13 @@ public class ProtegeKBQA {
 
 	private Vector<String> getFullSynBySourceAndGroup(ConceptProxy c, String source, String group) {
 		final Vector<String> out = new Vector<String>();
-//		System.out.println("getFullSynBySourceAndGroup");
+		// System.out.println("getFullSynBySourceAndGroup");
 		for (Property prop : c.getProperties()) {
-//			System.out.println("Property " + prop.getName());
+			// System.out.println("Property " + prop.getName());
 			String sourceQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Source"));
 			String groupQual = getQualifierValue(prop, messages.getString("ProtegeKBQA.Term_Group"));
 			if (sourceQual != null && groupQual != null) {
-//				System.out.println(sourceQual + " " + groupQual);
+				// System.out.println(sourceQual + " " + groupQual);
 				if (sourceQual.equals(source) && groupQual.equals(group)) {
 					out.add(prop.getValue());
 				}
@@ -1226,8 +1402,6 @@ public class ProtegeKBQA {
 				group = qual.getValue();
 			}
 
-			
-
 		}
 
 		return source + "|" + group + "|" + value; //$NON-NLS-2$
@@ -1247,9 +1421,9 @@ public class ProtegeKBQA {
 			pw.close();
 			System.exit(0);
 		}
-		
-//		System.out.println( messages.getString("ProtegeKBQA.Term_Source"));
-//		System.out.println( messages.getString("ProtegeKBQA.Term_Group"));
+
+		// System.out.println( messages.getString("ProtegeKBQA.Term_Source"));
+		// System.out.println( messages.getString("ProtegeKBQA.Term_Group"));
 
 		// This will loop through the classes, writing the findings to a set of
 		// global HashMaps or Vectors. At the end, will write out the results to
@@ -1262,6 +1436,7 @@ public class ProtegeKBQA {
 			// }
 			final Vector<Property> mProps = cls.getProperties();
 			if (!cls.isRetired()) {
+
 				checkHighBitCharacters(cls);
 				checkSamePreferredName(cls);
 				checkSameAtoms(cls);
@@ -1275,8 +1450,9 @@ public class ProtegeKBQA {
 				checkTermSource(cls);
 				checkMedDRA_LLT(cls);
 				checkDrugDictionary(cls);
+				checkAltsWithNCI(cls);
 				checkDefCurator(cls);
-				checkContributingSouceAndAltDef(cls);
+//				checkContributingSouceAndAltDef(cls);
 				checkSemanticTypes(cls);
 				checkSemanticTypeExistenceAndUniqueness(cls);
 				checkFDA_UNII(cls);
@@ -1319,7 +1495,7 @@ public class ProtegeKBQA {
 			return false;
 		}
 
-		if (ontology.getRootConceptCodes().size() != 22) {
+		if (ontology.getRootConceptCodes().size() != 21) {
 			return false;
 		}
 
@@ -1520,7 +1696,8 @@ public class ProtegeKBQA {
 				"********************************************************************************************************");
 		this.pw.println(
 				"*                                                                                                      *");
-		this.pw.println("*  Concepts with multiple Semantic_Type properties: " + this.multiple_ST.size());
+		this.pw.println("*  Concepts with multiple, potentially conflicting, Semantic_Type properties: "
+				+ this.multiple_ST.size());
 		this.pw.println(
 				"*                                                                                                      *");
 		this.pw.println(
@@ -2100,23 +2277,29 @@ public class ProtegeKBQA {
 		}
 	}
 
-	private void checkDefCurator(ConceptProxy cls) {
-		// TODO Externalize strings.
-		Vector<Property> defs = cls.getProperties("P97");
-		for (Property def : defs) {
-			Vector<Qualifier> quals = def.getQualifiers();
-			boolean hasDefCurator = false;
-			String editor = null;
-			for (Qualifier qual : quals) {
-				if (qual.getName().equals("Definition Source") && qual.getValue().equals("NCI-DEFCURATOR")) {
-					hasDefCurator = true;
-				} else if (qual.getName().equals("Definition_Reviewer_Name")) {
-					editor = qual.getValue();
-				}
+	private void checkAltsWithNCI(ConceptProxy c) {
+		if (c.getCode().contentEquals("C28944")) {
+			String debug = "Stop here";
+		}
+		String altDef = null;
+		Vector<Property> v = c.getProperties(messages.getString("ProtegeKBQA.Alt_Definition"));
+		Vector<Property> results = new Vector<Property>();
+		for (Property def : v) {
+			Qualifier source = def.getQualifier(messages.getString("ProtegeKBQA.Def_Source"));
+			if (source != null && source.getValue().equals("NCI")) {
+				System.out.println("Adding " + c.getCode());
+				results.add(def);
 			}
-			if (hasDefCurator && !drugEditors.contains(editor)) {
-				no_DefCurator.put(cls.getCode(), editor);
+		}
+		for (final Property def : results) {
+			if (altDef == null) {
+				altDef = def.getValue();
+			} else {
+				altDef = altDef.concat("|" + def.getValue());
 			}
+		}
+		if (altDef != null) {
+			// this.altDefNCI.put(c.getCode(), altDef);
 		}
 	}
 
