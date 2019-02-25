@@ -317,7 +317,9 @@ public class ConceptProxy implements ConceptInterface {
 	}
 	
 	public void unloadProperties() {
+		if(! (ci==null)){
 		this.ci.unloadProperties();
+		}
 	}
 
 }

@@ -95,6 +95,12 @@ public class OWLKb {
 	// }
 	//
 	// }
+	
+	private boolean loadValid = false;
+	
+	public boolean isLoadValid(){
+		return loadValid;
+	}
 
 	public static String getCodeFromURI(URI uri) {
 		try {
@@ -340,12 +346,16 @@ public class OWLKb {
 				// api.startHermitReasoner();
 				this.api.startToldReasoner();
 			}
+			
+			loadValid = true;
 		} catch (OWLOntologyCreationException e) {
 			System.out.println("Error thrown by OwlApiLayer.  Abort");
 			this.logger.error("Error thrown by OwlApiLayer.  Abort", e);
+			
 		} catch (URISyntaxException e) {
 	        System.out.println("Deprecated Branch is invalid URI "+ defaultDeprecatedBranch);
 	        e.printStackTrace();
+	        
         } 
 	}
 	
@@ -359,6 +369,7 @@ public class OWLKb {
 				// api.startHermitReasoner();
 				this.api.startToldReasoner();
 			}
+			loadValid=true;
 		} catch (OWLOntologyCreationException e) {
 			System.out.println("Error thrown by OwlApiLayer.  Abort");
 			this.logger.error("Error thrown by OwlApiLayer.  Abort", e);
@@ -366,6 +377,7 @@ public class OWLKb {
 	        System.out.println("Deprecated Branch is invalid URI "+ defaultDeprecatedBranch);
 	        e.printStackTrace();
         } 
+		
 	}
 
 	public void addAnnotationProperty(URI uri, Property newProp) {

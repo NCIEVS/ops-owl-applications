@@ -580,7 +580,9 @@ public class Property implements PropertyInterface, Comparable<Property> {
 	}
 
 
-
-
-
+	public void setQualifiers(Vector<Qualifier> quals) {
+		// TODO Auto-generated method stub
+		//TODO Does not save to main KB
+		this.qualifiers = quals;
+	}
 }
