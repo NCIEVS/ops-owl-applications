@@ -31,7 +31,8 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>${fully.qualified.class.name}</mainClass>
+							 <addClasspath>true</addClasspath>
+              				<mainClass>gov.nih.nci.evs.hgnc.HgncToOwl</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
