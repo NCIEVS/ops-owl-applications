@@ -90,6 +90,9 @@ public class Metrics {
             }
             for (Property fullsyn:fullsyns){
                 Qualifier qual = fullsyn.getQualifier("term-source");
+                if(qual ==null){
+                	qual = fullsyn.getQualifier("Term Source");
+                }
                 //OK, now we have a qual with a source.  
                 //we need to add a value to the source count
                 if(fullSynRawCount.get(qual.getValue()) == null){

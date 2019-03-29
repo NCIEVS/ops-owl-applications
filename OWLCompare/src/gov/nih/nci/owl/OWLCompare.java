@@ -296,10 +296,10 @@ public class OWLCompare {
 
 			f2.setFontHeightInPoints((short) 10);
 			f2.setColor(Font.COLOR_RED);
-			f2.setBoldweight(Font.BOLDWEIGHT_BOLD);
+			f2.setBold(true);
 
 			f3.setFontHeightInPoints((short) 12);
-			f3.setBoldweight(Font.BOLDWEIGHT_BOLD);
+			f3.setBold(true);
 
 			// set the font
 			cs.setFont(f);
@@ -421,10 +421,10 @@ public class OWLCompare {
 
 			f2.setFontHeightInPoints((short) 10);
 			f2.setColor(Font.COLOR_RED);
-			f2.setBoldweight(Font.BOLDWEIGHT_BOLD);
+			f2.setBold(true);
 
 			f3.setFontHeightInPoints((short) 12);
-			f3.setBoldweight(Font.BOLDWEIGHT_BOLD);
+			f3.setBold(true);
 
 			// set the font
 			cs.setFont(f);
