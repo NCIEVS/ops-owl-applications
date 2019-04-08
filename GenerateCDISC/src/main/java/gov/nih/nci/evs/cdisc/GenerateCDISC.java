@@ -146,14 +146,13 @@ public class GenerateCDISC {
 					if( checkShortNameLength && termName.length() > 8 ) {
 						System.out.println("Warning: Codelist Submission Value (CDISC PT) over 8 characters - " + codelistConcept + " (" + termName + ")");
 					}
-					//TODO come up with better logic
-					if( gTermSource.equals("CDISC-GLOSS") ) {
+					if( !cdiscsy2Codelist.containsKey(termName) ) {
 						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
 					}
 					else {
 						System.out.println("There was an issue adding synonym " + termName);
 					}
-				}
+				} 
 				if( termSource.equals(gTermSource) && termGroup.equals("SY") ) {
 					codelist2CDISCSY.put(codelistConcept.getFragment(), termName);
 					if( !cdiscsy2Codelist.containsKey(termName) ) {
@@ -323,7 +322,7 @@ public class GenerateCDISC {
 					}
 					if( (termSource.equals(gTermSource)) && termGroup.equals("SY") ) {
 						cdiscSynonyms.add(cdiscSy);
-					}
+					} 
 				}
 				
 				Collections.sort(cdiscSynonyms);				
