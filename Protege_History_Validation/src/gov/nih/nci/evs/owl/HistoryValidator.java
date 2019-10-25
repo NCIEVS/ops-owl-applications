@@ -97,6 +97,7 @@ public class HistoryValidator {
 	}
 
 	private void checkForCreates(boolean isConceptHistory) {
+
 		HashSet<URI> noCreateRecord = new HashSet<URI>();
 		Collection<URI> diff = difference(current.getAllConcepts(), previous
 				.getAllConcepts());
@@ -145,7 +146,11 @@ public class HistoryValidator {
 			}
 			if (hConcept != null) {
 				if (!hConcept.checkForCreateRecord()) {
-					noCreateRecord.add(conceptCode);
+                    //C25839 is first record with a create - 2002-12-18 in evs-history
+                    int intConceptCode = new Integer(conceptCode.getFragment().substring(1));
+				    if(!isConceptHistory && intConceptCode>25829) {
+                        noCreateRecord.add(conceptCode);
+                    }
 				}
 			} else {
 				noCreateRecord.add(conceptCode);
@@ -244,6 +249,7 @@ public class HistoryValidator {
 			}
 			// If the changes vector is not empty, then there should be a
 			// history record
+			if(c1!=null && c2!=null) {
 			int different = c1.compareTo(c2);
 			if (different != 0) {
 				// There were changes. Is there a history record?
@@ -255,6 +261,9 @@ public class HistoryValidator {
 					noModifyRecord.add(conceptCode);
 				}
 
+			}}
+			else {
+				String debug="true";
 			}
 		}
 		pw.println("\nConcepts that have been modified with no modify records");
@@ -496,12 +505,7 @@ public class HistoryValidator {
 		}
 	}
 
-	/**
-	 * @param uri1
-	 * @param uri2
-	 * @param historyURI
-	 * @param namespace
-	 */
+
 	private void configureKb() {
 		current = new OWLKb(currentFile, namespace);
 		if (current == null) {
@@ -518,13 +522,13 @@ public class HistoryValidator {
 		previous.setDeprecatedBranch(retiredRoot);
 		current.setDeprecatedBranch(retiredRoot);
 
-		history = new HistoryFile(conceptHistory);
+		history = new HistoryFile(conceptHistory, Change.HistoryType.CONCEPT);
 		if (history == null) {
 			System.out.println("Unable to read history file");
 			System.exit(0);
 		}
 
-		evs_history = new HistoryFile(evsHistory);
+		evs_history = new HistoryFile(evsHistory, Change.HistoryType.EVS);
 		if (evs_history == null) {
 			System.out.println("Unable to read EVS history file");
 			System.exit(0);

@@ -86,4 +86,12 @@ public class Change {
         //MODIFY is default
         return ChangeType.MODIFY;
     }
+
+
+    public static enum HistoryType{
+        /** monthly result of squash **/
+        CONCEPT,
+        /** raw history written at edit time **/
+        EVS
+    }
 }

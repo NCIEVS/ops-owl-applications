@@ -44,96 +44,79 @@ import java.util.stream.Stream;
 public class HistoryFile {
 
 	HashMap<String, HistoryConcept> historyMap = new HashMap<String, HistoryConcept>();
+	Change.HistoryType type;
 
-	
-	
-	
 	/**
 	 * @param fileLoc
 	 */
-	public HistoryFile(URI fileLoc) {
+	public HistoryFile(URI fileLoc, Change.HistoryType type) {
 		try {
-			
-			readBufferedHistory(fileLoc);
-			
-			
-//			FileInputStream instream = new FileInputStream(fileLoc.getPath());
-//			StringBuffer strContent = new StringBuffer("");
-//			int ch = 0;
-//			while (ch != -1) {
-//				ch = instream.read();
-//				strContent.append((char) ch);
-//			}
-//			int startLoc = 0;
-//			DateFormat format = DateFormat.getDateInstance();
-//			String delimiter = "\t";
-//			int pipeLoc = strContent.indexOf(delimiter);
-//			if(pipeLoc<1) {
-//				delimiter = "|";
-//				pipeLoc =strContent.indexOf(delimiter);
-//			}
-//			while (pipeLoc != -1) {
-//				// Read through buffer and create History Concepts and records
-//				String code = strContent.substring(startLoc, pipeLoc);
-//				startLoc = pipeLoc + 2;
-//				pipeLoc = strContent.indexOf(delimiter, startLoc);
-//				String changeType = strContent.substring(startLoc, pipeLoc);
-//				startLoc = pipeLoc + 1;
-//				pipeLoc = strContent.indexOf(delimiter, startLoc);
-//				String stringDate = strContent.substring(startLoc, pipeLoc);
-//				Date date = parseHistoryDate(stringDate);
-//				startLoc = pipeLoc + 1;
-//				pipeLoc = strContent.indexOf(delimiter, startLoc);
-//				String refCode = strContent.substring(startLoc, pipeLoc);
-//				startLoc = strContent.indexOf("\n", pipeLoc) + 1;
-//				pipeLoc = strContent.indexOf(delimiter, startLoc);
-//				if (historyMap.containsKey(code)) {
-//					historyMap.get(code).addHistoryRecord(date,
-//							Change.toChangeType(changeType), refCode.trim());
-//					// System.out.println("Add record to concept " + code);
-//				} else {
-//					HistoryConcept concept = new HistoryConcept(code);
-//					concept.addHistoryRecord(date, Change
-//							.toChangeType(changeType), refCode);
-//					historyMap.put(code, concept);
-//					// System.out.println("Add concept " + code);
-//				}
-//			}
+			this.type=type;
+			if(type== Change.HistoryType.CONCEPT) {
+				readBufferedConceptHistory(fileLoc);
+			} else {
+				readBufferedEVSHistory(fileLoc);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void readBufferedHistory(URI fileLoc){
+
+	public Change.HistoryType getHistoryType(){
+		return this.type;
+	}
+
+	private void readBufferedConceptHistory(URI fileLoc){
 		try (Stream<String> stream = Files.lines(Paths.get(fileLoc))) {
-	        stream.forEach(line ->parseHistoryLine(line));
+
+				stream.forEach(line -> parseConceptHistoryLine(line));
+
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
     }
 	}
+
+	private void readBufferedEVSHistory(URI fileLoc){
+		try (Stream<String> stream = Files.lines(Paths.get(fileLoc))) {
+
+			stream.forEach(line -> parseEVSHistoryLine(line));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	private void parseHistoryLine(String historyLine){
+	private void parseConceptHistoryLine(String historyLine){
+		//code edit date ref
+
 		String delimiter = "\t";
 		if(historyLine.indexOf(delimiter)<1) {
 			delimiter = "\\|";
 		}
 		String[] historyArray = historyLine.split(delimiter);
-		if (historyArray.length>=4){
+		if (historyArray.length>=3){
 		String code = historyArray[0];
 		int arrayPosition = 1;
-		if(historyArray[1].length()==0){
-			arrayPosition =2;
-		}
-		//If this is the pipe delimited format then the second postion will be empty
-		//We will need to advance to the third.
-		String changeType = historyArray[arrayPosition];
-		String stringDate = historyArray[++arrayPosition];
+
+//		//If this is the pipe delimited format then the second position will be empty
+//			//We will need to advance to the third.
+//		if(historyArray[1].length()==0){
+//			arrayPosition =2;
+//		}
+
+		String changeType = historyArray[1];
+		String stringDate = historyArray[2];
 		Date date = parseHistoryDate(stringDate);
-		String refCode = historyArray[++arrayPosition];
+		String refCode = null;
+		if(historyArray.length==4) {
+			refCode = historyArray[3].trim();
+		}
 		if (historyMap.containsKey(code)) {
 			historyMap.get(code).addHistoryRecord(date,
-					Change.toChangeType(changeType), refCode.trim());
+					Change.toChangeType(changeType), refCode);
 			// System.out.println("Add record to concept " + code);
 		} else {
 			HistoryConcept concept = new HistoryConcept(code);
@@ -145,22 +128,64 @@ public class HistoryFile {
 		}
 	}
 
+	private void parseEVSHistoryLine(String historyLine){
+		// Date editor code PN edit ref(opt)
+		String delimiter = "\t";
+		if(historyLine.indexOf(delimiter)<1) {
+			delimiter = "\\|";
+		}
+		String[] historyArray = historyLine.split(delimiter);
+		//check to make sure we have all 5 values
+		if (historyArray.length>=5){
+			String code = historyArray[2];
+			String changeType = historyArray[4];
+			String stringDate = historyArray[0];
+			Date date = parseHistoryDate(stringDate);
+			String refCode = "null";
+			if(historyArray.length==6){
+				//There is a reference code
+				refCode = historyArray[5];
+			}
+			if (historyMap.containsKey(code)) {
+				historyMap.get(code).addHistoryRecord(date,
+						Change.toChangeType(changeType), refCode.trim());
+				// System.out.println("Add record to concept " + code);
+			} else {
+				HistoryConcept concept = new HistoryConcept(code);
+				concept.addHistoryRecord(date, Change
+						.toChangeType(changeType), refCode);
+				historyMap.put(code, concept);
+				// System.out.println("Add concept " + code);
+			}
+		}
+
+
+	}
+
 	/*
-	 * Date is passed in as string dd-mon-yy Is converted to actual
+	 * Date is passed in as string  Is converted to actual
 	 * java.util.Date
+	 *
+	 * 2003-08-12
+	 * 2019-08-26 09:38:50
+	 *
 	 */
 	private Date parseHistoryDate(String s) {
 		try {
-			if(s.startsWith("20")){
-				return Date.valueOf(s);
-			} 
-			
-			String year = "20" + s.substring(7);
-			String day = s.substring(0, 2);
-			String shortMonth = s.substring(3, 6);
-			String month = convertToDigiMonth(shortMonth.toLowerCase());
+//			if(s.startsWith("20")){
+//				return Date.valueOf(s);
+//			}
+
+			String year = s.substring(0, 4);
+			String month = s.substring(6, 7);
+			String day = s.substring(9, 10);
+//			String year = "20" + s.substring(7);
+//			String day = s.substring(0, 2);
+//			String shortMonth = s.substring(3, 6);
+//			String month = convertToDigiMonth(shortMonth.toLowerCase());
 			// Needs to be passed in as yyyy-mm-dd
-			String date = year + "-" + month + "-" + day;
+			String wholedate = year + "-" + month + "-" + day;
+			String date = s.substring(0, 10);
 			Date theDate = Date.valueOf(date);
 			return theDate;
 		} catch (Exception e) {
