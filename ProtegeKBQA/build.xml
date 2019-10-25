@@ -27,13 +27,14 @@
         description="Removes generated artifacts">
         <delete dir="${build.dir}" quiet="true"/>
         <delete dir="${classes.dir}" quiet="true"/>
-        <delete file="${outputFile}" quiet="true"/>
+        <delete dir="${output.dir}" quiet="true"/>
     </target>
 	
 	<target name="init" depends="clean" 
 	        description="Creates necessary directories">
 		   <mkdir dir="${classes.dir}"/>
 	        <mkdir dir="${build.dir}"/>
+		<mkdir dir="${output.dir}"/>
 	 </target>
 	
     <target name="compile" depends="init" description="Compiles">

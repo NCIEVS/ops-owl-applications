@@ -94,7 +94,6 @@ public class ProtegeKBQA {
 	/** The ontology namespace. */
 	private String ontologyNamespace;
 
-	/** The manager. */
 
 	/** The stys. */
 	private Vector<String> stys;
@@ -107,81 +106,81 @@ public class ProtegeKBQA {
 	// list of sources that don't require a Contributing_Source property
 	/** The ignore sources. */
 	private Vector<String> ignoreSources;
-	// Haspmap stores all instances of Preferred_Name that appears in more than
+	// Hashmap stores all instances of Preferred_Name that appears in more than
 	// one concept.
 	/** The duplicate_pn. */
-	HashMap<String, String> duplicate_pn = new HashMap<String, String>();
+	final HashMap<String, String> duplicate_pn = new HashMap<String, String>();
 	// HashMap as holding bin for Preferred_Name, used to detect duplicates
 	/** The pn_tbl. */
-	HashMap<String, String> pn_tbl = new HashMap<String, String>();
+	final HashMap<String, String> pn_tbl = new HashMap<String, String>();
 	// Hashmap stores all instances of NCI|PT FULL-SYN that appears in more than
 	// one concept.
 	/** The duplicate_pt. */
-	HashMap<String, String> duplicate_pt = new HashMap<String, String>();
+	final HashMap<String, String> duplicate_pt = new HashMap<String, String>();
 	// HashMap as holding bin for PT, used to detect duplicates
 	/** The pt_tbl. */
-	HashMap<String, String> pt_tbl = new HashMap<String, String>();
+	final HashMap<String, String> pt_tbl = new HashMap<String, String>();
 	// Hashmap stores all instances of bunk characters in properties
 	/** The badchar_newline. */
-	HashMap<String, String> badchar_newline = new HashMap<String, String>();
+	final HashMap<String, String> badchar_newline = new HashMap<String, String>();
 	// HashMap stores instances of concepts with @
 	/** The badchar_at. */
-	HashMap<String, String> badchar_at = new HashMap<String, String>();
+	final HashMap<String, String> badchar_at = new HashMap<String, String>();
 	// HashMap stores instances of concepts with pipes
 	/** The badchar_pipe. */
-	HashMap<String, String> badchar_pipe = new HashMap<String, String>();
+	final HashMap<String, String> badchar_pipe = new HashMap<String, String>();
 	/** The badchar_tab */
-	HashMap<String, String> badchar_tab = new HashMap<String, String>();
+	final HashMap<String, String> badchar_tab = new HashMap<String, String>();
 
 	// HashMap stores instances of concepts with duplicate roles.
 	/** The duplicate_role. */
-	HashMap<String, String> duplicate_role = new HashMap<String, String>();
+	final HashMap<String, String> duplicate_role = new HashMap<String, String>();
 
 	// HashMap stores instances of concepts with duplicate properties.
 	/** The duplicate_property. */
-	HashMap<String, String> duplicate_property = new HashMap<String, String>();
+	final HashMap<String, String> duplicate_property = new HashMap<String, String>();
 	// HashMap stores instances of concepts with other than one DEFINITION
 	/** The multiple_ def. */
-	HashMap<String, String> multiple_DEF = new HashMap<String, String>();
+	final HashMap<String, String> multiple_DEF = new HashMap<String, String>();
 	// HashMap stores instances of concepts with
 	/** The fully quoted definition **/
-	HashMap<String, String> quoted_DEF = new HashMap<String, String>();
+	final HashMap<String, String> quoted_DEF = new HashMap<String, String>();
 	/** The no_ def. */
-	HashMap<String, String> no_DEF = new HashMap<String, String>();
+	final HashMap<String, String> no_DEF = new HashMap<String, String>();
 	// HashMap stores instances of concepts with other than one NCI|PT FULL-SYN
 	/** The multiple_ pt. */
-	HashMap<String, String> multiple_PT = new HashMap<String, String>();
+	final HashMap<String, String> multiple_PT = new HashMap<String, String>();
 	// HashMap stores instances of concepts with no PT
 	/** The no_ pt. */
-	HashMap<String, String> no_PT = new HashMap<String, String>();
+	final HashMap<String, String> no_PT = new HashMap<String, String>();
 
 	/** The antiquated_no pt. */
-	HashMap<String, String> antiquated_noPT = new HashMap<String, String>();
+	final HashMap<String, String> antiquated_noPT = new HashMap<String, String>();
 	// HashMap stores instances of concepts with other than one Preferred_Name
 	/** The multiple_ pn. */
-	HashMap<String, String> multiple_PN = new HashMap<String, String>();
+	final HashMap<String, String> multiple_PN = new HashMap<String, String>();
 	// HashMap stores instances of concepts with no Preferred_Name
 	/** The no_ pn. */
-	HashMap<String, String> no_PN = new HashMap<String, String>();
+	final HashMap<String, String> no_PN = new HashMap<String, String>();
 
 	// HashMap stores instances of concepts with bad Semantic_Type
 	/** The bad_semantictypes. */
-	HashMap<String, String> bad_semantictypes = new HashMap<String, String>();
+	final HashMap<String, String> bad_semantictypes = new HashMap<String, String>();
 	// HashMap stores instances of concepts with other than one Semantic_Type
 	/** The multiple_ st. */
-	HashMap<String, String> multiple_ST = new HashMap<String, String>();
-	// HashMap stoes instances of concepts with no Semantic Type
+	final HashMap<String, String> multiple_ST = new HashMap<String, String>();
+	// HashMap stores instances of concepts with no Semantic Type
 	/** The no_ st. */
-	HashMap<String, String> no_ST = new HashMap<String, String>();
+	final HashMap<String, String> no_ST = new HashMap<String, String>();
 
 	// HashMap stores instances of Def_Curator concepts w/o Def or Special
 	// Review Names
 	/** The no_ def review. */
-	HashMap<String, String> no_DefReview = new HashMap<String, String>();
+	final HashMap<String, String> no_DefReview = new HashMap<String, String>();
 
 	// HashMap stores instances of Definitions with def-source NCI-DEFCURATOR
 	// without a drug editor
-	HashMap<String, String> no_DefCurator = new HashMap<String, String>();
+	final HashMap<String, String> no_DefCurator = new HashMap<String, String>();
 
 	/** Drug Dictionary Editors */
 	private Vector<String> drugEditors;
@@ -189,63 +188,66 @@ public class ProtegeKBQA {
 	// HashMap stores all instances of classes without at least one full syn for
 	// a contributing source (exception: ignoreSources)
 	/** The no_ syn for contributing source. */
-	HashMap<String, String> no_SynForContributingSource = new HashMap<String, String>();
+	final HashMap<String, String> no_SynForContributingSource = new HashMap<String, String>();
 
 	// HashMap stores all instances of classes without at least one contributing
 	// source for a full syn (exception: ignoreSources)
 	/** The no_ contributing source for syn. */
-	HashMap<String, String> no_ContributingSourceForSyn = new HashMap<String, String>();
+	final HashMap<String, String> no_ContributingSourceForSyn = new HashMap<String, String>();
 
 	// HashMap stores all concepts where the NCI|PT FULL-SYN and Preferred_Name
 	// don't match
 	/** The nomatch_pnpt. */
-	HashMap<String, String> nomatch_pnpt = new HashMap<String, String>();
+	final HashMap<String, String> nomatch_pnpt = new HashMap<String, String>();
 
 	// HashMap stores all concepts where there is not ALT_DEFINITION to match
 	// the Contributing_Source
 	// Only bother checking this if there is a definition present
 	/** The no_alt_def. */
-	HashMap<String, String> no_alt_def = new HashMap<String, String>();
+	final HashMap<String, String> no_alt_def = new HashMap<String, String>();
 
 	// Hashmap stores all retired concepts that don't have a correct
 	// Concept_Status
 	/** The bad cs. */
-	HashMap<String, String> badCS = new HashMap<String, String>();
+	final HashMap<String, String> badCS = new HashMap<String, String>();
 
 	// Hashmap stored concepts that improperly have Concept_Status
 	// Retired_Concept
-	HashMap<String, String> badCS_active = new HashMap<String, String>();
+	final HashMap<String, String> badCS_active = new HashMap<String, String>();
 
 	// Hashmap stores all instances of FDA UNII concepts without UNII codes.
 	/** the missing UNII codes **/
-	HashMap<String, String> missingUNII = new HashMap<String, String>();
+	final HashMap<String, String> missingUNII = new HashMap<String, String>();
 
 	// Hashmap stores all instances of FDA UNII concepts without FDA PT.
 	/** the missing UNII PTs **/
-	HashMap<String, String> missingUNII_PT = new HashMap<String, String>();
+	final HashMap<String, String> missingUNII_PT = new HashMap<String, String>();
 
 	// Stores all instances where the PreferredName appears to be pasted into
 	// another property
-	HashMap<String, String> PNbug = new HashMap<String, String>();
+	final HashMap<String, String> PNbug = new HashMap<String, String>();
 
 	// Stores all instances where the property or qualifier value is an empty
 	// string
-	HashMap<String, String> emptyValue = new HashMap<String, String>();
+	final HashMap<String, String> emptyValue = new HashMap<String, String>();
 
 	// Stores the character map for replacement
-	HashMap<Character, UnicodeConverter> symbolMap = new HashMap<Character, UnicodeConverter>();
+	final HashMap<Character, UnicodeConverter> symbolMap = new HashMap<Character, UnicodeConverter>();
 
 	// Stores the results of the check for high bit characters
-	HashMap<String, String> highBitCharacters = new HashMap<String, String>();
+	final HashMap<String, String> highBitCharacters = new HashMap<String, String>();
 
 	// Stores the results of the check for reolaced high bit characters
-	HashMap<String, String> replacedHighBitCharacters = new HashMap<String, String>();
+	final HashMap<String, String> replacedHighBitCharacters = new HashMap<String, String>();
 
 	// Count the number of missing alt-defs per contributing source
-	HashMap<String, Integer> altDefSourceCount = new HashMap<String, Integer>();
+	final HashMap<String, Integer> altDefSourceCount = new HashMap<String, Integer>();
 
 	// Gather the FULL_SYNS with an LLT term-group that are not MedDRA
-	HashMap<String, String> lltNotMedDRA = new HashMap<String, String>();
+	final HashMap<String, String> lltNotMedDRA = new HashMap<String, String>();
+
+	//Value Sets without contributing source (P322)
+	final HashMap<String,String> vsNoCS = new HashMap<String, String>();
 
 	// reads the System properties to get the location of the
 	// nciqaowl.properties file
@@ -269,21 +271,21 @@ public class ProtegeKBQA {
 	}
 
 	private void checkCharacter(ConceptProxy cls, char c) {
-		String c1 = new String();
+		String c1;
 		// in case c is null?
 		c1 = "" + c;
-		Vector<Property> properties = new Vector<Property>();
+		Vector<Property> properties;
 		properties = cls.getProperties();
 		for (final Property property : properties) {
 			if (property.getValue().contains(c1)) {
 				if (c == '@') {
-					this.badchar_at.put(cls.getCode(), property.getValue());
+					this.badchar_at.put(cls.getCode() + " " + cls.getName(), property.getValue());
 				} else if (c == '\n') {
-					this.badchar_newline.put(cls.getCode(), property.getValue());
+					this.badchar_newline.put(cls.getCode() + " " + cls.getName(), property.getValue());
 				} else if (c == '|') {
 					// New property - Value_Set_Location - will include pipes
 					if (!property.getCode().equals(messages.getString("ProtegeKBQA.Value_Set_Location"))) {
-						this.badchar_pipe.put(cls.getCode(), property.getValue());
+						this.badchar_pipe.put(cls.getCode() + " " + cls.getName(), property.getValue());
 					}
 				} else if (c == '\t') {
 					this.badchar_tab.put(cls.toString(), property.getValue());
@@ -292,7 +294,7 @@ public class ProtegeKBQA {
 		}
 	}
 
-	private void checkContributingSouceAndAltDef(ConceptProxy cls) {
+	private void checkContributingSourceAndAltDef(ConceptProxy cls) {
 		// check that concepts with a contributing source and a Definition
 		// should also have an Alt-def
 		// ignoreSources.contains(synSource)
@@ -350,58 +352,60 @@ public class ProtegeKBQA {
 			} else {
 				// if there is one contributing source of FDA and there is a
 				// UNII_Code, discard
-				if (hasUNII && contributingSources.size() == 1 && contributingSources.get(0).getValue().equals("FDA")) {
-					// if there is only one CS and it is FDA, and there is a
-					// UNII_Code, don't add it.
-				} else if (contributingSources.size() > 1) {
-					boolean hasSource = true;
-					for (final Property source : contributingSources) {
-						// check each source against the ignore list. If any are
-						// not on it, then it should have an alt-def
-						if (!this.ignoreSources.contains(source.getValue())) {
-							if (hasUNII && source.getValue().equals("FDA")) {
-								// if the source is FDA and there is a
-								// UNII_Code, discard
-							} else {
+				if (!hasUNII || contributingSources.size() != 1 || !contributingSources.get(0).getValue().equals("FDA")) {
+					if (contributingSources.size() > 1) {
+						boolean hasSource = true;
+						for (final Property source : contributingSources) {
+							// check each source against the ignore list. If any are
+							// not on it, then it should have an alt-def
+							if (!this.ignoreSources.contains(source.getValue())) {
+								if (hasUNII && source.getValue().equals("FDA")) {
+									// if the source is FDA and there is a
+									// UNII_Code, discard
+								} else {
 
-								if (!exclude.contains(source.getValue())) {
-									hasSource = false;
-									if (altDefSourceCount.containsKey(source.getValue())) {
-										Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
-										altDefSourceCount.put(source.getValue(), tempInt);
-									} else {
-										altDefSourceCount.put(source.getValue(), 1);
+									if (!exclude.contains(source.getValue())) {
+										hasSource = false;
+										if (altDefSourceCount.containsKey(source.getValue())) {
+											Integer tempInt = altDefSourceCount.get(source.getValue()) + 1;
+											altDefSourceCount.put(source.getValue(), tempInt);
+										} else {
+											altDefSourceCount.put(source.getValue(), 1);
+										}
 									}
 								}
 							}
 						}
-					}
-					if (!hasSource) {
-						this.no_alt_def.put(sCode, "0 ALT_DEFINTIONs");
-					}
-				} else {
-					// only one contributing source and no alt-defs
-					if (!this.ignoreSources.contains(contributingSources.get(0).getValue())) {
+						if (!hasSource) {
+							this.no_alt_def.put(sCode, "0 ALT_DEFINTIONs");
+						}
+					} else {
+						// only one contributing source and no alt-defs
+						if (!this.ignoreSources.contains(contributingSources.get(0).getValue())) {
 
-						if (!exclude.contains(contributingSources.get(0).getValue())) {
+							if (!exclude.contains(contributingSources.get(0).getValue())) {
 
-							this.no_alt_def.put(sCode,
-									"No ALT_DEFINITION for " + contributingSources.get(0).getValue());
-							if (altDefSourceCount.containsKey(contributingSources.get(0).getValue())) {
-								Integer tempInt = altDefSourceCount.get(contributingSources.get(0).getValue()) + 1;
-								altDefSourceCount.put(contributingSources.get(0).getValue(), tempInt);
-							} else {
-								altDefSourceCount.put(contributingSources.get(0).getValue(), 1);
+								this.no_alt_def.put(sCode,
+										"No ALT_DEFINITION for " + contributingSources.get(0).getValue());
+								if (altDefSourceCount.containsKey(contributingSources.get(0).getValue())) {
+									Integer tempInt = altDefSourceCount.get(contributingSources.get(0).getValue()) + 1;
+									altDefSourceCount.put(contributingSources.get(0).getValue(), tempInt);
+								} else {
+									altDefSourceCount.put(contributingSources.get(0).getValue(), 1);
+								}
 							}
 						}
 					}
+				} else {
+					// if there is only one CS and it is FDA, and there is a
+					// UNII_Code, don't add it.
 				}
 
 			}
 		}
 	}
 
-	private boolean checkContributingSouceAndAltDef(ConceptProxy cls, Property source) {
+	private boolean checkContributingSourceAndAltDef(ConceptProxy cls, Property source) {
 		// check that concepts with a contributing source and a Definition
 		// should also have an Alt-def
 		// ignoreSources.contains(synSource)
@@ -531,9 +535,9 @@ public class ProtegeKBQA {
 		final Vector<Property> v = c.getProperties(messages.getString("ProtegeKBQA.Definition"));
 		final Property semType = c.getProperty(messages.getString("ProtegeKBQA.Semantic_Type"));
 		if (v.size() < 1) {
-			this.no_DEF.put(c.getCode(), semType != null ? semType.getValue() : "Null Semantic Type");
+			this.no_DEF.put(c.getCode() + "_" + c.getName(), semType != null ? semType.getValue() : "Null Semantic Type");
 		} else if (v.size() > 1) {
-			this.multiple_DEF.put(c.getCode(), new Integer(v.size()).toString() + " DEFs");
+			this.multiple_DEF.put(c.getCode() + "_" + c.getName(), Integer.toString(v.size()) + " DEFs");
 		}
 
 		// TODO build a metric to count the number of concepts with and without
@@ -546,7 +550,7 @@ public class ProtegeKBQA {
 			final String defValue = def.getValue();
 			if (defValue.startsWith("\"") && defValue.endsWith("\"")) { //$NON-NLS-2$
 				final String defQuote = "Definition is fully quoted " + def.getValue();
-				this.quoted_DEF.put(c.getCode(), defQuote);
+				this.quoted_DEF.put(c.getCode() + "_" + c.getName(), defQuote);
 			}
 		}
 	}
@@ -574,7 +578,7 @@ public class ProtegeKBQA {
 				if (drugEditors.contains(reviewerName)) {
 					return;
 				}
-				no_DefCurator.put(cls.getCode(), reviewerName);
+				no_DefCurator.put(cls.getCode() + " " + cls.getName(), reviewerName);
 			}
 		}
 	}
@@ -594,7 +598,7 @@ public class ProtegeKBQA {
 				}
 			}
 			if (hasDefCurator && !drugEditors.contains(editor)) {
-				no_DefCurator.put(cls.getCode(), editor);
+				no_DefCurator.put(cls.getCode() + " " + cls.getName(), editor);
 			}
 		}
 	}
@@ -664,7 +668,7 @@ public class ProtegeKBQA {
 	/**
 	 * Check duplicate roles.
 	 * 
-	 * @param c
+	 * @param cls
 	 *            the c
 	 */
 	private void checkDuplicateRoles(ConceptProxy cls) {
@@ -683,23 +687,23 @@ public class ProtegeKBQA {
 			if (!roleMap.contains(roleDef)) {
 				roleMap.add(roleDef);
 			} else {
-				this.duplicate_role.put(roleDef, cls.getCode());
+				this.duplicate_role.put(roleDef, cls.getCode() + " " + cls.getName());
 			}
 		}
 	}
 
 	private void checkHighBitCharacters(ConceptProxy cls) {
 		// pw.println("Property values containing High Bit characters \n");
-		Vector<Property> properties = new Vector<Property>();
+		Vector<Property> properties;
 		properties = cls.getProperties();
 		boolean hasIssue = false;
 		for (final Property property : properties) {
-			String propertyValue = property.getValue();
+			StringBuilder propertyValue = new StringBuilder(property.getValue());
 			for (Qualifier qual : property.getQualifiers()) {
-				propertyValue = propertyValue + " " + qual.getValue();
+				propertyValue.append(" ").append(qual.getValue());
 			}
 
-			String highBits = checkHighBitCharacters(propertyValue);
+			String highBits = checkHighBitCharacters(propertyValue.toString());
 
 			if (highBits.length() > 0) {
 				String bitReport = "Property: " + property.getName() + "\t" + highBits + "Property: "
@@ -707,7 +711,7 @@ public class ProtegeKBQA {
 				if (bitReport.contains("Unexpected Character")) {
 					highBitCharacters.put(cls.getCode(), bitReport);
 				} else {
-					replacedHighBitCharacters.put(cls.getCode(), bitReport);
+					replacedHighBitCharacters.put(cls.getCode() + " " + cls.getName(), bitReport);
 				}
 
 			}
@@ -719,21 +723,24 @@ public class ProtegeKBQA {
 	private String checkHighBitCharacters(String propertyValue) {
 		// Check each character and swap out any unicode in the map.
 		// Toss exception if non-swappable character found
-		String returnString = "";
+		StringBuilder returnString = new StringBuilder();
 		final int len = propertyValue.length();
 		for (int i = 0; i < len; i++) {
 			final Integer iPosition = new Integer(i + 1);
 			final char c = propertyValue.charAt(i);
-			final int cast = c;
+			final int cast = (int)c;
+//			final int cast = (int) propertyValue.charAt(i);
 			if (cast >= 32 && cast <= 126) {
 				// No problems. These are accepted characters
 				// No need to go iterating through the unicode converter
 			} else if (cast >= 127 && cast <= 191) {
 				if (symbolMap.containsKey(c)) // magic number for em-dash
 				{
-					returnString = returnString + "Character replaced " + "Char: " //$NON-NLS-2$
-							+ propertyValue.charAt(i) + " Windows-1252 code:" + cast + " " //$NON-NLS-2$
-							+ symbolMap.get(c).getCharDescription() + " Position: " + iPosition + "    \t";
+					returnString.append("Character replaced ").append("Char: " //$NON-NLS-2$
+					).append(propertyValue.charAt(i)).append(" Windows-1252 code:").append(cast).append(" " //$NON
+							// -NLS-2$
+					).append(symbolMap.get(c).getCharDescription()).append(" Position: ").append(iPosition).append("  " +
+							"  \t");
 					// throw new Exception("Replaced character " +
 					// Character.toString(c) + " " +
 					// symbolMap.get(c).getCharDescription());
@@ -742,20 +749,19 @@ public class ProtegeKBQA {
 					// Allow string to pass through, but note it.
 					// throw new Exception("Unexpected character " +
 					// Character.toString(c));
-					returnString = returnString + "Unexpected Character " + "Char: " + propertyValue.charAt(i)
-							+ " Windows-1252:" //$NON-NLS-1$
-							+ cast + " Position: " + iPosition + "   \t "; //$NON-NLS-2$
+					returnString.append("Unexpected Character ").append("Char: ").append(propertyValue.charAt(i)).append(" Windows-1252:" //$NON-NLS-1$
+					).append(cast).append(" Position: ").append(iPosition).append("   \t "); //$NON-NLS-2$
 				}
 
 			} else if (cast == 215 || cast == 247) {
-				returnString = returnString + "Unexpected Character " + "Char: " + propertyValue.charAt(i)
-						+ " Windows-1252:" //$NON-NLS-1$
-						+ cast + " Position: " + iPosition + "   \t "; //$NON-NLS-2$
+				returnString.append("Unexpected Character ").append("Char: ").append(propertyValue.charAt(i)).append(
+						" Windows-1252:" //$NON-NLS-1$
+				).append(cast).append(" Position: ").append(iPosition).append("   \t "); //$NON-NLS-2$
 			}
 
 		}
 
-		return returnString;
+		return returnString.toString();
 	}
 
 	/**
@@ -781,12 +787,12 @@ public class ProtegeKBQA {
 			// final Vector<String> aqs = getAQ_CTRMFullSyn(cls);
 			final Vector<String> aqs = getFullSynByGroup(cls, "AQ");
 			if (aqs.size() == 0) {
-				this.no_PT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
+				this.no_PT.put(cls.getCode(), Integer.toString(syns.size()) + " PTs");
 			} else {
-				this.antiquated_noPT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
+				this.antiquated_noPT.put(cls.getCode(), Integer.toString(syns.size()) + " PTs");
 			}
 		} else if (syns.size() > 1) {
-			this.multiple_PT.put(cls.getCode(), new Integer(syns.size()).toString() + " PTs");
+			this.multiple_PT.put(cls.getCode(), Integer.toString(syns.size()) + " PTs");
 		}
 	}
 
@@ -803,9 +809,9 @@ public class ProtegeKBQA {
 
 		// String sCode = getConceptCode(cls);
 		if (pn.size() < 1) {
-			this.no_PN.put(cls.getCode(), new Integer(pn.size()).toString() + " PNs");
+			this.no_PN.put(cls.getCode()+"_"+cls.getName(), Integer.toString(pn.size()) + " PNs");
 		} else if (pn.size() > 1) {
-			this.multiple_PN.put(cls.getCode(), new Integer(pn.size()).toString() + " PNs");
+			this.multiple_PN.put(cls.getCode()+"_"+cls.getName(), Integer.toString(pn.size()) + " PNs");
 		}
 	}
 
@@ -820,20 +826,19 @@ public class ProtegeKBQA {
 
 		// final Vector<String> syns = getNCIPTFullSyn(cls);
 		Vector<String> syns = getFullSynBySourceAndGroup(cls, "NCI", "PT");
-		if (syns == null || syns.size() == 0) {
+		if (syns.size() == 0) {
 			syns = getFullSynBySourceAndGroup(cls, "NCI", "HD");
 		}
-		if (syns == null || syns.size() == 0) {
+		if (syns.size() == 0) {
 			syns = getFullSynBySourceAndGroup(cls, "NCI", "AQ");
 		}
 		final Property pn = cls.getProperty(messages.getString("ProtegeKBQA.PreferredName"));
-		if (syns == null || pn == null || syns.size() == 0) {
+		if (pn == null || syns.size() == 0) {
 			System.out.println("Unable to do FullSynMatch for " + cls.getCode());
 		} else {
-			for (int i = 0; i < syns.size(); i++) {
-				final String pt = syns.get(i);
+			for (final String pt : syns) {
 				if (!pt.equals(pn.getValue())) {
-					this.nomatch_pnpt.put(cls.getCode(), "PN:" + pn.getValue() + " PT:" + pt);
+					this.nomatch_pnpt.put(cls.getCode() + "_" + cls.getName(), "PN:" + pn.getValue() + " PT:" + pt);
 				}
 			}
 		}
@@ -926,17 +931,17 @@ public class ProtegeKBQA {
 			// check if retired
 			if (!cls.isRetired()) {
 
-				this.no_ST.put(cls.getCode(), new Integer(styValues.size()).toString() + " SemanticTypes");
+				this.no_ST.put(cls.getCode()+"_"+cls.getName(), Integer.toString(styValues.size()) + " SemanticTypes");
 			}
 		} else if (styValues.size() > 1) {
 			if (!checkSemanticPairs(styValues)) {
-				String semanticTypeValues = "";
+				StringBuilder semanticTypeValues = new StringBuilder();
 				for (final Property prop : styValues) {
-					semanticTypeValues = semanticTypeValues + prop.getValue() + "|";
+					semanticTypeValues.append(prop.getValue()).append("|");
 				}
-				semanticTypeValues = semanticTypeValues.substring(0, semanticTypeValues.length() - 1);
-				this.multiple_ST.put(cls.getCode(),
-						new Integer(styValues.size()).toString() + " SemanticTypes " + semanticTypeValues);
+				semanticTypeValues = new StringBuilder(semanticTypeValues.substring(0, semanticTypeValues.length() - 1));
+				this.multiple_ST.put(cls.getCode()+"_"+cls.getName(),
+						Integer.toString(styValues.size()) + " SemanticTypes " + semanticTypeValues);
 			}
 		}
 	}
@@ -944,14 +949,14 @@ public class ProtegeKBQA {
 	private boolean checkSemanticPairs(Vector<Property> styValues) {
 
 		Collections.sort(styValues);
-		String styValue = "";
+		StringBuilder styValue = new StringBuilder();
 		for (final Property prop : styValues) {
-			styValue = styValue + prop.getValue() + "|";
+			styValue.append(prop.getValue()).append("|");
 		}
-		styValue = styValue.substring(0, styValue.length() - 1);
+		styValue = new StringBuilder(styValue.substring(0, styValue.length() - 1));
 
 		for (final String group : this.styPairs) {
-			if (group.equals(styValue)) {
+			if (group.equals(styValue.toString())) {
 				return true;
 			}
 		}
@@ -1016,7 +1021,7 @@ public class ProtegeKBQA {
 						}
 					}
 					if (!hasSource) {
-						boolean hasDef = checkContributingSouceAndAltDef(cls, contributingSource);
+						boolean hasDef = checkContributingSourceAndAltDef(cls, contributingSource);
 						boolean hasValueSet = checkPreferredNameToSource(cls,contributingSource.getValue());
 						if(!hasDef && !hasValueSet){
 						this.no_SynForContributingSource.put(cls.getCode(), contributingSource.getValue());
@@ -1153,8 +1158,7 @@ public class ProtegeKBQA {
 			}
 
 			if (this.configFile == null) {
-				final String filename = sysProp.getProperty("nciowlqa.properties");
-				this.configFile = filename;
+				this.configFile = sysProp.getProperty("nciowlqa.properties");
 			}
 			System.out.println("Config file at: " + this.configFile);
 
@@ -1175,7 +1179,7 @@ public class ProtegeKBQA {
 			if (outputFile == null) {
 				outputFile = URI.create(props.getProperty("outputfile"));
 			}
-			if (outputFile == null || outputFile.toString().length() == 0) {
+			if (outputFile.toString().length() == 0) {
 				System.out.println("No output file specified");
 				printHelp();
 			}
@@ -1389,11 +1393,10 @@ public class ProtegeKBQA {
 	// }
 
 	private String concatenateFullSyn(Property synProp) {
-		String source = "";
-		String group = "";
-		String value = "";
+		String source="";
+		String group="";
+		String value=synProp.getValue();
 
-		value = synProp.getValue();
 		final Vector<Qualifier> quals = synProp.getQualifiers();
 		for (final Qualifier qual : quals) {
 			if (qual.getCode().equals(messages.getString("ProtegeKBQA.Term_Source"))) {
@@ -1436,7 +1439,6 @@ public class ProtegeKBQA {
 			// }
 			final Vector<Property> mProps = cls.getProperties();
 			if (!cls.isRetired()) {
-
 				checkHighBitCharacters(cls);
 				checkSamePreferredName(cls);
 				checkSameAtoms(cls);
@@ -1465,7 +1467,7 @@ public class ProtegeKBQA {
 				cls.unloadProperties();
 			}
 		}
-
+		checkForValueSetSources();
 		// now print out all the issues discovered.
 		printReport();
 
@@ -1495,11 +1497,7 @@ public class ProtegeKBQA {
 			return false;
 		}
 
-		if (ontology.getRootConceptCodes().size() != 21) {
-			return false;
-		}
-
-		return true;
+		return ontology.getRootConceptCodes().size() == 21;
 	}
 
 	private boolean assessResults() {
@@ -1692,6 +1690,13 @@ public class ProtegeKBQA {
 		}
 
 		this.pw.println();
+		this.pw.println("Value Set concepts with no Contributing Source or multiple Contributing Sources: " + this.vsNoCS.size());
+		sortedReturn = sortHashMapByKey(this.vsNoCS);
+		for(final  Object o:sortedReturn){
+			this.pw.println(o.toString());
+		}
+
+		this.pw.println();
 		this.pw.println(
 				"********************************************************************************************************");
 		this.pw.println(
@@ -1847,7 +1852,9 @@ public class ProtegeKBQA {
 		} finally {
 			// Closing the streams
 			try {
+				assert buff != null;
 				buff.close();
+				assert configFile!=null;
 				configFile.close();
 			} catch (final Exception e) {
 				e.printStackTrace();
@@ -1885,6 +1892,7 @@ public class ProtegeKBQA {
 		} finally {
 			// Closing the streams
 			try {
+				assert buff!=null;
 				buff.close();
 				// configFile.close();
 			} catch (final Exception e) {
@@ -1923,8 +1931,7 @@ public class ProtegeKBQA {
 		// This messes up the attempt to compare preferred_name with
 		// the Full-Syn. This method replaces &amp; with the &
 		// Broken into separate methods for ease of reuse.
-		final String ret = s.replace("&amp;", "&"); //$NON-NLS-2$
-		return ret;
+		return s.replace("&amp;", "&");
 	}
 
 	private void removeBranch(URI classURI) {
@@ -1957,15 +1964,15 @@ public class ProtegeKBQA {
 	 *            the class uri
 	 */
 	private void checkRetiredConceptStatus(URI classURI) {
-		final Vector<ConceptProxy> retiredBranchClasses = new Vector<ConceptProxy>();
+//		final Vector<ConceptProxy> retiredBranchClasses = new Vector<ConceptProxy>();
 
 		final ConceptProxy retiredRoot = this.ontology.getConcept(this.retiredBranch);
-		retiredBranchClasses.add(retiredRoot);
+//		retiredBranchClasses.add(retiredRoot);
 		final Vector<URI> retiredConceptCodes = retiredRoot.getAllDescendantCodes();
 		if (retiredConceptCodes != null) {
 			for (final URI code : retiredConceptCodes) {
 				final ConceptProxy concept = this.ontology.getConcept(code);
-				retiredBranchClasses.add(concept);
+//				retiredBranchClasses.add(concept);
 				final Vector<Property> v = concept.getProperties("Concept_Status");
 				if (v == null || v.size() == 0) {
 					this.badCS.put(code.getFragment(), "no Concept Status");
@@ -2047,23 +2054,17 @@ public class ProtegeKBQA {
 		// Get a list of the entries in the map
 		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(hm.entrySet());
 
-		final Comparator byValue = new Comparator<Map.Entry<String, String>>() {
-			@Override
-			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
-				// Return 0 for a match, -1 for less than and +1 for more then
-				return (entry.getValue().compareTo(entry1.getValue()));
-			}
+		final Comparator byValue = (Comparator<Map.Entry<String, String>>) (entry, entry1) -> {
+			// Return 0 for a match, -1 for less than and +1 for more then
+			return (entry.getValue().compareTo(entry1.getValue()));
 		};
 
-		final Comparator byKey = new Comparator<Map.Entry<String, String>>() {
-			@Override
-			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
-				// Return 0 for a match, -1 for less than and +1 for more then
-				return (entry.getKey().compareTo(entry1.getKey()));
-			}
+		final Comparator byKey = (Comparator<Map.Entry<String, String>>) (entry, entry1) -> {
+			// Return 0 for a match, -1 for less than and +1 for more then
+			return (entry.getKey().compareTo(entry1.getKey()));
 		};
 
-		java.util.Collections.sort(list, new CompositeComparator(byKey, byValue));
+		list.sort(new CompositeComparator(byKey, byValue));
 
 		return list;
 
@@ -2081,17 +2082,14 @@ public class ProtegeKBQA {
 		// Get a list of the entries in the map
 		final List<Map.Entry<String, String>> list = new Vector<Map.Entry<String, String>>(hm.entrySet());
 
-		final Comparator byValue = new Comparator<Map.Entry<String, String>>() {
-			@Override
-			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
-				// Return 0 for a match, -1 for less than and +1 for more then
-				if (entry.getValue() == null) {
-					return -1;
-				} else if (entry1.getValue() == null) {
-					return +1;
-				} else {
-					return (entry.getValue().compareTo(entry1.getValue()));
-				}
+		final Comparator byValue = (Comparator<Map.Entry<String, String>>) (entry, entry1) -> {
+			// Return 0 for a match, -1 for less than and +1 for more then
+			if (entry.getValue() == null) {
+				return -1;
+			} else if (entry1.getValue() == null) {
+				return +1;
+			} else {
+				return (entry.getValue().compareTo(entry1.getValue()));
 			}
 		};
 
@@ -2103,10 +2101,18 @@ public class ProtegeKBQA {
 			}
 		};
 
+//		final Comparator byKey = new Comparator<Map.Entry<String, String>>() {
+//			@Override
+//			public int compare(Map.Entry<String, String> entry, Map.Entry<String, String> entry1) {
+//				// Return 0 for a match, -1 for less than and +1 for more then
+//				return (entry.getKey().compareTo(entry1.getKey()));
+//			}
+//		};
+
 		// Sort the list using an annonymous inner class implementing Comparator
 		// for the compare method
 
-		java.util.Collections.sort(list, new CompositeComparator(byValue, byKey));
+		list.sort(new CompositeComparator(byValue, byKey));
 
 		return list;
 
@@ -2144,7 +2150,7 @@ public class ProtegeKBQA {
 
 		// Find the first ">"
 		int n = pattern.indexOf(">");
-		String retstr = "";
+		StringBuilder retstr = new StringBuilder();
 		int lcv = 0;
 		while (n != -1) {
 			String tag = pattern.substring(0, n + 1);
@@ -2160,12 +2166,12 @@ public class ProtegeKBQA {
 
 			// Check to see if any value was actually returned
 			if (value.length() > 0) {
-				retstr = retstr + value;
-				retstr = retstr + "|";
+				retstr.append(value);
+				retstr.append("|");
 				lcv++;
 			}
 
-			pattern = pattern.substring(n, pattern.length());
+			pattern = pattern.substring(n);
 
 			n = pattern.indexOf(">");
 			if (n == -1) {
@@ -2177,11 +2183,11 @@ public class ProtegeKBQA {
 		}
 
 		if (lcv > 0) {
-			retstr = retstr.substring(0, retstr.length() - 1);
+			retstr = new StringBuilder(retstr.substring(0, retstr.length() - 1));
 		} else {
-			retstr = pattern;
+			retstr = new StringBuilder(pattern);
 		}
-		return (retstr);
+		return (retstr.toString());
 	}
 
 	private void checkPreferredNameBug(ConceptProxy c) {
@@ -2204,13 +2210,13 @@ public class ProtegeKBQA {
 							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.NICHD_Hierarchy_Term"))
 							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Semantic_Type"))
 							&& !prop.getCode().equals(messages.getString("ProtegeKBQA.Maps_To"))) {
-						this.PNbug.put(code, prop.getCode() + " " + prop.getValue());
+						this.PNbug.put(code+"_"+c.getName(), prop.getCode() + " " + prop.getValue());
 					} else if (prop.getCode().equals(messages.getString("ProtegeKBQA.Semantic_Type"))) {
 						// check to see if it is a legitimate semantic type. If
 						// not,
 						// report
 						if (!this.stys.contains(prop.getValue())) {
-							this.PNbug.put(code, prop.getCode() + " " + prop.getValue());
+							this.PNbug.put(code+"_"+c.getName(), prop.getCode() + " " + prop.getValue());
 						}
 					}
 				}
@@ -2231,7 +2237,7 @@ public class ProtegeKBQA {
 			if (qualifiers != null) {
 				for (final Qualifier qual : qualifiers) {
 					if (qual.getValue().length() == 0) {
-						this.emptyValue.put(code, prop.getCode() + " " + qual.getName());
+						this.emptyValue.put(code+"_"+c.getName(), prop.getCode() + " " + qual.getName());
 					}
 				}
 			}
@@ -2244,7 +2250,7 @@ public class ProtegeKBQA {
 		for (final Property syn : fullsyns) {
 			if (getQualifierValue(syn, messages.getString("ProtegeKBQA.Term_Group")).equals("LLT")
 					&& !(getQualifierValue(syn, messages.getString("protegeKBQA.Term_Source")).equals("MedDRA"))) {
-				lltNotMedDRA.put(cls.getCode(), syn.getValue());
+				lltNotMedDRA.put(cls.getCode()+"_"+cls.getName(), syn.getValue());
 
 				// if (syn.getValue().contains(
 				// "<ncicp:term-group>LLT</ncicp:term-group>")) {
@@ -2298,9 +2304,39 @@ public class ProtegeKBQA {
 				altDef = altDef.concat("|" + def.getValue());
 			}
 		}
-		if (altDef != null) {
-			// this.altDefNCI.put(c.getCode(), altDef);
-		}
+//		if (altDef != null) {
+//			// this.altDefNCI.put(c.getCode(), altDef);
+//		}
+	}
+
+	private void checkForValueSetSources(){
+		//Checks that all publishable value sets have a source
+	//Should have Publish_Value_Set = true
+	//Start with C54443 “Terminology Subset”
+		final ConceptProxy subsetRoot = this.ontology.getConcept("C54443");
+		Vector<URI> subsetConcepts = subsetRoot.getAllDescendantCodes();
+
+		if (subsetConcepts != null) {
+			for (final URI code : subsetConcepts) {
+				final ConceptProxy concept = this.ontology.getConcept(code);
+//				retiredBranchClasses.add(concept);
+				final Vector<Property> publish = concept.getProperties(messages.getString("ProtegeKBQA.Publish_Value_Set"));
+				if (publish != null && publish.size() ==1) {
+					if (publish.get(0).getValue().toUpperCase().equals("YES")) {
+
+						final Vector<Property> v = concept.getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
+						if (v == null || v.size() == 0) {
+							this.vsNoCS.put(code.getFragment(), "no Contributing Source " + concept.getName());
+						} else if (v.size() > 1) {
+							this.vsNoCS.put(code.getFragment(), "Multiple Contributing Sources " + concept.getName());
+						}
+					}
+				} else if (publish != null && publish.size()>1){
+					this.vsNoCS.put(code.getFragment(),"Multiple Publish_Value_Set " + concept.getName());
+				}
+			}
+			}
+
 	}
 
 }
