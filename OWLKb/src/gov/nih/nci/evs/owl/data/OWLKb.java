@@ -1029,13 +1029,7 @@ public HashMap<URI, String> getAllAssociations(){
 //		// return associations;
 //	}
 
-	/**
-	 * Gets the associations for concept.
-	 *
-	 * @param conceptCode
-	 *            the concept code
-	 * @return the associations for concept
-	 */
+
 	// @SuppressWarnings("unchecked")
 	// public Vector<Relationship> getAssociationsForConcept(String conceptCode)
 	// {
@@ -1117,19 +1111,39 @@ public HashMap<URI, String> getAllAssociations(){
 
 			HashMap<URI,String> associationMap = this.getAllAssociations();
 			String assocName = associationMap.get(assocCode);
-//			final String assocName = this.getAllAssociations().get(assocCode);
+
 			final RelationDef rel = new RelationDef(assocCode,
 			        assocName);
 
-			final IRI assocTarget = owlProp.getTargetCode();
-			final ConceptProxy target = this.getConcept(assocTarget.toURI());
 
-			final Association assoc = new Association(rel, source, target);
-			associations.add(assoc);
+			try {
+				final IRI assocTarget = owlProp.getTargetCode();
+				if (assocTarget == null) {
+					System.out.println("WARNING: assocTarget == null for assocCode " + assocCode.toString() + " at (code: " + source.getCode() + ")");
+				} else {
+					final ConceptProxy target = this.getConcept(assocTarget.toURI());
+
+					if (target == null) {
+						System.out.println("target == null for " + assocCode.toString());
+					}
+
+					final Association assoc = new Association(rel, source, target);
+					associations.add(assoc);
+				}
+
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+
 		}
 
 		Collections.sort(associations);
 		return associations;
+
+
+
 	}
 
 	public Vector<Association> getAssociationsForSource(URI conceptCode,
@@ -1148,6 +1162,9 @@ public HashMap<URI, String> getAllAssociations(){
 
 	public Vector<Association> getAssociationsForTarget(ConceptProxy target) {
 		final Vector<Association> associations = new Vector<Association>();
+//TODO Results in Exception in thread "main" java.lang.UnsupportedOperationException: RDF Literals do not have IRIs
+
+
 
 		// TODO build a map of reverse association - someday
 		// r = api.getAssociationsForTarget(concept);
@@ -1194,13 +1211,7 @@ public HashMap<URI, String> getAllAssociations(){
 		return children;
 	}
 
-	/**
-	 * Gets the concept.
-	 *
-	 * @param conceptCode
-	 *            the concept code
-	 * @return the concept
-	 */
+
 	// public ConceptProxy getConcept(URI conceptCode) {
 	// // final String tempCode = OWLKb.getCodeFromIRIString(conceptCode);
 	// // final URI tempCode = IRI.create(conceptCode);
@@ -1212,7 +1223,7 @@ public HashMap<URI, String> getAllAssociations(){
 		// final String tempCode = conceptURI.getFragment();
 //		final ConceptProxy concept = new ConceptProxy(conceptURI, this);
 //		return concept;
-		return this.concepts.get(conceptURI);
+		return this.getAllConcepts().get(conceptURI);
 	}
 
 	@Deprecated
@@ -1795,6 +1806,11 @@ public HashMap<URI, String> getAllAssociations(){
 		return concept.getRoles(roleID);
 	}
 
+	public Vector<Role> getRolesForTarget(URI conceptCode){
+		final ConceptProxy conceptProxy = new ConceptProxy(conceptCode, this);
+		return this.getRolesForTarget(conceptProxy);
+	}
+
 	/**
 	 * Gets the roles for target.
 	 *
@@ -2195,14 +2211,7 @@ public HashMap<URI, String> getAllAssociations(){
 		this.deprecatedBranch = deprecatedBranch;
 	}
 
-	/**
-	 * If the vocab uses an isolated branch for treeing deprecated concepts,
-	 * pass in the identifier of the root of that branch. This will then be used
-	 * to determine Deprecated concepts
-	 *
-	 * @param conceptCode
-	 *            the concept code
-	 */
+
 	// public void setDeprecatedTree(URI conceptCode) {
 	// this.deprecatedBranch = conceptCode;
 	// }

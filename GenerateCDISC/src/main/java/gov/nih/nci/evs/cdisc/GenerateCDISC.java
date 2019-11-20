@@ -6,6 +6,7 @@
 package gov.nih.nci.evs.cdisc;
 
 
+import gov.nih.nci.evs.owl.data.OWLKb;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -17,7 +18,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 
-import gov.nih.nci.evs.owl.data.OWLKb;
+//import gov.nih.nci.evs.owl.data.OWLKb;
 import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Qualifier;
@@ -55,7 +56,7 @@ public class GenerateCDISC {
 	 * @param filename
 	 */
 	public void init(String filename) {
-		kb = new OWLKb(filename, namespace);		
+		kb = new OWLKb(filename, namespace);
 	}
 	
 	public URI createURI(String code) {
@@ -76,7 +77,10 @@ public class GenerateCDISC {
 	public void generate(String root) {
 		PrintWriter pw = null;
 		File fil = null;
-		String rootName = kb.getConcept(createURI(root)).getProperty("P108").getValue();
+		ConceptProxy conceptProxy = kb.getConcept(createURI(root));
+		Property PN = conceptProxy.getProperty("P108");
+		String rootName = PN.getValue();
+//		String rootName = kb.getConcept(createURI(root)).getProperty("P108").getValue();
 		
 		//TODO: This may become CDISC_COA_Terminology - which is now referred to as QRS (Preferred_Name change)
 		if( root.equals("CDISC_Questionnaire_Terminology") || root.equals("CDISC_Functional_Test_Terminology") || 
@@ -265,134 +269,142 @@ public class GenerateCDISC {
 			pw.print(codelist2NCIPT.get(codelistConcept) + "\n");
 			
 			ArrayList<String> elements = codelist2Elements.get(codelistConcept);
-			
-			//Don't report retired elements
-			for( int i=0; i < elements.size(); i++ ) {
-				URI elementURI = null;
-				try {
-					elementURI = new URI(namespace + "#" + elements.get(i));
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if( kb.isDeprecated(elementURI) ) {
-					elements.remove(i);
-				}
+
+			System.out.println(codelistName);
+			if(codelistName.equals("Pool for Integration")){
+				String debug="stop here";
 			}
-			
+
+			if(elements!=null) {
+				//Don't report retired elements
+				for (int i = 0; i < elements.size(); i++) {
+					URI elementURI = null;
+					try {
+						elementURI = new URI(namespace + "#" + elements.get(i));
+					}
+					catch (URISyntaxException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (kb.isDeprecated(elementURI)) {
+						elements.remove(i);
+					}
+				}
+
 //			TreeMap<String,String> submission2Element = new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
-			TreeMap<String,String> submission2Element = new TreeMap<String,String>();			
-			HashMap<String,String> element2Code = new HashMap<String,String>();
-			HashMap<String,String> element2CodelistCode = new HashMap<String,String>();
-			HashMap<String,ArrayList<String>> element2Synonyms = new HashMap<String,ArrayList<String>>();
-			HashMap<String,String> element2Definition = new HashMap<String,String>();
-			HashMap<String,String> element2PreferredName = new HashMap<String,String>();
-			
-			for( String element : elements ) {
-				URI elementConcept = null;
-				try {
-					elementConcept = new URI(namespace + "#" + element);
-				} catch (URISyntaxException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				element2Code.put(element, kb.getConcept(elementConcept).getCode());
-				element2CodelistCode.put(element, codelist2Code.get(codelistConcept));
-				element2PreferredName.put(element, kb.getConcept(elementConcept).getProperty("P108").getValue());
-				
-				Vector<Property> submissionValues = new Vector<Property>();
-				ArrayList<String> cdiscSynonyms = new ArrayList<String>();				
-				
-				Vector<Property> synonyms = kb.getConcept(elementConcept).getProperties("P90");
-				for( Property synonym : synonyms ) {
-					String cdiscSy = synonym.getValue();
-					String termSource = "";
-					String termGroup = "";
-					Vector<Qualifier> quals = synonym.getQualifiers();
-					for( Qualifier qual : quals ) {
-						if( qual.getName().equals("Term Source") ) {
-							termSource = qual.getValue();
-						}
-						if( qual.getName().equals("Term Type") ) {
-							termGroup = qual.getValue();
-						}
+				TreeMap<String, String> submission2Element = new TreeMap<String, String>();
+				HashMap<String, String> element2Code = new HashMap<String, String>();
+				HashMap<String, String> element2CodelistCode = new HashMap<String, String>();
+				HashMap<String, ArrayList<String>> element2Synonyms = new HashMap<String, ArrayList<String>>();
+				HashMap<String, String> element2Definition = new HashMap<String, String>();
+				HashMap<String, String> element2PreferredName = new HashMap<String, String>();
+
+				for (String element : elements) {
+					URI elementConcept = null;
+					try {
+						elementConcept = new URI(namespace + "#" + element);
 					}
-					if( (termSource.equals(gTermSource)) && termGroup.equals("PT") ) {
-						submissionValues.add(synonym);
+					catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					if( (termSource.equals(gTermSource)) && termGroup.equals("SY") ) {
-						cdiscSynonyms.add(cdiscSy);
-					} 
-				}
-				
-				Collections.sort(cdiscSynonyms);				
-				element2Synonyms.put(element, cdiscSynonyms);
-				if( submissionValues.size() > 1 ) {
-					boolean found = false;
-					for( Property possibleSubmissionValue : submissionValues ) {
-						Vector<Qualifier> quals = possibleSubmissionValue.getQualifiers();
-						for( Qualifier qual : quals ) {
-							if( qual.getName().equals("Source Code") && qual.getValue().equals(codelist2NCIAB.get(codelistConcept)) ) {
-								submission2Element.put(possibleSubmissionValue.getValue(), element);
-								found = true;
+					element2Code.put(element, kb.getConcept(elementConcept).getCode());
+					element2CodelistCode.put(element, codelist2Code.get(codelistConcept));
+					element2PreferredName.put(element, kb.getConcept(elementConcept).getProperty("P108").getValue());
+
+					Vector<Property> submissionValues = new Vector<Property>();
+					ArrayList<String> cdiscSynonyms = new ArrayList<String>();
+
+					Vector<Property> synonyms = kb.getConcept(elementConcept).getProperties("P90");
+					for (Property synonym : synonyms) {
+						String cdiscSy = synonym.getValue();
+						String termSource = "";
+						String termGroup = "";
+						Vector<Qualifier> quals = synonym.getQualifiers();
+						for (Qualifier qual : quals) {
+							if (qual.getName().equals("Term Source")) {
+								termSource = qual.getValue();
 							}
-						}						
+							if (qual.getName().equals("Term Type")) {
+								termGroup = qual.getValue();
+							}
+						}
+						if ((termSource.equals(gTermSource)) && termGroup.equals("PT")) {
+							submissionValues.add(synonym);
+						}
+						if ((termSource.equals(gTermSource)) && termGroup.equals("SY")) {
+							cdiscSynonyms.add(cdiscSy);
+						}
+					}
+
+					Collections.sort(cdiscSynonyms);
+					element2Synonyms.put(element, cdiscSynonyms);
+					if (submissionValues.size() > 1) {
+						boolean found = false;
+						for (Property possibleSubmissionValue : submissionValues) {
+							Vector<Qualifier> quals = possibleSubmissionValue.getQualifiers();
+							for (Qualifier qual : quals) {
+								if (qual.getName().equals("Source Code") && qual.getValue().equals(codelist2NCIAB.get(codelistConcept))) {
+									submission2Element.put(possibleSubmissionValue.getValue(), element);
+									found = true;
+								}
+							}
 //						if( possibleSubmissionValue.contains("<ncicp:source-code>" + codelist2NCIAB.get(codelistConcept) + "</ncicp:source-code>") ) {
 //							submission2Element.put(getQualVal(possibleSubmissionValue, "ncicp:term-name"), element);
 //							found = true;
 //						}
-					}
-					if( !found ) {
-						System.out.print("No submission value!\n\tCodelist concept: "+ codelistConcept + "\n\tElement concept: " + element + "\n");
-					}
-				}
-				else try {
-					Property submissionValue = submissionValues.elementAt(0);
-					submission2Element.put(submissionValue.getValue(), element);
-				} catch (Exception e) {
-					System.out.print("No submission value!\n\tCodelist concept: "+ codelistConcept + "\n\tElement concept: " + element + "\n");
-				}
-				
-				
-				Vector<Property> definitions = kb.getConcept(elementConcept).getProperties("P325");
-				for( Property definition : definitions ) {
-					Vector<Qualifier> quals = definition.getQualifiers();
-					for( Qualifier qual : quals ) {
-						if( qual.getName().equals("Definition Source") && (qual.getValue().equals(gTermSource))){
-							element2Definition.put(element, definition.getValue());
 						}
+						if (!found) {
+							System.out.print("No submission value!\n\tCodelist concept: " + codelistConcept + "\n\tElement concept: " + element + "\n");
+						}
+					} else try {
+						Property submissionValue = submissionValues.elementAt(0);
+						submission2Element.put(submissionValue.getValue(), element);
 					}
+					catch (Exception e) {
+						System.out.print("No submission value!\n\tCodelist concept: " + codelistConcept + "\n\tElement concept: " + element + "\n");
+					}
+
+
+					Vector<Property> definitions = kb.getConcept(elementConcept).getProperties("P325");
+					for (Property definition : definitions) {
+						Vector<Qualifier> quals = definition.getQualifiers();
+						for (Qualifier qual : quals) {
+							if (qual.getName().equals("Definition Source") && (qual.getValue().equals(gTermSource))) {
+								element2Definition.put(element, definition.getValue());
+							}
+						}
 //					if( definition.contains("<ncicp:def-source>CDISC</ncicp:def-source>") ) {
 //						element2Definition.put(element, getQualVal(definition, "ncicp:def-definition"));
 //					}
-				}								
-			}
-			
-			
-			ArrayList<String> keys = new ArrayList<String>();
-			keys.addAll(submission2Element.keySet());
-			Collections.sort(keys, String.CASE_INSENSITIVE_ORDER);
-			
-			for(String submission : keys ) {
-				ArrayList<String> cdiscSynonyms = element2Synonyms.get(submission2Element.get(submission));
-				String cellFormattedSynonyms = new String("");
-				for( int i=0; i < cdiscSynonyms.size(); i++ ) {
-					cellFormattedSynonyms = cellFormattedSynonyms.concat( cdiscSynonyms.get(i) );
-					if( i + 1 < cdiscSynonyms.size() ) cellFormattedSynonyms = cellFormattedSynonyms.concat("; ");
+					}
 				}
-				
+
+				//check if submission2Element is null or empty
+				ArrayList<String> keys = new ArrayList<String>();
+				keys.addAll(submission2Element.keySet());
+				Collections.sort(keys, String.CASE_INSENSITIVE_ORDER);
+
+				for (String submission : keys) {
+					ArrayList<String> cdiscSynonyms = element2Synonyms.get(submission2Element.get(submission));
+					String cellFormattedSynonyms = new String("");
+					for (int i = 0; i < cdiscSynonyms.size(); i++) {
+						cellFormattedSynonyms = cellFormattedSynonyms.concat(cdiscSynonyms.get(i));
+						if (i + 1 < cdiscSynonyms.size()) cellFormattedSynonyms = cellFormattedSynonyms.concat("; ");
+					}
+
 
 					pw.print(element2Code.get(submission2Element.get(submission)) + "\t");
 					pw.print(element2CodelistCode.get(submission2Element.get(submission)) + "\t");
 					pw.print("" + "\t");
 					pw.print(codelistName + "\t");
 					pw.print(submission + "\t");
-	 				pw.print(cellFormattedSynonyms);
+					pw.print(cellFormattedSynonyms);
 					pw.print("\t" + element2Definition.get(submission2Element.get(submission)) + "\t");
-					pw.print(element2PreferredName.get(submission2Element.get(submission)) + "\n");				
+					pw.print(element2PreferredName.get(submission2Element.get(submission)) + "\n");
+				}
+
 			}
-			
-	
 			
 		}		
 

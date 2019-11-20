@@ -34,6 +34,7 @@ public class TestHarness {
 	public static void main(final String[] args) {
 		final TestHarness tester = new TestHarness();
 		tester.configure();
+		tester.testValueSet();
 		tester.testAssociation();
 		tester.testGetProperties();
 		tester.testGetRolesAssocsForTarget();
@@ -43,7 +44,7 @@ public class TestHarness {
 	}
 
 	// String url = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
-	String url = "file:///Users/safrant/EVS/data/OWL2/Thesaurus-170424-17.04d.owl";
+	String url = "file:///Users/safrant/EVS/data/Thesaurus/Thesaurus-191118-19.11c.owl";
 
 	private final String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
 
@@ -60,6 +61,17 @@ public class TestHarness {
 		owlKb1.getAllAssociations();
 		owlKb1.getAllRoles();
 
+	}
+
+	private void testValueSet(){
+		try {
+			ConceptProxy conceptProxy = owlKb1.getConcept(new URI("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C81222"));
+			Property PN = conceptProxy.getProperty("P108");
+			String rootName = PN.getValue();
+		}
+		catch(URISyntaxException e){
+			e.printStackTrace();
+		}
 	}
 
 	private void testAssociation() {

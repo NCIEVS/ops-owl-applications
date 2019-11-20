@@ -275,22 +275,7 @@ public class OwlApiLayer {
 		}
 	}
 
-	/**
-	 * Adds the annotation assertion axiom.
-	 *
-	 * @param concept_namespace
-	 *            the concept namespace
-	 * @param prop_namespace
-	 *            the prop namespace
-	 * @param propCode
-	 *            the prop code
-	 * @param conceptCode
-	 *            the concept code
-	 * @param value
-	 *            the value
-	 * @param qualifiers
-	 *            the qualifiers
-	 */
+
 	public void addAnnotationAssertionAxiom(IRI propCode, IRI conceptCode,
 	        String value, Vector<Qualifier> qualifiers) {
 		// TODO Auto-generated method stub
@@ -307,20 +292,7 @@ public class OwlApiLayer {
 		this.manager.applyChange(new AddAxiom(this.ontology, ax));
 	}
 
-	/**
-	 * Adds the annotation assertion axiom.
-	 *
-	 * @param concept_namespace
-	 *            the concept namespace
-	 * @param propCode
-	 *            the prop code
-	 * @param conceptCode
-	 *            the concept code
-	 * @param value
-	 *            the value
-	 * @param qualifiers
-	 *            the qualifiers
-	 */
+
 	public void addAnnotationAssertionAxiom(String propCode, IRI conceptCode,
 	        String value, Vector<Qualifier> qualifiers) {
 
@@ -513,20 +485,7 @@ public class OwlApiLayer {
 		// }
 	}
 
-	/**
-	 * Adds the property.
-	 *
-	 * @param concept_namespace
-	 *            the namespace
-	 * @param conceptId
-	 *            the concept id
-	 * @param propertyID
-	 *            the property ID
-	 * @param propertyValue
-	 *            the property value
-	 * @param hasLiterals
-	 *            the has literals
-	 */
+
 	// public void addProperty(String concept_namespace, String conceptId,
 	// String propertyID, String propertyValue, boolean hasLiterals) {
 	//
@@ -954,12 +913,7 @@ public class OwlApiLayer {
 	// manager.addAxiom(ontology, declarationAxiom);
 	// }
 
-	/**
-	 * Creates the class.
-	 *
-	 * @param id
-	 *            the id
-	 */
+
 	public void createClass(IRI classIri) {
 		// This will create a dumb class with just an id and label
 		OWLDataFactory dataFactory = this.manager.getOWLDataFactory();
@@ -1964,15 +1918,7 @@ public class OwlApiLayer {
 		return parentCodes;
 	}
 
-	/**
-	 * Gets the parent codes for concept.
-	 *
-	 * @param namespace
-	 *            the namespace
-	 * @param conceptCode
-	 *            the concept code
-	 * @return the parent codes for concept
-	 */
+
 	// public Vector<String> getParentCodesForConcept(String conceptCode) {
 	//
 	// final OWLClass concept = getOWLClass(conceptCode);

@@ -1,0 +1,7 @@
+mvn install:install-file \
+   -Dfile=<path-to-file>/lib/formatter.jar \
+   -DgroupId=gov.nih.nci.evs.reportwriter \
+   -DartifactId=formatter \
+   -Dversion=1.0 \
+   -Dpackaging=jar \
+   -DgeneratePom=true

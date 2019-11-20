@@ -463,6 +463,16 @@ public class Concept implements ConceptInterface, Comparable<Concept> {
 		this.roles = null;
 	}
 
+	@Override
+	public Vector<Association> getIncomingAssociations() {
+		return this.api.getAssociationsForTarget(this.getURI());
+	}
+
+	@Override
+	public Vector<Role> getIncomingRoles() {
+		return this.api.getRolesForTarget(this.getURI());
+	}
+
 	private void checkRolesLoad() {
 		if ((this.roles == null) || (this.roles.size() < 1)) {
 			this.loadRoles();

@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gov.nih.nci.evs.owl</groupId>
 	<artifactId>owl2kb</artifactId>
-	<version>2.1.0.1</version>
+	<version>2.1.0.2</version>
+	<packaging>pom</packaging>
 	<name>OWLKb</name>
 	<description>wrapper to owlapi to apply NCI EVS business rules</description>
 	<build>
@@ -21,7 +22,7 @@
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -31,11 +32,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.1.1</version>
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>${fully.qualified.class.name}</mainClass>
+							<mainClass>gov.nih.nci.evs.owl.data.OWLKb</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -52,6 +53,47 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>gov.nih.nci.evs.owl.data.OWLKb</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals><goal>jar</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<groupId>gov.nih.nci.evs.owl</groupId>
+					<artifactId>owl2kb</artifactId>
+					<version>${version}</version>
+					<packaging>jar</packaging>
+					<file>${basedir}/target/owl2kb-${version}.jar</file>
+					<generatePom>false</generatePom>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-jar-lib</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>

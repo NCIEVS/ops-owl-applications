@@ -31,14 +31,7 @@ public class ConceptProxy implements ConceptInterface {
 	private final URI uri;
 	OWLKb api;
 
-	/**
-	 * The Constructor.
-	 *
-	 * @param conceptCode1
-	 *            the concept code
-	 * @param kb
-	 *            the kb
-	 */
+
 	// public ConceptProxy(URI conceptURI, OWLKb kb) {
 	// this(conceptURI, kb, kb.getDefaultNamespace());
 	// // this.conceptCode = conceptCode;
@@ -320,6 +313,16 @@ public class ConceptProxy implements ConceptInterface {
 		if(! (ci==null)){
 		this.ci.unloadProperties();
 		}
+	}
+
+	@Override
+	public Vector<Association> getIncomingAssociations() {
+		return this.ci.getIncomingAssociations();
+	}
+
+	@Override
+	public Vector<Role> getIncomingRoles() {
+		return this.ci.getIncomingRoles();
 	}
 
 }

@@ -114,4 +114,8 @@ public interface ConceptInterface {
 	
 	public void unloadProperties();
 
+	public Vector<Association> getIncomingAssociations();
+
+	public Vector<Role> getIncomingRoles();
+
 }
