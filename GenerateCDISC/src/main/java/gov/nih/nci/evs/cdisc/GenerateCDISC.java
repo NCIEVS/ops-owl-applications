@@ -120,11 +120,15 @@ public class GenerateCDISC {
 			codelistConcepts.add(rootURI);
 		}
 		codelistConcepts.remove("Nothing");
+
+
 		
 		for(URI codelistConcept : codelistConcepts ) {
 			// System.out.println(codelistConcept);
 //			Vector<String> synonyms = kb.getPropertyValues(codelistConcept, "FULL_SYN");
 			Vector<Property> synonyms = kb.getConcept(codelistConcept).getProperties("P90");
+			boolean hasSyn=false;
+			String syn="";
 			for( Property synonym : synonyms ) {
 				String termName = synonym.getValue();
 				String termSource = "";
@@ -144,23 +148,36 @@ public class GenerateCDISC {
 				if( termSource.equals("NCI") && termGroup.equals("AB") ) {
 					codelist2NCIAB.put(codelistConcept.getFragment(), termName);
 				}
-				if( termSource.equals(gTermSource) && termGroup.equals("PT") ) {
+
+				//Should only take PT or SY, not both.
+
+				if( termSource.equals(gTermSource) && termGroup.equals("PT")) {
 					codelist2CDISCPT.put(codelistConcept.getFragment(), termName);
 					//Per Erin: codelist submission value cannot be more than 8 characters in length
 					if( checkShortNameLength && termName.length() > 8 ) {
 						System.out.println("Warning: Codelist Submission Value (CDISC PT) over 8 characters - " + codelistConcept + " (" + termName + ")");
 					}
-					if( !cdiscsy2Codelist.containsKey(termName) ) {
+					if( !cdiscsy2Codelist.containsKey(termName) && !hasSyn) {
 						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
+						hasSyn=true;
+						syn=termName;
 					}
 					else {
 						System.out.println("There was an issue adding synonym " + termName);
 					}
-				} 
+				}
 				if( termSource.equals(gTermSource) && termGroup.equals("SY") ) {
-					codelist2CDISCSY.put(codelistConcept.getFragment(), termName);
-					if( !cdiscsy2Codelist.containsKey(termName) ) {
-						cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
+						codelist2CDISCSY.put(codelistConcept.getFragment(), termName);
+					if( !cdiscsy2Codelist.containsKey(termName)) {
+						//CDISC SY has precedence over PT (per editor).  If PT loaded, remove it.
+						if(hasSyn){
+							cdiscsy2Codelist.remove(syn);
+							cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
+							hasSyn = true;
+						}else {
+							cdiscsy2Codelist.put(termName, codelistConcept.getFragment());
+							hasSyn = true;
+						}
 					}
 					else {
 						System.out.println("There was an issue adding synonym " + termName);
