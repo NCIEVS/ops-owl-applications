@@ -108,7 +108,8 @@ public class GenerateCDISC {
 		HashMap<String,String> codelist2NCIPT = new HashMap<String,String>();
 		HashMap<String,String> codelist2CDISCPT = new HashMap<String,String>();
 		HashMap<String,String> codelist2CDISCSY = new HashMap<String,String>();
-		TreeMap<String,String> cdiscsy2Codelist = new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER); 
+//		TreeMap<String,String> cdiscsy2Codelist = new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
+		TreeMap<String,String> cdiscsy2Codelist = new TreeMap<String,String>();
 		HashMap<String,String> codelist2Extensible = new HashMap<String,String>();
 		HashMap<String,String> codelist2Code = new HashMap<String,String>();
 		HashMap<String,String> codelist2Def = new HashMap<String,String>();
