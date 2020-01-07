@@ -7,9 +7,11 @@
 package gov.nih.nci.evs.owl;
 
 import gov.nih.nci.evs.owl.data.OWLKb;
+import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Qualifier;
 import gov.nih.nci.evs.owl.entity.Role;
+
 import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 
 import java.io.BufferedReader;
@@ -248,6 +250,8 @@ public class ProtegeKBQA {
 
 	//Value Sets without contributing source (P322)
 	final HashMap<String,String> vsNoCS = new HashMap<String, String>();
+
+	final HashMap<String,String> emptyValueSet = new HashMap<String, String>();
 
 	// reads the System properties to get the location of the
 	// nciqaowl.properties file
@@ -1696,6 +1700,13 @@ public class ProtegeKBQA {
 			this.pw.println(o.toString());
 		}
 
+//TODO		this.pw.println();
+//		this.pw.println("Empty value sets");
+//		sortedReturn= sortHashMapByKey(this.emptyValueSet);
+//		for (final Object o:sortedReturn){
+//			this.pw.println(o.toString());
+//		}
+
 		this.pw.println();
 		this.pw.println(
 				"********************************************************************************************************");
@@ -2323,7 +2334,7 @@ public class ProtegeKBQA {
 				final Vector<Property> publish = concept.getProperties(messages.getString("ProtegeKBQA.Publish_Value_Set"));
 				if (publish != null && publish.size() ==1) {
 					if (publish.get(0).getValue().toUpperCase().equals("YES")) {
-
+						checkEmptyValueSets(concept);
 						final Vector<Property> v = concept.getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
 						if (v == null || v.size() == 0) {
 							this.vsNoCS.put(code.getFragment(), "no Contributing Source " + concept.getName());
@@ -2336,6 +2347,18 @@ public class ProtegeKBQA {
 				}
 			}
 			}
+
+	}
+
+	private void checkEmptyValueSets(ConceptProxy concept) {
+		//Assumptions: this concept is a value set and set to publish
+		//Does it have any Concept_In_Subset incoming associations?
+		//TODO this does not work.  The error is in the OWLKb
+//		Vector<Association> incoming = concept.getIncomingAssociations();
+//		if(incoming ==null | incoming.size()==0){
+//			this.emptyValueSet.put(concept.getCode(), concept.getName());
+//		}
+
 
 	}
 

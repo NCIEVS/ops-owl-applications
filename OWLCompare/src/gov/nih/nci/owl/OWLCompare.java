@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -23,6 +24,8 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.text.FontSmoothingType;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -30,12 +33,17 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLAnnotation;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLException;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 public class OWLCompare {
 
@@ -112,6 +120,7 @@ public class OWLCompare {
 				String option = args[i];
 				if (option.equalsIgnoreCase("--help")) {
 					printHelp();
+					System.exit(0);
 				}
 				if (option.equalsIgnoreCase("-A")
 				        || option.equalsIgnoreCase("--active")) {
@@ -173,6 +182,9 @@ public class OWLCompare {
 					}
 				}
 			}
+		} else {
+			printHelp();
+			System.exit(0);
 		}
 
 		// configFile = sysProp.getProperty("CONFIG_FILE");
@@ -196,7 +208,9 @@ public class OWLCompare {
 		try {
 			System.out.println("Loading OWL file.");
 			manager = OWLManager.createOWLOntologyManager();
-			ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
+//			ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
+			ontology = manager.loadOntologyFromOntologyDocument(IRI.create(physicalURI));
+
 		} catch (OWLException e) {
 			e.printStackTrace();
 			System.out
@@ -223,7 +237,7 @@ public class OWLCompare {
 		// Where a key exists (match), tack an OWLClass object on as a value.
 		int classCount = 0;
 		boolean allowClass = true;
-		Set<OWLClass> ocls = ontology.getReferencedClasses();
+		Set<OWLClass> ocls = ontology.getClassesInSignature();
 		for (OWLClass c : ocls) {
 
 			classCount++;
@@ -300,6 +314,7 @@ public class OWLCompare {
 
 			f3.setFontHeightInPoints((short) 12);
 			f3.setBold(true);
+
 
 			// set the font
 			cs.setFont(f);
@@ -423,8 +438,10 @@ public class OWLCompare {
 			f2.setColor(Font.COLOR_RED);
 			f2.setBold(true);
 
+
 			f3.setFontHeightInPoints((short) 12);
 			f3.setBold(true);
+
 
 			// set the font
 			cs.setFont(f);
@@ -581,25 +598,69 @@ public class OWLCompare {
 	}
 
 	public Vector<String> getProperties(OWLClass c, String property) {
-		Vector<String> v = new Vector<String>();
-		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
-			String annotationValue = anno.toString();
-			if (annotationValue.contains("Annotation(" + property)) {
-				// get property value, return the new value
-				int beginning = annotationValue.indexOf("(");
-				int end = annotationValue.indexOf("^^");
-				String value = annotationValue.substring(
-				        beginning + property.length() + 3, end - 1);
-				v.add(value);
-				/*
-				 * //ONLY FOR DEF-SOURCE FDA if(
-				 * value.contains("<def-source>FDA</def-source>") ) {
-				 * v.add(value); }
-				 */
-				// System.out.println(property + " match value is: " + value);
+		IRI propertyIRI = this.createIRI(this.ontologyNamespace, property);
+		return getPropertyValues(c,propertyIRI);
+
+//		Vector<String> v = new Vector<String>();
+//		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
+//			String annotationValue = anno.toString();
+//			if (annotationValue.contains("Annotation(" + property)) {
+//				// get property value, return the new value
+//				int beginning = annotationValue.indexOf("(");
+//				int end = annotationValue.indexOf("^^");
+//				String value = annotationValue.substring(
+//				        beginning + property.length() + 3, end - 1);
+//				v.add(value);
+//				/*
+//				 * //ONLY FOR DEF-SOURCE FDA if(
+//				 * value.contains("<def-source>FDA</def-source>") ) {
+//				 * v.add(value); }
+//				 */
+//				// System.out.println(property + " match value is: " + value);
+//			}
+//		}
+//		return v;
+	}
+
+	private Vector<String> getPropertyValues(final OWLClass c,
+											 final IRI propertyCode) {
+
+		final Vector<String> propValues = new Vector<String>();
+		try {
+			// final IRI uri = createIRI(propertyCode);
+			// List<java.net.URI> annoList = new Vector<java.net.URI>();
+			final List<OWLAnnotationProperty> propList = new Vector<OWLAnnotationProperty>();
+			final Vector<OWLLiteral> propVals = new Vector<OWLLiteral>();
+			final OWLAnnotationProperty prop = this.manager.getOWLDataFactory()
+					.getOWLAnnotationProperty(propertyCode);
+			Object[] objects = EntitySearcher.getAnnotations(c,
+					this.ontology, prop).toArray();
+			for(Object annotation: objects){
+				if(annotation instanceof OWLAnnotation){
+					OWLAnnotation anno = (OWLAnnotation) annotation;
+					propList.add(anno.getProperty());
+					OWLAnnotationValue val = anno.getValue();
+
+					propVals.add((OWLLiteral) anno.getValue());
+				}
 			}
+//			for (final OWLAnnotation anno :  EntitySearcher.getAnnotations(c,
+//					this.ontology, prop).toArray()) {
+//
+//				propList.add(anno.getProperty());
+//				OWLAnnotationValue val = anno.getValue();
+//
+//				propVals.add((OWLLiteral) anno.getValue());
+//			}
+
+			for (final OWLLiteral val : propVals) {
+				propValues.add(val.getLiteral());
+
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
 		}
-		return v;
+		return propValues;
 	}
 
 	public void setMap(OWLClass c, String match) {
@@ -997,6 +1058,19 @@ public class OWLCompare {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+
 		}
+	}
+
+	private IRI createIRI(String namespace, String token) {
+		return IRI.create(createURI(namespace, token));
+	}
+
+	public static URI createURI(String namespace, String token) {
+		if (namespace.endsWith("#") || namespace.endsWith("/")) {
+			namespace = namespace.substring(0, namespace.length() - 1);
+		}
+		return URI.create(namespace + "#" + token);
 	}
 }

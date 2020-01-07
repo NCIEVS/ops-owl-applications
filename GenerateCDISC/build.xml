@@ -6,15 +6,12 @@
 	<property name="lib.dir" value="./lib" />
 	<property name="build.dir" value="./build" />
 	<property name="classes.dir" value="./classes" />
-	<property name="src.dir" value="./src" />
+	<property name="src.dir" value="./src/main/java" />
 		
 	<path id="libs">
 		<pathelement location="${classes.dir}"/>
         <fileset dir="${lib.dir}">
-            <include name="**/owl2kb-2.0.0-jar-with-dependencies.jar"/>
         	<include name="**/formatter.jar"/>
-        	<include name="**/poi-3.6-20091214.jar"/>
-        	<include name="**/log4j-1.2.15.jar"/>
         </fileset>
 	</path>
 	
@@ -39,7 +36,7 @@
         <javac srcdir="${src.dir}" destdir="${classes.dir}" 
             encoding="cp1252" debug="true" debuglevel="lines,source">
             <classpath refid="libs"/>
-        </javac>        
+        </javac>
     </target>
 
     <!-- ********************************************************-->
