@@ -2304,7 +2304,7 @@ public class ProtegeKBQA {
 		for (Property def : v) {
 			Qualifier source = def.getQualifier(messages.getString("ProtegeKBQA.Def_Source"));
 			if (source != null && source.getValue().equals("NCI")) {
-				System.out.println("Adding " + c.getCode());
+				System.out.println("Adding Alt-Def with NCI source" + c.getCode());
 				results.add(def);
 			}
 		}
