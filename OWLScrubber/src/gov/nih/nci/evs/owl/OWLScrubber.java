@@ -1305,7 +1305,7 @@ public class OWLScrubber {
 	/**
 	 * Save ontology.
 	 *
-	 * @param savePath
+	 *
 	 *            the save path
 	 */
 	private void saveOntology() {

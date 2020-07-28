@@ -700,6 +700,8 @@ public class ProtegeKBQA {
 		// pw.println("Property values containing High Bit characters \n");
 		Vector<Property> properties;
 		properties = cls.getProperties();
+		int unexpectedNumber = 1;
+		int replacedNumber = 1;
 		boolean hasIssue = false;
 		for (final Property property : properties) {
 			StringBuilder propertyValue = new StringBuilder(property.getValue());
@@ -713,9 +715,11 @@ public class ProtegeKBQA {
 				String bitReport = "Property: " + property.getName() + "\t" + highBits + "Property: "
 						+ property.getValue();
 				if (bitReport.contains("Unexpected Character")) {
-					highBitCharacters.put(cls.getCode(), bitReport);
+					highBitCharacters.put(cls.getCode() + " " + cls.getName() + " issue "+unexpectedNumber, bitReport);
+					unexpectedNumber= unexpectedNumber+1;
 				} else {
-					replacedHighBitCharacters.put(cls.getCode() + " " + cls.getName(), bitReport);
+					replacedHighBitCharacters.put(cls.getCode() + " " + cls.getName()+ " issue "+replacedNumber, bitReport);
+					replacedNumber = replacedNumber+1;
 				}
 
 			}

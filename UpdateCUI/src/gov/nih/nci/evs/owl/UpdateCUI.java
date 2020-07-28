@@ -49,9 +49,19 @@ public class UpdateCUI {
 		setMapFromFile(mapFile);
 		File input = new File(inputOWL);     		
     }
+
+    private static void printHelp(){
+    	System.out.println("Two parameters required");
+    	System.out.println("First parameter is location of the raw OWL file");
+    	System.out.println("Second parameter is the location of the nci_code_cui_Map.data");
+	}
 	
 	
 	public static void main(String[] args) {
+    	if(args.length!=2){
+    		printHelp();
+    		System.exit(0);
+		}
 		 UpdateCUI update = new UpdateCUI(args[0], args[1]);
 		 update.run();
 	}
