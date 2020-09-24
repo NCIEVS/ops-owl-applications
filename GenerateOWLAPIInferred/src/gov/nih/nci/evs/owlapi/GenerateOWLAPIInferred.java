@@ -14,8 +14,8 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.clarkparsia.pellet.owlapi.PelletReasoner;
-import com.clarkparsia.pellet.owlapi.PelletReasonerFactory;
+import gov.nih.nci.curator.IncrementalReasoner;
+import gov.nih.nci.curator.IncrementalReasonerFactory;
 
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -38,7 +38,7 @@ public class GenerateOWLAPIInferred {
 
 	OWLOntologyManager man;
 	OWLOntology ontology;	
-	PelletReasoner reasoner;
+	IncrementalReasoner reasoner;
 //	Set<OWLClass> ancestors = new HashSet<>();
 	String inputFile;
 	String outputFile;
@@ -48,16 +48,6 @@ public class GenerateOWLAPIInferred {
 		GenerateOWLAPIInferred infer = new GenerateOWLAPIInferred();
 		infer.run(args);
 	}
-
-//	public void getSuperClasses(OWLClass c) {
-//		Set<OWLClass> s1 = reasoner.getSuperClasses(c, false).getFlattened();
-//		for( OWLClass cls : s1 ) {
-//			getSuperClasses(cls);
-//			if( !ancestors.contains(cls)  && !cls.isTopEntity() ) {
-//				ancestors.add(cls);
-//			}
-//		}
-//	}
 	
 	public String generateOutputFileName(String inputFile){
 		String outFile = "";
@@ -99,16 +89,23 @@ public class GenerateOWLAPIInferred {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 		System.out.println("Finished loading ont...");
 
 		System.out.println("Creating reasoner...");
-		reasoner = PelletReasonerFactory.getInstance().createReasoner( ontology );
+		reasoner = IncrementalReasonerFactory.getInstance().createReasoner( ontology );
 //		reasoner = new Reasoner.ReasonerFactory().createReasoner(ontology);
 		System.out.println("Checking consistency...");
 		if( !reasoner.isConsistent() ) {
 			//fail
 			System.out.println("Ontology inconsistent.");
-		}		
+		}
+		
+		System.out.println("Classifying ontology...");
+		
+		reasoner.classify();
+		
+		
 
 
 		int size = ontology.getClassesInSignature().size();
@@ -201,15 +198,19 @@ public class GenerateOWLAPIInferred {
 		}
 		System.out.println(size + " classes processed.");
 		System.out.println("Saving inferred file as " + outputFile);
+		
 		try {
 			man.saveOntology(ontology, IRI.create((new File(new URI(outputFile)))));
 		} catch (OWLOntologyStorageException | URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
 
 		// Terminate the worker threads used by the reasoner. 
 		reasoner.dispose(); 
+		
+		System.out.println("Job complete.");
 	}
 	
 
