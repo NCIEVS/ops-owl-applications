@@ -589,11 +589,15 @@ public class OWLDisjointWithProcessor {
     public static void main(String[] args) {
 		long ms = System.currentTimeMillis();
         String owlfile = args[0];
+        if (owlfile.startsWith("file")){
+        	owlfile = owlfile.substring(5);
+		}
         System.out.println("Start OWLDisjointWithProcessor. Please wait ...");
 		OWLDisjointWithProcessor owlDisjointWithProcessor = new OWLDisjointWithProcessor(owlfile);
 
 		int n = owlfile.lastIndexOf(".");
-		String outputfile = owlfile.substring(0, n) + "_disjoint.owl";
+//		String outputfile = owlfile.substring(0, n) + "_disjoint.owl";
+		String outputfile = owlfile + "_disjoint.owl";
 		owlDisjointWithProcessor.run(outputfile);
 		String changefile = "owlDisjointWith_mod_" + getToday() + ".txt";
 		owlDisjointWithProcessor.getModifiedClasses(changefile);
