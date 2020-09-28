@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>GenerateOWLAPIInferred</groupId>
   <artifactId>GenerateOWLAPIInferred</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>2.0</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -16,15 +16,12 @@
                 </configuration>
             </plugin>
      
-     <!--       
+
     <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
             <version>3.1.2</version>
             <configuration>
-                <includes>
-                    <include>**/cdisc/*</include>
-                </includes>
                 <archive>
                     
                     <manifest>
@@ -59,22 +56,39 @@
                 </execution>
             </executions>
         </plugin>
-        -->
+
       
     </plugins>
   </build>
   <dependencies>
   
-  	<dependency>
-				<groupId>net.sourceforge.owlapi</groupId>
-				<artifactId>owlapi-osgidistribution</artifactId>
-				<version>5.1.6-SNAPSHOT</version>
-			</dependency>
-			
-  	<dependency>
-        	<groupId>gov.nih.nci</groupId>
-    	    <artifactId>nci-curator</artifactId>
-            <version>0.0.5-SNAPSHOT</version>
-        </dependency>
+<!--  	<dependency>-->
+<!--				<groupId>net.sourceforge.owlapi</groupId>-->
+<!--				<artifactId>owlapi-osgidistribution</artifactId>-->
+<!--				<version>5.1.6-SNAPSHOT</version>-->
+<!--			</dependency>-->
+
+      <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-osgidistribution -->
+      <dependency>
+          <groupId>net.sourceforge.owlapi</groupId>
+          <artifactId>owlapi-osgidistribution</artifactId>
+          <version>5.1.16</version>
+      </dependency>
+
+      <dependency>
+          <groupId>jgrapht</groupId>
+          <artifactId>jgrapht</artifactId>
+          <version>0.7.3</version>
+      </dependency>
+
+      <!-- Download this jar from https://github.com/bdionne/nci-curator/tags
+      Install manually using
+      "mvn install:install-file -Dfile=nci-curator-0.0.VERSION-SNAPSHOT.jar -Dversion-0.0.VERSION -Dpackaging=jar -DgroupId=gov.nih.nci"
+      -->
+      <dependency>
+          <groupId>gov.nih.nci</groupId>
+          <artifactId>nci-curator</artifactId>
+          <version>0.0.5</version>
+      </dependency>
   </dependencies>
 </project>
