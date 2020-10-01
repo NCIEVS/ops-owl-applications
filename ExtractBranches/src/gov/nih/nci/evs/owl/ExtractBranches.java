@@ -5,6 +5,7 @@
 
 package gov.nih.nci.evs.owl;
 
+import gov.nih.nci.curator.IncrementalReasonerFactory;
 import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,8 +13,9 @@ import java.util.Properties;
 import java.util.Vector;
 import java.util.Set;
 
-import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
-import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+import gov.nih.nci.curator.IncrementalReasoner;
+//import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
+//import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -33,7 +35,8 @@ public class ExtractBranches {
 	Set<OWLClass> descendants = new HashSet<>();	
 	Vector<String> branches = new Vector<String>();
 	HashMap<IRI, Integer> uris = new HashMap<IRI, Integer>();
-	private PelletReasoner reasoner;
+//	private PelletReasoner reasoner;
+	IncrementalReasoner reasoner;
 	private PrintWriter pw;
 	String dir = System.getProperty("user.dir").replace("\\", "/").replace(" ", "%20");
 	
@@ -259,7 +262,8 @@ public class ExtractBranches {
 	public void startToldReasoner() {
 		System.out.println("Starting Pellet reasoner.");
 
-		reasoner = PelletReasonerFactory.getInstance().createReasoner( ontology );
+		reasoner = IncrementalReasonerFactory.getInstance().createReasoner( ontology );
+//		reasoner = PelletReasonerFactory.getInstance().createReasoner( ontology );
 		reasoner.getUnsatisfiableClasses();
 		System.out.println("Finished computing class hierarchy.");
 	}

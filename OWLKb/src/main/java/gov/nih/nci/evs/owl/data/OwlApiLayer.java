@@ -4316,6 +4316,10 @@ public class OwlApiLayer {
 	public int getGciCount(){
 		return metrics.getGciCount();
 	}
+
+	public int getHiddenGciCount(){
+		return metrics.getHiddenGciCount();
+	}
 	
 	public int getMultiParentCount(){
 		return metrics.getMultipleInheritanceCount();

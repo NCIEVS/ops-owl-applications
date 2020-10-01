@@ -1486,18 +1486,28 @@ public class ProtegeKBQA {
 	private boolean checkMetrics() {
 
 		// check axiom count
+		int x = ontology.getAxiomCount();
 		if (ontology.getAxiomCount() == 0) {
 			return false;
 		}
 		if (ontology.getAxiomCount() < 2000000 || ontology.getAxiomCount() > 3000000) {
 			return false;
 		}
-		if (ontology.getGciCount() == 0) {
+		x = ontology.getGciCount();
+//		if (ontology.getGciCount() == 0) {
+//			return false;
+//		}
+
+		x=ontology.getHiddenGciCount();
+		if (ontology.getHiddenGciCount() > 0) {
 			return false;
 		}
+
+		x=ontology.getMultiInheritanceCount();
 		if (ontology.getMultiInheritanceCount() == 0) {
 			return false;
 		}
+
 		if (ontology.getDLExpressivity() == null) {
 			return false;
 		}

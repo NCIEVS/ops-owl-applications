@@ -24,3 +24,7 @@ OWLKb/owlkb.properties
 OWLKb/owlkb.xml
 
 OWLDisjoint/out/
+
+OWLDisjoint/target/
+
+GenerateOWLAPIInferred/lib/nci-curator-0.0.5-SNAPSHOT.jar

@@ -3,21 +3,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gov.nih.nci.evs.owl</groupId>
 	<artifactId>owl2kb</artifactId>
-	<version>2.1.0.2</version>
-	<packaging>pom</packaging>
+	<version>2.1.1</version>
+<!--	<packaging>pom</packaging>-->
 	<name>OWLKb</name>
 	<description>wrapper to owlapi to apply NCI EVS business rules</description>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>test/src</testSourceDirectory>
-		<resources>
-			<resource>
-				<directory>src</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
+<!--		<testSourceDirectory>src/test/java</testSourceDirectory>-->
+<!--		<resources>-->
+<!--			<resource>-->
+<!--				<directory>src</directory>-->
+<!--				<excludes>-->
+<!--					<exclude>**/*.java</exclude>-->
+<!--				</excludes>-->
+<!--			</resource>-->
+<!--		</resources>-->
+
 		<plugins>
 
 			<plugin>
@@ -53,24 +54,24 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>gov.nih.nci.evs.owl.data.OWLKb</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals><goal>jar</goal></goals>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-jar-plugin</artifactId>-->
+<!--				<version>3.1.2</version>-->
+<!--				<configuration>-->
+<!--					<archive>-->
+<!--						<manifest>-->
+<!--							<mainClass>gov.nih.nci.evs.owl.data.OWLKb</mainClass>-->
+<!--						</manifest>-->
+<!--					</archive>-->
+<!--				</configuration>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>compile</phase>-->
+<!--						<goals><goal>jar</goal></goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -79,9 +80,9 @@
 				<configuration>
 					<groupId>gov.nih.nci.evs.owl</groupId>
 					<artifactId>owl2kb</artifactId>
-					<version>${version}</version>
+					<version>${project.version}</version>
 					<packaging>jar</packaging>
-					<file>${basedir}/target/owl2kb-${version}.jar</file>
+					<file>${basedir}/target/owl2kb-${project.version}.jar</file>
 					<generatePom>false</generatePom>
 				</configuration>
 				<executions>
@@ -121,6 +122,11 @@
 			<groupId>net.sourceforge.owlapi</groupId>
 			<artifactId>owlapi-distribution</artifactId>
 			<version>4.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.13.0</version>
 		</dependency>
 	</dependencies>
 </project>

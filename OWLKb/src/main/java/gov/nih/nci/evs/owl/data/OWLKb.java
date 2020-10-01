@@ -48,7 +48,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -194,7 +196,7 @@ public class OWLKb {
 	/** Whether the ontology uses XMLLiteral or not. False by default **/
 	boolean hasLiterals = false;
 
-	private org.apache.log4j.Logger logger = Logger
+	private Logger logger = LogManager
 	        .getLogger(gov.nih.nci.evs.owl.data.OWLKb.class);
 
 	private int numberFullyDefined;
@@ -2411,6 +2413,10 @@ public HashMap<URI, String> getAllAssociations(){
 	public int getGciCount(){
 		return this.api.getGciCount();
 	}
+
+	public int getHiddenGciCount(){
+		return this.api.getHiddenGciCount();
+	}
 	
 	public int getMultiInheritanceCount(){
 		return this.api.getMultiParentCount();
@@ -2419,5 +2425,7 @@ public HashMap<URI, String> getAllAssociations(){
 	public String getDLExpressivity(){
 		return this.api.getDLExpressivity();
 	}
+
+	public int getReferencedIndividualsCount() { return this.api.getReferencedIndividualsCount();}
 
 }
