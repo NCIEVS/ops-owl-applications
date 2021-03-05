@@ -6,7 +6,7 @@
 
     <groupId>gov.nih.nci.evs</groupId>
     <artifactId>OWLDisjoint</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <build>
 <plugins>

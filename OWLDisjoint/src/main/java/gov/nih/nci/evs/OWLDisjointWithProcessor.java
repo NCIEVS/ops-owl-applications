@@ -597,9 +597,9 @@ public class OWLDisjointWithProcessor {
 
 		int n = owlfile.lastIndexOf(".");
 //		String outputfile = owlfile.substring(0, n) + "_disjoint.owl";
-		String outputfile = owlfile + "_disjoint.owl";
+		String outputfile = owlfile + "-disjoint.owl";
 		owlDisjointWithProcessor.run(outputfile);
-		String changefile = "owlDisjointWith_mod_" + getToday() + ".txt";
+		String changefile = "owlDisjointWith-mod-" + getToday() + ".txt";
 		owlDisjointWithProcessor.getModifiedClasses(changefile);
 
 		System.out.println("Total run time (ms): " + (System.currentTimeMillis() - ms));
