@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Vector;
 
 import gov.nih.nci.evs.owl.data.OWLKb;
@@ -64,6 +65,10 @@ public class ValueSetProduction {
 	
 	public void printHelp() {
 		//print help
+		System.out.println("This application takes 3 parameters");
+		System.out.println(" -- current Inferred file");
+		System.out.println(" -- previous Inferred file");
+		System.out.println(" -- version as YY.MMv");
 	}
 	
 	public void init(String filenameNew, String filenameOld, String ver) {
@@ -107,6 +112,7 @@ public class ValueSetProduction {
 			}
 			// P372 == Publish_Value_Set
 			// P374 == Value_Set_Location
+			Vector debug =kb.getAnnotationPropertiesForConcept(concept);
 			if( (kb.getPropertyValues(concept, createURI("P372")).contains("Yes") ) && 
 				(kb.getPropertyValues(concept, createURI("P374")).size() > 0) ) {
 				String name = kb.getSolePropertyValue(concept, createURI("P108")); // Preferred_Name

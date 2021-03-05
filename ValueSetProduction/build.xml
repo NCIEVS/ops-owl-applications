@@ -13,7 +13,7 @@
 	<path id="libs">
 		<pathelement location="${classes.dir}"/>
         <fileset dir="${lib.dir}">
-            <include name="**/owl2kb-2.0.0-jar-with-dependencies.jar"/>
+            <include name="**/owl2kb-2.1.1-jar-with-dependencies.jar"/>
         </fileset>
 	</path>
 	
