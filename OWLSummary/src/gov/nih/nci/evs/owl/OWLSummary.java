@@ -629,6 +629,7 @@ public class OWLSummary {
 	 * Concepts changing defs.
 	 */
 	private void conceptsChangingDefs() {
+		System.out.println("Starting concepts changing definitions");
 		// List concepts with definition changed - show old and new definition
 		// Painful text compare concept by concept.
 		final HashMap<URI, String> currentDefs = current.getConceptAndDef();
@@ -645,7 +646,7 @@ public class OWLSummary {
 	 * Concepts changing kinds.
 	 */
 	private void conceptsChangingKinds() {
-
+		System.out.println("Starting concepts changing kinds");
 		// List concepts with a changed kind
 		// This can be done by comparing two versions of root.
 		// If concept has disappeared from a root, look it up and find
@@ -691,12 +692,12 @@ public class OWLSummary {
 				// Check to see what Kind this concept is in now.
 				final URI newKind = current.whatKindIsThis(conceptCode);
 				// exclude Retired Kind
-				if(newKind != null){
-				if (!newKind.getFragment().equals("Retired Concept")
-						&& !newKind.getFragment().equals("C28428")) {
-					currentLocation.put(conceptCode, newKind);
-				}}
-				else {
+				if (newKind != null) {
+					if (!newKind.getFragment().equals("Retired Concept")
+							&& !newKind.getFragment().equals("C28428")) {
+						currentLocation.put(conceptCode, newKind);
+					}
+				} else {
 					System.out.println(conceptCode + " resulted in a null kind");
 				}
 			}
@@ -711,7 +712,7 @@ public class OWLSummary {
 	 * Concepts changing parents.
 	 */
 	private void conceptsChangingParents() {
-
+		System.out.println("Starting concepts changing parents");
 		final HashMap<URI, HashMap<URI, String>> changedParentsPerRoot = new HashMap<URI, HashMap<URI, String>>();
 
 		HashMap<URI, RootConcept> roots = current.getRootMap();
@@ -749,6 +750,7 @@ public class OWLSummary {
 	private void conceptsChangingPreferredNames() {
 		// Just like the above, but with Preferred_Name and output by Semantic
 		// Type
+		System.out.println("Starting concepts changing preferred names");
 		final HashMap<URI, String> currentPreferredNames = current
 				.getConceptAndPreferredName();
 		final HashMap<URI, String> previousPreferredNames = previous
@@ -899,6 +901,7 @@ public class OWLSummary {
 		// List all new concepts
 		// List all deleted concepts
 		// These two could be calculated from the concept count Maps
+		System.out.println("Starting new concepts");
 		try {
 			final Vector<URI> currentClasses = current.getAllConceptCodes();
 			final Vector<URI> previousClasses = previous
@@ -920,8 +923,7 @@ public class OWLSummary {
 	 * 
 	 * @param moveMap
 	 *            the move map
-	 * @param writer
-	 *            the writer
+
 	 */
 	private void printChangedKinds(
 			final HashMap<URI, HashMap<URI, URI>> moveMap) {
@@ -966,8 +968,7 @@ public class OWLSummary {
 	 * 
 	 * @param concepts
 	 *            the concepts
-	 * @param writer
-	 *            the writer
+
 	 */
 	private void printDeletedConcepts(final Vector<URI> concepts) {
 		pwDiff.println("Deleted concepts present in " + previousFilename
@@ -1002,8 +1003,7 @@ public class OWLSummary {
 	 * 
 	 * @param concepts
 	 *            the concepts
-	 * @param writer
-	 *            the writer
+
 	 */
 	private void printNewConcepts(final Vector<URI> concepts) {
 		pwDiff.println("New concepts present in " + currentFilename
@@ -1029,6 +1029,7 @@ public class OWLSummary {
 			}
 		}
 		pwDiff.println();
+		pwDiff.flush();
 	}
 
 	/**
@@ -1036,8 +1037,7 @@ public class OWLSummary {
 	 * 
 	 * @param concepts
 	 *            the concepts
-	 * @param writer
-	 *            the writer
+
 	 */
 	private void printRetiredConcepts(final Vector<URI> concepts) {
 		pwDiff.println("Concepts retired in " + currentFilename
@@ -1072,8 +1072,7 @@ public class OWLSummary {
 	 * 
 	 * @param concepts
 	 *            the concepts
-	 * @param writer
-	 *            the writer
+
 	 */
 	private void printUnretiredConcepts(final Vector<URI> concepts) {
 		pwDiff.println("Concepts retired in " + previousFilename
@@ -1205,6 +1204,7 @@ public class OWLSummary {
 		// count role instances (place in source kind)
 		// count association instances (place in source kind)
 
+		System.out.println("Starting entity counts");
 		final HashMap<URI, Integer> conceptCounts = summary
 				.getConceptCountsPerKind();
 		final HashMap<URI, Integer> defined = summary
@@ -1216,23 +1216,28 @@ public class OWLSummary {
 		// the value should be the count on instances of the property
 		// if key found, get the value, increment by one, then put back
 		// except this won't track per concept kind.
+		System.out.println("printProperties");
 		final HashMap<URI, HashMap<URI, Integer>> propertyCounts = summary
 				.getPropertyCountPerKind();
 		printProperties(propertyCounts);
 
+		System.out.println("printRoles");
 		final HashMap<URI, HashMap<URI, Integer>> roleCounts = summary
 				.getRoleCountPerKind();
 		printRoles(roleCounts);
 
+		System.out.println("printAssociations");
 		final HashMap<URI, HashMap<URI, Integer>> assocCounts = summary
 				.getAssociationCountPerKind();
 		printAssociations(assocCounts);
+		System.out.println("finished entity counts");
 	}
 
 	/**
 	 * Do entity details.
 	 */
 	final void doEntityDetails() {
+		System.out.println("Starting entity details");
 		newConcepts();
 		System.out.println("Finished computing new concepts");
 
@@ -1261,6 +1266,7 @@ public class OWLSummary {
 	final void doEntityDiff() {
 		// change in number of concepts per kind
 		// separate by defined vs primitive
+		System.out.println("Starting entity diff");
 		final HashMap<URI, Integer> currentConceptCount = current
 				.getConceptCountsPerKind();
 		final HashMap<URI, Integer> previousConceptCount = previous
@@ -1303,6 +1309,7 @@ public class OWLSummary {
 		final HashMap<URI, HashMap<URI, Integer>> assocDiff = doThingsPerKind(
 				currentAssocs, previousAssocs);
 		printAssocDiff(assocDiff);
+		System.out.println("Finished entity diff");
 	}
 
 	/**
@@ -1590,8 +1597,7 @@ public class OWLSummary {
 	 * 
 	 * @param changedParents
 	 *            the changed parents
-	 * @param writer
-	 *            the writer
+
 	 */
 	final void printChangedParents(
 			final HashMap<URI, HashMap<URI, String>> changedParents) {
@@ -1618,6 +1624,7 @@ public class OWLSummary {
 			}
 		}
 		pwDiff.println();
+		pwDiff.flush();
 	}
 
 	/**
@@ -1698,8 +1705,7 @@ public class OWLSummary {
 	 * 
 	 * @param definitions
 	 *            the definitions
-	 * @param writer
-	 *            the writer
+
 	 */
 	final void printDefinitions(final HashMap<URI, String> definitions) {
 		// loop through and print changed definitions
@@ -1725,8 +1731,7 @@ public class OWLSummary {
 	 *            the comment
 	 * @param map
 	 *            the map
-	 * @param writer
-	 *            the writer
+
 	 */
 //	final void printHashMap(final String comment,
 //			final HashMap<String, String> map, final PrintWriter writer) {
@@ -1755,8 +1760,7 @@ public class OWLSummary {
 	 *            the comment
 	 * @param set
 	 *            the set
-	 * @param writer
-	 *            the writer
+
 	 */
 	final void printHashSet(final String comment, final HashSet<String> set) {
 		pw.println(comment);
