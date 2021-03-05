@@ -22,6 +22,7 @@ import gov.nih.nlm.nls.lvg.Flows.ToMapUnicodeToAscii;
 import gov.nih.nlm.nls.lvg.Flows.ToStripMapUnicode;
 import gov.nih.nlm.nls.lvg.Lib.LexItem;
 
+import java.util.stream.Stream;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFNode;
 
@@ -49,7 +50,8 @@ import java.util.Vector;
 
 
 
-
+import gov.nih.nci.curator.IncrementalReasoner;
+import gov.nih.nci.curator.IncrementalReasonerFactory;
 //import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.protege.editor.owl.p3.PunnedAnnotationProperties;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -146,12 +148,15 @@ public class OwlApiLayer {
 	// private String defaultOntologyNamespace =
 	// "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
 
+
+
 	/** The reasoner. */
-	private OWLReasoner reasoner;
+//	private OWLReasoner reasoner;
+	IncrementalReasoner reasoner;
 
 	/** The factory. */
-	private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-
+//	private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+	private final IncrementalReasonerFactory reasonerFactory =   new IncrementalReasonerFactory();
 	/** The property map. */
 	HashMap<IRI, OWLDataProperty> propertyMap = new HashMap<IRI, OWLDataProperty>();
 
@@ -182,7 +187,7 @@ public class OwlApiLayer {
 	/** The removed classes. */
 	Vector<IRI> removedClasses = new Vector<IRI>();
 	
-	AssociationGraph associationGraph;
+	gov.nih.nci.evs.owl.data.AssociationGraph associationGraph;
 	NCIt_metrics metrics;
 
 	/**
@@ -4251,7 +4256,7 @@ public class OwlApiLayer {
 		// Create an RDFTranslator - we override the addTriple  
 //method because we want to
 		// handle the triples in a streaming manner
-		AssociationTranslator translator = new AssociationTranslator(this.manager, this.ontology, false, null) {
+		gov.nih.nci.evs.owl.data.AssociationTranslator translator = new gov.nih.nci.evs.owl.data.AssociationTranslator(this.manager, this.ontology, false, null) {
 //		    public void addTriple(OWLAxiom ax, RDFResource subject, RDFResourceIRI pred, RDFNode object) {
 //		        System.out.println(subject + " -> " + pred + " ->  " + object);
 //		    }
@@ -4276,7 +4281,7 @@ public class OwlApiLayer {
 		associationGraph = translator.getAssocGraph();
 		if(associationGraph == null)
 		{
-			associationGraph = (AssociationGraph) new RDFGraph();
+			associationGraph = (gov.nih.nci.evs.owl.data.AssociationGraph) new RDFGraph();
 		}
 	}
 	
@@ -4329,4 +4334,5 @@ public class OwlApiLayer {
 		return metrics.getDLexpressivity();
 	}
 
+	public int getReferencedIndividualsCount() {return metrics.getReferencedIndividualsCount();}
 }
