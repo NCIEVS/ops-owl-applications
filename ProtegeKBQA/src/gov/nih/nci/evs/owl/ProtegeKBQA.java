@@ -6,8 +6,8 @@
  */
 package gov.nih.nci.evs.owl;
 
+
 import gov.nih.nci.evs.owl.data.OWLKb;
-import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Qualifier;
 import gov.nih.nci.evs.owl.entity.Role;
@@ -32,26 +32,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
-class CompositeComparator implements Comparator {
-	private final Comparator major;
-	private final Comparator minor;
 
-	public CompositeComparator(Comparator major, Comparator minor) {
-		this.major = major;
-		this.minor = minor;
-	}
-
-	@Override
-	public int compare(Object o1, Object o2) {
-		final int result = this.major.compare(o1, o2);
-		if (result != 0) {
-			return result;
-		} else {
-			return this.minor.compare(o1, o2);
-		}
-	}
-}
 
 /**
  * The Class ProtegeKBQA.
@@ -253,10 +234,14 @@ public class ProtegeKBQA {
 
 	final HashMap<String,String> emptyValueSet = new HashMap<String, String>();
 
+	final HashMap<String,String> nullRoots = new HashMap<String, String>();
+
 	// reads the System properties to get the location of the
 	// nciqaowl.properties file
 	/** The sys prop. */
 	private static Properties sysProp = System.getProperties();
+	Vector<ConceptProxy> roots = new Vector<ConceptProxy>();
+	HashMap<ConceptProxy,Vector<URI>> rootMap = new HashMap<ConceptProxy, Vector<URI>>();
 
 	Messages messages;
 
@@ -441,8 +426,9 @@ public class ProtegeKBQA {
 					// source.getValue() + "</def-source>")) {
 					// hasSource = true;
 					// }
-					if (def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")) != null
-							&& def.getQualifier(messages.getString("ProtegeKBQA.Def_Source")).getValue()
+					Qualifier defSource = def.getQualifier(messages.getString("ProtegeKBQA.Def_Source"));
+					if (defSource != null
+							&& defSource.getValue()
 									.equals(source.getValue())) {
 						return true;
 					} else if (source.getValue().equals("FDA") && hasUNII) {
@@ -770,6 +756,26 @@ public class ProtegeKBQA {
 		}
 
 		return returnString.toString();
+	}
+
+	private void checkRootConcept(ConceptProxy cls){
+		ConceptProxy testRoot = ontology.getRootConceptforConcept(cls.getURI());
+		if(testRoot == null){
+			nullRoots.put(cls.getCode()+" "+cls.getName(),"Null Root");
+		}
+		boolean match = false;
+		for(ConceptProxy root:roots){
+			Vector<URI> descendents = rootMap.get(root);
+			if(descendents.contains(cls.getURI()))
+			{
+				match = true;
+			}
+		}
+		if(!match){
+			//TODO look for equivalent classes
+
+			nullRoots.put(cls.getCode()+" "+cls.getName(),"Class not found in any descendent set");
+		}
 	}
 
 	/**
@@ -1184,6 +1190,7 @@ public class ProtegeKBQA {
 			this.retiredBranch = URI.create(props.getProperty("deprecatedConceptBranch"));
 			this.messages = new Messages(props.getProperty("messagesLocation"));
 
+
 			if (outputFile == null) {
 				outputFile = URI.create(props.getProperty("outputfile"));
 			}
@@ -1196,7 +1203,7 @@ public class ProtegeKBQA {
 			readSymbolMap(props.getProperty("symbolMap"));
 
 			configPrintWriter(outputFile);
-			this.ontology = new OWLKb(physicalURI, this.ontologyNamespace);
+			this.ontology = new OWLKb(physicalURI, this.ontologyNamespace,true);
 
 		} catch (final java.io.FileNotFoundException e) {
 			System.out.println("Error in reading config files");
@@ -1433,6 +1440,7 @@ public class ProtegeKBQA {
 			System.exit(0);
 		}
 
+		loadRootConcepts();
 		// System.out.println( messages.getString("ProtegeKBQA.Term_Source"));
 		// System.out.println( messages.getString("ProtegeKBQA.Term_Group"));
 
@@ -1472,6 +1480,7 @@ public class ProtegeKBQA {
 				checkCharacter(cls, '\t');
 				checkPreferredNameBug(cls);
 				checkForEmptyQualifiers(cls);
+				checkRootConcept(cls);
 				cls.unloadProperties();
 			}
 		}
@@ -1488,9 +1497,11 @@ public class ProtegeKBQA {
 		// check axiom count
 		int x = ontology.getAxiomCount();
 		if (ontology.getAxiomCount() == 0) {
+			System.out.println("AxiomCount = 0");
 			return false;
 		}
 		if (ontology.getAxiomCount() < 2000000 || ontology.getAxiomCount() > 3000000) {
+			System.out.println("AxiomCOunt <2mil or > 3mil");
 			return false;
 		}
 		x = ontology.getGciCount();
@@ -1500,18 +1511,22 @@ public class ProtegeKBQA {
 
 		x=ontology.getHiddenGciCount();
 		if (ontology.getHiddenGciCount() > 0) {
+			System.out.println("Hidden GCI count " + ontology.getHiddenGciCount());
 			return false;
 		}
 
 		x=ontology.getMultiInheritanceCount();
 		if (ontology.getMultiInheritanceCount() == 0) {
+			System.out.println("MultiInheritance = 0");
 			return false;
 		}
 
 		if (ontology.getDLExpressivity() == null) {
+			System.out.println("DlExpressivity = null");
 			return false;
 		}
 		if (!ontology.getDLExpressivity().equals("SH")) {
+			System.out.println("DlExpressivity = SH");
 			return false;
 		}
 
@@ -1561,6 +1576,13 @@ public class ProtegeKBQA {
 		this.pw.println("Active concepts with retired Concept_Status: " + this.badCS_active.size());
 		sortedReturn = sortHashMapByKey(this.badCS_active);
 		for (final Object o : sortedReturn) {
+			this.pw.println(o.toString());
+		}
+
+		this.pw.println();
+		this.pw.println("Concepts with null root: "+ this.nullRoots.size());
+		sortedReturn=sortHashMapByKey(this.nullRoots);
+		for (final Object o:sortedReturn){
 			this.pw.println(o.toString());
 		}
 
@@ -2318,7 +2340,7 @@ public class ProtegeKBQA {
 		for (Property def : v) {
 			Qualifier source = def.getQualifier(messages.getString("ProtegeKBQA.Def_Source"));
 			if (source != null && source.getValue().equals("NCI")) {
-				System.out.println("Adding Alt-Def with NCI source" + c.getCode());
+				System.out.println("Adding Alt-Def with NCI source " + c.getCode());
 				results.add(def);
 			}
 		}
@@ -2337,7 +2359,7 @@ public class ProtegeKBQA {
 	private void checkForValueSetSources(){
 		//Checks that all publishable value sets have a source
 	//Should have Publish_Value_Set = true
-	//Start with C54443 “Terminology Subset”
+
 		final ConceptProxy subsetRoot = this.ontology.getConcept("C54443");
 		Vector<URI> subsetConcepts = subsetRoot.getAllDescendantCodes();
 
@@ -2345,22 +2367,33 @@ public class ProtegeKBQA {
 			for (final URI code : subsetConcepts) {
 				final ConceptProxy concept = this.ontology.getConcept(code);
 //				retiredBranchClasses.add(concept);
-				final Vector<Property> publish = concept.getProperties(messages.getString("ProtegeKBQA.Publish_Value_Set"));
-				if (publish != null && publish.size() ==1) {
-					if (publish.get(0).getValue().toUpperCase().equals("YES")) {
-						checkEmptyValueSets(concept);
-						final Vector<Property> v = concept.getProperties(messages.getString("ProtegeKBQA.Contributing_Source"));
-						if (v == null || v.size() == 0) {
-							this.vsNoCS.put(code.getFragment(), "no Contributing Source " + concept.getName());
-						} else if (v.size() > 1) {
-							this.vsNoCS.put(code.getFragment(), "Multiple Contributing Sources " + concept.getName());
+				if (concept == null) {
+					System.out.println("Error concept null for  " + code);
+				} else if (concept.getProperties() == null) {
+					System.out.println("Concept properties is null for " + code);
+				} else if (concept.getProperties(messages.getString("ProtegeKBQA.Publish_Value_Set")) == null) {
+					System.out.println("Concept has no Publish_Value_Set property for " + code);
+				} else {
+					final Vector<Property> publish = concept.getProperties(messages.getString("ProtegeKBQA" +
+							".Publish_Value_Set"));
+					if (publish != null && publish.size() == 1) {
+						if (publish.get(0).getValue().toUpperCase().equals("YES")) {
+							checkEmptyValueSets(concept);
+							final Vector<Property> v = concept.getProperties(messages.getString("ProtegeKBQA" +
+									".Contributing_Source"));
+							if (v == null || v.size() == 0) {
+								this.vsNoCS.put(code.getFragment(), "no Contributing Source " + concept.getName());
+							} else if (v.size() > 1) {
+								this.vsNoCS.put(code.getFragment(),
+										"Multiple Contributing Sources " + concept.getName());
+							}
 						}
+					} else if (publish != null && publish.size() > 1) {
+						this.vsNoCS.put(code.getFragment(), "Multiple Publish_Value_Set " + concept.getName());
 					}
-				} else if (publish != null && publish.size()>1){
-					this.vsNoCS.put(code.getFragment(),"Multiple Publish_Value_Set " + concept.getName());
 				}
 			}
-			}
+		}
 
 	}
 
@@ -2376,4 +2409,19 @@ public class ProtegeKBQA {
 
 	}
 
+	private void loadRootConcepts() {
+		System.out
+				.println("Search vocabulary for root concepts and load descendants");
+
+		Vector<URI> rootConceptCodes = ontology.getRootConceptCodes();
+		for (URI rootCode : rootConceptCodes) {
+			ConceptProxy root = ontology.getConcept(rootCode);
+			roots.add( root);
+			rootMap.put(root, getAllDescendantCodes(root));
+		}
+		System.out.println("Finished loading root classes");
+	}
+	public Vector<URI> getAllDescendantCodes(ConceptProxy cls) {
+		return ontology.getAllDescendantsForConcept(cls.getURI());
+	}
 }

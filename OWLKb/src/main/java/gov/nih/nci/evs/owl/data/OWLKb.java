@@ -210,45 +210,7 @@ public class OWLKb {
 
 	private URI ontologyURI = null;
 
-	// IRI inputUri;
 
-	/**
-	 * Instantiates a new oWL kb. By default this will call a reasoner. If you
-	 * don't wish to use a reasoner, then call the constructor with the boolean
-	 * useReasoner and pass in false
-	 *
-	 * @param uri
-	 *            the uri
-	 * @param namespace
-	 *            the namespace
-	 */
-	// public OWLKb(URI uri, String namespace) {
-	// // inputUri = uri;
-	// try {
-	// api = new OwlApiLayer(uri, namespace);
-	//
-	// // api.startHermitReasoner();
-	// api.startToldReasoner();
-	// } catch (Exception e) {
-	//
-	// System.out.println("Unable to instantiate api");
-	// }
-	// }
-	//
-	// public OWLKb(URI uri, String namespace, boolean useReasoner) {
-	// // inputUri = uri;
-	// try {
-	// api = new OwlApiLayer(uri, namespace);
-	//
-	// if (useReasoner) {
-	// // api.startHermitReasoner();
-	// api.startToldReasoner();
-	// }
-	// } catch (Exception e) {
-	//
-	// System.out.println("Unable to instantiate api");
-	// }
-	// }
 
 	/**
 	 * Instantiates a new oWL kb.
@@ -262,20 +224,7 @@ public class OWLKb {
 	 */
 	public OWLKb(String uri_string, String namespace) {
 
-		this(uri_string, namespace, false);
-		// try {
-		// final URI inputUri = URI.create(uri_string);
-		// this.ontologyURI = inputUri;
-		// this.api = new OwlApiLayer(inputUri, namespace);
-		// // api.setNamespace(namespace);
-		// // api.startHermitReasoner();
-		// this.api.startToldReasoner();
-		// } catch (OWLOntologyCreationException e) {
-		// System.out.println("Error thrown by OwlApiLayer.  Abort");
-		// logger.error("Error thrown by OwlApiLayer.  Abort", e);
-		// } catch (Exception e) {
-		// String debug = "What error is this?";
-		// }
+		this(uri_string, namespace, false, false);
 	}
 
 	/**
@@ -288,29 +237,11 @@ public class OWLKb {
 	 * @throws Exception
 	 */
 	public OWLKb(String uri_string, String namespace, boolean useReasoner) {
-		this(URI.create(uri_string), namespace, useReasoner);
+		this(uri_string, namespace, useReasoner,false);
+	}
 
-		// try {
-		// final URI inputUri = URI.create(uri_string);
-		// this.ontologyURI = inputUri;
-		// this.api = new OwlApiLayer(inputUri);
-		// this.api.setNamespace(namespace);
-		// if (useReasoner) {
-		// // api.startHermitReasoner();
-		// this.api.startToldReasoner();
-		// }
-		//
-		// } catch (final IllegalArgumentException e) {
-		// e.printStackTrace();
-		// System.out.println("Unable to instantiate api");
-		// } catch (NullPointerException e) {
-		//
-		// e.printStackTrace();
-		// throw e;
-		// } catch (OWLOntologyCreationException e) {
-		// System.out.println("Error thrown by OwlApiLayer.  Abort");
-		// logger.error("Error thrown by OwlApiLayer.  Abort", e);
-		// }
+	public OWLKb(String uri_string, String namespace, boolean useReasoner, boolean createNew){
+		this(URI.create(uri_string), namespace, useReasoner,createNew);
 	}
 
 	/**
@@ -325,40 +256,12 @@ public class OWLKb {
 	 */
 	public OWLKb(URI uri, String namespace) {
 		this(uri, namespace, false);
-		// inputUri = IRI.create(uri);
-		// this.ontologyURI = uri;
-		// try {
-		// this.api = new OwlApiLayer(uri, namespace);
-		//
-		// // api.startHermitReasoner();
-		// this.api.startToldReasoner();
-		// } catch (OWLOntologyCreationException e) {
-		// System.out.println("Error thrown by OwlApiLayer.  Abort");
-		// logger.error("Error thrown by OwlApiLayer.  Abort", e);
-		// }
+
 	}
 
 	public OWLKb(URI uri, String namespace, boolean useReasoner) {
-		this.ontologyURI = uri;
-		try {
-			this.api = new OwlApiLayer(uri, namespace);
-			this.deprecatedBranch=new URI(defaultDeprecatedBranch);
+		this(uri,namespace,useReasoner,false);
 
-			if (useReasoner) {
-				// api.startHermitReasoner();
-				this.api.startToldReasoner();
-			}
-			
-			loadValid = true;
-		} catch (OWLOntologyCreationException e) {
-			System.out.println("Error thrown by OwlApiLayer.  Abort");
-			this.logger.error("Error thrown by OwlApiLayer.  Abort", e);
-			
-		} catch (URISyntaxException e) {
-	        System.out.println("Deprecated Branch is invalid URI "+ defaultDeprecatedBranch);
-	        e.printStackTrace();
-	        
-        } 
 	}
 	
 	public OWLKb(URI uri, String namespace, boolean useReasoner, boolean createNew) {
@@ -369,7 +272,7 @@ public class OWLKb {
 
 			if (useReasoner) {
 				// api.startHermitReasoner();
-				this.api.startToldReasoner();
+				this.api.startReasoner();
 			}
 			loadValid=true;
 		} catch (OWLOntologyCreationException e) {

@@ -23,6 +23,7 @@ import gov.nih.nlm.nls.lvg.Flows.ToStripMapUnicode;
 import gov.nih.nlm.nls.lvg.Lib.LexItem;
 
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFNode;
 
@@ -151,12 +152,12 @@ public class OwlApiLayer {
 
 
 	/** The reasoner. */
-//	private OWLReasoner reasoner;
-	IncrementalReasoner reasoner;
+	private OWLReasoner reasoner;
+//	IncrementalReasoner reasoner;
 
 	/** The factory. */
-//	private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-	private final IncrementalReasonerFactory reasonerFactory =   new IncrementalReasonerFactory();
+	private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+//	private final IncrementalReasonerFactory reasonerFactory =   new IncrementalReasonerFactory();
 	/** The property map. */
 	HashMap<IRI, OWLDataProperty> propertyMap = new HashMap<IRI, OWLDataProperty>();
 
@@ -216,6 +217,7 @@ public class OwlApiLayer {
 		this.defaultNamespace = namespace;
 		this.instantiateMaps();
 		this.metrics = new NCIt_metrics(this.ontology);
+//		startReasoner();
 	}
 	
 
@@ -266,18 +268,13 @@ public class OwlApiLayer {
 	public OwlApiLayer(URI uri, String namespace, boolean createNew) throws OWLOntologyCreationException{
 		if(createNew){
 			OWLManager.createOWLOntologyManager().createOntology(IRI.create(uri));
-			this.manager = OWLManager.createOWLOntologyManager();
-			this.ontology = manager.createOntology(IRI.create(uri));
-			this.defaultNamespace = namespace;
-			this.instantiateMaps();
-			this.metrics = new NCIt_metrics(this.ontology);
-		} else {
-			this.manager = OWLManager.createOWLOntologyManager();
-			this.ontology = manager.loadOntology(IRI.create(uri));
-			this.defaultNamespace = namespace;
-			this.instantiateMaps();
-			this.metrics = new NCIt_metrics(this.ontology);
 		}
+		this.manager = OWLManager.createOWLOntologyManager();
+		this.ontology = manager.loadOntology(IRI.create(uri));
+		this.defaultNamespace = namespace;
+		this.instantiateMaps();
+		this.metrics = new NCIt_metrics(this.ontology);
+//		startReasoner();
 	}
 
 
@@ -2924,6 +2921,7 @@ public class OwlApiLayer {
 	 */
 	private Vector<OWLClass> getSubClasses(OWLClass cls, boolean directOnly) {
 		final Vector<OWLClass> vChildren = new Vector<OWLClass>();
+		final Vector<OWLClass> vChildAndEquiv = new Vector<OWLClass>();
 		if (this.reasoner != null) {
 			for (final OWLClass subCls : this.reasoner.getSubClasses(cls,
 			        directOnly).getFlattened()) {
@@ -2931,21 +2929,23 @@ public class OwlApiLayer {
 					vChildren.add(subCls);
 				}
 			}
-		} else {
+		}
+
+//		else {
 
 			final Collection<OWLClassExpression> ods = EntitySearcher
 			        .getSubClasses(cls, this.ontology);
 			final OWLClassExpression[] children = ods
 			        .toArray(new OWLClassExpression[ods.size()]);
 			if (children==null || children.length == 0) {
-				return vChildren;
+				return vChildAndEquiv;
 			}
 			for (final OWLClassExpression child : children) {
 				if( child.asOWLClass().equals(cls) ) {
 					System.out.println(cls.toStringID() + " is a child of itself!!!");
-					return vChildren;
-				}				
-				vChildren.add(child.asOWLClass());
+					return vChildAndEquiv;
+				}
+				vChildAndEquiv.add(child.asOWLClass());
 			}
 			if (!directOnly) {
 				for (int i = 0; i < vChildren.size(); i++) {
@@ -2955,13 +2955,16 @@ public class OwlApiLayer {
 					if (w != null) {
 						for (int j = 0; j < w.size(); j++) {
 							if ((w.elementAt(j) != null)
-							        && !vChildren.contains(w.elementAt(j))) {
-								vChildren.add(w.elementAt(j));
+							        && !vChildAndEquiv.contains(w.elementAt(j))) {
+								vChildAndEquiv.add(w.elementAt(j));
 							}
 						}
 					}
 				}
 			}
+//		}
+		if(vChildAndEquiv.size()!= vChildren.size()){
+			String debug="Stop";
 		}
 		return vChildren;
 	}
@@ -3228,13 +3231,6 @@ public class OwlApiLayer {
 		return this.isRootClass(c);
 	}
 
-	// public void startHermitReasoner() {
-	// System.out.println("Starting HermiT reasoner.");
-	// this.config.reasonerProgressMonitor = new ConsoleProgressMonitor();
-	// this.reasoner = factory.createReasoner(this.ontology, this.config);
-	// reasoner.getUnsatisfiableClasses();
-	// System.out.println("Finished computing class hierarchy.");
-	// }
 
 	/**
 	 * Load annotation property map.
@@ -4150,19 +4146,31 @@ public class OwlApiLayer {
 		walker.walkStructure(visitor);
 	}
 
-	/**
-	 * Start told reasoner.
-	 */
-	public void startToldReasoner() {
-		System.out.println("Starting TOLD reasoner.");
+
+	public void startReasoner() {
+		 System.out.println("Starting reasoner.");
 		// this.config.reasonerProgressMonitor = new ConsoleProgressMonitor();
-		// this.reasoner = factory.createReasoner(this.ontology, this.config);
-		// this.reasoner = new StructuralReasoner(this.ontology, this.config,
-		// BufferingMode.BUFFERING);
-		this.reasoner = this.reasonerFactory.createReasoner(this.ontology);
-		this.reasoner.getUnsatisfiableClasses();
+//	 this. = factory.createReasoner(this.ontology, this.config);
+		this.reasoner = reasonerFactory.createReasoner(this.ontology);
+		reasoner.getUnsatisfiableClasses();
+//		reasoner.classify();
+
 		System.out.println("Finished computing class hierarchy.");
 	}
+
+//	/**
+//	 * Start told reasoner.
+//	 */
+//	public void startToldReasoner() {
+//		System.out.println("Starting TOLD reasoner.");
+//		// this.config.reasonerProgressMonitor = new ConsoleProgressMonitor();
+//		// this.reasoner = factory.createReasoner(this.ontology, this.config);
+//		// this.reasoner = new StructuralReasoner(this.ontology, this.config,
+//		// BufferingMode.BUFFERING);
+//		this.reasoner = this.reasonerFactory.createReasoner(this.ontology);
+//		this.reasoner.getUnsatisfiableClasses();
+//		System.out.println("Finished computing class hierarchy.");
+//	}
 
 	/**
 	 * Stop reasoner.
