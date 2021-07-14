@@ -8,7 +8,8 @@ public class ValueSetReport {
 	private String uri;
 	private Vector<String> sources = new Vector<String>();
 	private Vector<String> ftpLocations = new Vector<String>();
-	private final String ftpSite = new String("ftp://ftp1.nci.nih.gov/pub/cacore/");
+//	private final String ftpSite = new String("ftp://ftp1.nci.nih.gov/pub/cacore/");
+	private final String ftpSite = new String("https://evs.nci.nih.gov/ftp1/");
 	
 	public ValueSetReport(String name, String code, Vector<String> ftpLocations, Vector<String> sources) {
 		this.name = name;
