@@ -5,20 +5,31 @@
 
 package gov.nih.nci.evs.owl;
 
+import gov.nih.nci.curator.IncrementalReasoner;
 import gov.nih.nci.curator.IncrementalReasonerFactory;
-import java.io.*;
+//import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.Set;
 
-import gov.nih.nci.curator.IncrementalReasoner;
-//import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
-//import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+//import gov.nih.nci.curator.IncrementalReasoner;
+
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+//import org.semanticweb.owlapi.model.*;
 
 public class ExtractBranches {
 
@@ -32,7 +43,7 @@ public class ExtractBranches {
 	String configFile = null;
 	String rootNode = null;
 	boolean oneByOne = false;
-	Set<OWLClass> descendants = new HashSet<>();	
+	Set<OWLClass> descendants = new HashSet<>();
 	Vector<String> branches = new Vector<String>();
 	HashMap<IRI, Integer> uris = new HashMap<IRI, Integer>();
 //	private PelletReasoner reasoner;
@@ -260,11 +271,12 @@ public class ExtractBranches {
 	}
 
 	public void startToldReasoner() {
-		System.out.println("Starting Pellet reasoner.");
+		System.out.println("Starting reasoner.");
 
 		reasoner = IncrementalReasonerFactory.getInstance().createReasoner( ontology );
 //		reasoner = PelletReasonerFactory.getInstance().createReasoner( ontology );
-		reasoner.getUnsatisfiableClasses();
+//		reasoner.getUnsatisfiableClasses();
+		reasoner.classify();
 		System.out.println("Finished computing class hierarchy.");
 	}
 
