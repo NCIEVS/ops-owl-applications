@@ -3,68 +3,68 @@
     <!--    Properties                                            -->
     <!-- *********************************************************-->
 
-	<property name="lib.dir" value="./lib"/>
-	<property name="build.dir" value="./build" />
-	<property name="classes.dir" value="./classes" />
-	<property name="src.dir" value="./src" />
-	<property name="output.dir" value="./output"/>
-	<property name="owlsummary.properties" value = "./config/owlsummary.properties" />
-	
-	
-	<path id="libs">
-		<pathelement location="${classes.dir}"/>
+    <property name="lib.dir" value="./lib"/>
+    <property name="build.dir" value="./build"/>
+    <property name="classes.dir" value="./classes"/>
+    <property name="src.dir" value="./src"/>
+    <property name="output.dir" value="./output"/>
+    <property name="owlsummary.properties" value="./config/owlsummary.properties"/>
+
+
+    <path id="libs">
+        <pathelement location="${classes.dir}"/>
         <fileset dir="${lib.dir}">
             <include name="**/*.jar"/>
         </fileset>
-	</path>
-	
-	
+    </path>
+
+
     <!-- ********************************************************-->
     <!--    Targets for building                                 -->
     <!-- ********************************************************-->
-	
+
     <target name="clean"
-        description="Removes generated artifacts">
+            description="Removes generated artifacts">
         <delete dir="${build.dir}" quiet="true"/>
-        <delete file="${outputFile}" quiet="true"/>
+        <delete file="${output.dir}/*" quiet="true"/>
     </target>
-	
-	<target name="init" depends="clean" 
-	        description="Creates necessary directories">
-		   <mkdir dir="${classes.dir}"/>
-	        <mkdir dir="${build.dir}"/>
-	 </target>
-	
+
+    <target name="init" depends="clean"
+            description="Creates necessary directories">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+
     <target name="compile" depends="init" description="Compiles">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" 
-            encoding="cp1252" debug="true" debuglevel="lines,source">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"
+               encoding="cp1252" debug="true" debuglevel="lines,source">
             <classpath refid="libs"/>
-        </javac>        
+        </javac>
     </target>
-	
+
     <!-- ********************************************************-->
     <!--    Targets for packaging                                 -->
     <!-- ********************************************************-->
     <target name="jar" depends="compile" description="Package code into a jar file">
-	     <jar destfile= "${build.dir}/owlsummary.jar"
-	            basedir="${classes.dir}">
-	     	<zipgroupfileset includes="*.jar" dir="${lib.dir}"/>
-	     	<manifest>
-    	<attribute name="Main-Class"
-    		value="gov.nih.nci.owl.OWLSummary"/>
-    		</manifest>
-	     </jar>
-	</target>
-	
+        <jar destfile="${build.dir}/owlsummary.jar"
+             basedir="${classes.dir}">
+            <zipgroupfileset includes="*.jar" dir="${lib.dir}"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="gov.nih.nci.owl.OWLSummary"/>
+            </manifest>
+        </jar>
+    </target>
+
     <!-- *****************************************************-->
     <!--    Targets for running                               -->
     <!-- *****************************************************-->
 
-	<target name="run" depends="jar" description="Runs default">
-		<java classname="gov.nih.nci.owl.OWLSummary" fork="true">
-		    <jvmarg value="-Xmx2500m" />
-			<classpath refid="libs"/>
-			<sysproperty key="owlsummary.properties" value="${owlsummary.properties}" />
-		</java>
-	</target>
+    <target name="run" depends="jar" description="Runs default">
+        <java classname="gov.nih.nci.owl.OWLSummary" fork="true">
+            <jvmarg value="-Xmx2500m"/>
+            <classpath refid="libs"/>
+            <sysproperty key="owlsummary.properties" value="${owlsummary.properties}"/>
+        </java>
+    </target>
 </project>

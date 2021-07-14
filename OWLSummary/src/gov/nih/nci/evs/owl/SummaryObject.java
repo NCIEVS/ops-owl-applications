@@ -3,13 +3,12 @@
  */
 package gov.nih.nci.evs.owl;
 
-import com.sun.javafx.scene.control.GlobalMenuAdapter;
+
 import gov.nih.nci.evs.owl.data.OWLKb;
 import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
 import gov.nih.nci.evs.owl.entity.Role;
 import gov.nih.nci.evs.owl.proxy.ConceptProxy;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,14 +20,22 @@ import java.util.Vector;
  * The Class SummaryObject.
  */
 public class SummaryObject {
+    private final HashMap<URI, String> conceptAndDef = new HashMap<URI, String>();
+    private final HashMap<URI, Vector<String>> conceptAndSemanticTypes = new HashMap<URI, Vector<String>>();
     /**
      * The concept count.
      */
     private final Integer conceptCount;
     /**
-     * The ontology namespace.
-     */
-    private final String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
+     * The number of concepts in each kind
+     **/
+    private final HashMap<URI, Integer> conceptCountsPerKind = new HashMap<URI, Integer>();
+    /**
+     * Vector of concept codes per kind
+     **/
+    private final HashMap<URI, Vector<URI>> conceptsPerKind = new HashMap<URI, Vector<URI>>();
+    private final HashMap<URI, Vector<URI>> parentCodeMap = new HashMap<URI, Vector<URI>>();
+    private final HashMap<URI, String> preferredNameMap = new HashMap<URI, String>();
     /**
      * The reverse assoc map.
      */
@@ -46,22 +53,10 @@ public class SummaryObject {
      */
     private final HashMap<URI, RootConcept> rootMap = new HashMap<URI, RootConcept>();
     Vector<URI> conceptCodes;
-    HashMap<URI, String> conceptAndDef = new HashMap<URI, String>();
-    /**
-     * The number of concepts in each kind
-     **/
-    HashMap<URI, Integer> conceptCountsPerKind = new HashMap<URI, Integer>();
-    /**
-     * Vector of concept codes per kind
-     **/
-    HashMap<URI, Vector<URI>> conceptsPerKind = new HashMap<URI, Vector<URI>>();
-    HashMap<URI, Vector<URI>> parentCodeMap = new HashMap<URI, Vector<URI>>();
-    HashMap<URI, String> preferredNameMap = new HashMap<URI, String>();
-    HashMap<URI, Vector<String>> conceptAndSemanticTypes = new HashMap<URI, Vector<String>>();
     /**
      * The ontology.
      */
-    private OWLKb owlApi = null;
+    private OWLKb owlApi;
     /**
      * The property map.
      */
@@ -85,6 +80,10 @@ public class SummaryObject {
      * @param uri the uri
      */
     public SummaryObject(final URI uri) {
+        /**
+         * The ontology namespace.
+         */
+        String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
         owlApi = new OWLKb(uri, ontologyNamespace);
 
         loadPropertyClasses();
@@ -94,10 +93,10 @@ public class SummaryObject {
 //        owlApi = null;
 //        System.gc();
         System.out.println("Number of concepts: " + conceptCount.toString());
-
+        owlApi = null;
     }
 
-    final void loadPropertyClasses() {
+    private void loadPropertyClasses() {
         loadHeaders();
         loadRootConcepts();
     }
@@ -152,15 +151,11 @@ public class SummaryObject {
 
     private void loadConceptAndDef() {
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             Vector<URI> descendants = root.getDescendantMap();
             // Set<String> rootSet = descendants.keySet();
-            Iterator<URI> rootIter = descendants.iterator();
-            while (rootIter.hasNext()) {
-                URI rootKey = rootIter.next();
+            for (URI rootKey : descendants) {
                 ConceptProxy concept = owlApi.getConcept(rootKey);
 
                 String definition = getDefinition(concept);
@@ -174,15 +169,11 @@ public class SummaryObject {
 
 
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             Vector<URI> descendants = root.getDescendantMap();
             // Set<String> rootSet = descendants.keySet();
-            Iterator<URI> rootIter = descendants.iterator();
-            while (rootIter.hasNext()) {
-                URI rootKey = rootIter.next();
+            for (URI rootKey : descendants) {
                 ConceptProxy concept = owlApi.getConcept(rootKey);
 
                 URI propertyCode = reversePropertyMap.get("Semantic_Type");
@@ -238,7 +229,7 @@ public class SummaryObject {
 
     private String getPreferredName(final ConceptProxy c) {
 
-		String propertyname = "label";
+        String propertyname = "label";
 //        String propertyname = "Preferred_Name";
 
         try {
@@ -247,11 +238,12 @@ public class SummaryObject {
 
             if (propertyCode != null) {
                 Property property = c.getProperty(propertyCode.getFragment());
-                if(property!=null) {
+                if (property != null) {
                     return c.getProperty(propertyCode.getFragment()).getValue();
                 }
             }
-        } catch(Exception e){
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -289,9 +281,7 @@ public class SummaryObject {
         // Then set Map to null for garbage collection
         HashMap<URI, HashMap<URI, Integer>> associationsPerKind = new HashMap<URI, HashMap<URI, Integer>>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             associationsPerKind.put(key, root.getDescendantAssociationsCount());
         }
@@ -308,9 +298,7 @@ public class SummaryObject {
         // Then set Map to null for garbage collection
         HashMap<URI, Vector<Association>> associationsPerKind = new HashMap<URI, Vector<Association>>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             associationsPerKind.put(key, root.getAssociations());
         }
@@ -383,9 +371,7 @@ public class SummaryObject {
     public final HashMap<URI, Integer> getConceptCountsPerKind() {
         if (conceptCountsPerKind.size() < 1) {
             Set<URI> set = rootMap.keySet();
-            Iterator<URI> iter = set.iterator();
-            while (iter.hasNext()) {
-                URI key = iter.next();
+            for (URI key : set) {
                 RootConcept root = rootMap.get(key);
                 conceptCountsPerKind.put(key, root.getDescendantMapSize());
 //			conceptCountsPerKind.put(key, root.getAllDescendantCodes().size());
@@ -409,9 +395,7 @@ public class SummaryObject {
         if (conceptsPerKind.size() < 1) {
 
             Set<URI> set = rootMap.keySet();
-            Iterator<URI> iter = set.iterator();
-            while (iter.hasNext()) {
-                URI key = iter.next();
+            for (URI key : set) {
                 RootConcept root = rootMap.get(key);
                 Vector<URI> descendantCodes = root.getAllDescendantCodes();
                 conceptsPerKind.put(key, descendantCodes);
@@ -428,9 +412,7 @@ public class SummaryObject {
     public final HashMap<URI, Integer> getDefinedConceptCountsPerKind() {
         HashMap<URI, Integer> definedConceptCountsPerKind = new HashMap<URI, Integer>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             definedConceptCountsPerKind.put(key, root.getDefinedDescendantSize());
         }
@@ -461,9 +443,7 @@ public class SummaryObject {
     public final HashMap<URI, Integer> getPrimitiveConceptCountsPerKind() {
         HashMap<URI, Integer> primitiveConceptCountsPerKind = new HashMap<URI, Integer>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             primitiveConceptCountsPerKind.put(key, root
                     .getPrimitiveDescendants().size());
@@ -482,9 +462,7 @@ public class SummaryObject {
         // Then set Map to null for garbage collection
         HashMap<URI, Vector<Property>> propertiesPerKind = new HashMap<URI, Vector<Property>>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             propertiesPerKind.put(key, root.getProperties());
         }
@@ -502,9 +480,7 @@ public class SummaryObject {
         // Then set Map to null for garbage collection
         HashMap<URI, HashMap<URI, Integer>> propertiesPerKind = new HashMap<URI, HashMap<URI, Integer>>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             propertiesPerKind.put(key, root.getDescendantPropertiesCount());
         }
@@ -581,9 +557,7 @@ public class SummaryObject {
         // Then set Map to null for garbage collection
         HashMap<URI, Vector<Role>> rolesPerKind = new HashMap<URI, Vector<Role>>();
         Set<URI> set = rootMap.keySet();
-        Iterator<URI> iter = set.iterator();
-        while (iter.hasNext()) {
-            URI key = iter.next();
+        for (URI key : set) {
             RootConcept root = rootMap.get(key);
             rolesPerKind.put(key, root.getRoles());
         }
@@ -597,14 +571,12 @@ public class SummaryObject {
      */
     public final Set<URI> getRootConceptNames() {
         // return Set of rootConceptNames
-        Set<URI> rootConceptNames = rootMap.keySet();
-        return rootConceptNames;
+        return rootMap.keySet();
+
     }
 
     public URI getRootForConcept(URI conceptCode) {
-        Iterator<URI> iter = this.getRootMap().keySet().iterator();
-        while (iter.hasNext()) {
-            URI rootCode = iter.next();
+        for (URI rootCode : this.getRootMap().keySet()) {
             if (rootMap.get(rootCode).getDescendantMap().contains(conceptCode)) {
                 return rootCode;
             }
