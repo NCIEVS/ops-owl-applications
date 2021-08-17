@@ -2921,7 +2921,7 @@ public class OwlApiLayer {
 	 */
 	private Vector<OWLClass> getSubClasses(OWLClass cls, boolean directOnly) {
 		final Vector<OWLClass> vChildren = new Vector<OWLClass>();
-		final Vector<OWLClass> vChildAndEquiv = new Vector<OWLClass>();
+//		final Vector<OWLClass> vChildAndEquiv = new Vector<OWLClass>();
 		if (this.reasoner != null) {
 			for (final OWLClass subCls : this.reasoner.getSubClasses(cls,
 			        directOnly).getFlattened()) {
@@ -2929,43 +2929,67 @@ public class OwlApiLayer {
 					vChildren.add(subCls);
 				}
 			}
+
+//			if (!directOnly) {
+//				for (int i = 0; i < vChildren.size(); i++) {
+////					System.out.println(vChildren.elementAt(i).asOWLClass().toStringID());
+//					final Vector<OWLClass> w = this.getSubClasses(vChildren
+//							.elementAt(i).asOWLClass(), false);
+//					if (w != null) {
+//						for (int j = 0; j < w.size(); j++) {
+//							if ((w.elementAt(j) != null)
+//									&& !vChildren.contains(w.elementAt(j))) {
+//								vChildren.add(w.elementAt(j));
+//							}
+//						}
+//					}
+//				}
+//			}
+
+
+//			return vChildren;
 		}
 
-//		else {
+		else {
 
 			final Collection<OWLClassExpression> ods = EntitySearcher
 			        .getSubClasses(cls, this.ontology);
 			final OWLClassExpression[] children = ods
 			        .toArray(new OWLClassExpression[ods.size()]);
 			if (children==null || children.length == 0) {
-				return vChildAndEquiv;
+				return vChildren;
 			}
 			for (final OWLClassExpression child : children) {
 				if( child.asOWLClass().equals(cls) ) {
 					System.out.println(cls.toStringID() + " is a child of itself!!!");
-					return vChildAndEquiv;
+					return vChildren;
 				}
-				vChildAndEquiv.add(child.asOWLClass());
+				vChildren.add(child.asOWLClass());
 			}
-			if (!directOnly) {
-				for (int i = 0; i < vChildren.size(); i++) {
+
+		}
+
+		if (!directOnly) {
+			for (int i = 0; i < vChildren.size(); i++) {
 //					System.out.println(vChildren.elementAt(i).asOWLClass().toStringID());
-					final Vector<OWLClass> w = this.getSubClasses(vChildren
-					        .elementAt(i).asOWLClass(), false);
-					if (w != null) {
-						for (int j = 0; j < w.size(); j++) {
-							if ((w.elementAt(j) != null)
-							        && !vChildAndEquiv.contains(w.elementAt(j))) {
-								vChildAndEquiv.add(w.elementAt(j));
-							}
+				final Vector<OWLClass> w = this.getSubClasses(vChildren
+						.elementAt(i).asOWLClass(), false);
+				if (w != null) {
+					for (int j = 0; j < w.size(); j++) {
+						if ((w.elementAt(j) != null)
+								&& !vChildren.contains(w.elementAt(j))) {
+							vChildren.add(w.elementAt(j));
 						}
 					}
 				}
 			}
-//		}
-		if(vChildAndEquiv.size()!= vChildren.size()){
-			String debug="Stop";
 		}
+//		if(vChildAndEquiv.size()!= vChildren.size()){
+//			String debug="Stop";
+//			if(vChildAndEquiv.size()>0 && !(vChildren.size()>0)){
+//				return vChildAndEquiv;
+//			}
+//		}
 		return vChildren;
 	}
 

@@ -392,8 +392,8 @@ public class Concept implements ConceptInterface, Comparable<Concept> {
 	}
 
 	private void loadAssociations() {
-//		this.associations = this.api.getAssociationsForSource(this.uri);
-		this.associations = new Vector<Association>();
+		this.associations = this.api.getAssociationsForSource(this.uri);
+//		this.associations = new Vector<Association>();
 	}
 
 	/**

@@ -3,7 +3,7 @@
  */
 package gov.nih.nci.evs.owl;
 
-import com.sun.javafx.scene.control.GlobalMenuAdapter;
+
 import gov.nih.nci.evs.owl.data.OWLKb;
 import gov.nih.nci.evs.owl.entity.Association;
 import gov.nih.nci.evs.owl.entity.Property;
