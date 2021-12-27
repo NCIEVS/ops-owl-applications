@@ -1029,11 +1029,12 @@ public HashMap<URI, String> getAllAssociations(){
 					final ConceptProxy target = this.getConcept(assocTarget.toURI());
 
 					if (target == null) {
-						System.out.println("target == null for " + assocCode.toString());
-					}
+						System.out.println("target == null for concept " + source.getCode()+ " assoc +" + assocCode.toString());
+					} else {
 
-					final Association assoc = new Association(rel, source, target);
-					associations.add(assoc);
+						final Association assoc = new Association(rel, source, target);
+						associations.add(assoc);
+					}
 				}
 
 
