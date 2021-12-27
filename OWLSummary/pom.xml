@@ -51,5 +51,4 @@
         </plugins>
     </build>
 
-  		<artifactId>owl2kb</artifactId>
 </project>

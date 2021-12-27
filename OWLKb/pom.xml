@@ -126,16 +126,12 @@
 			<artifactId>lvg2010dist</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>net.sourceforge.owlapi</groupId>-->
-<!--			<artifactId>owlapi-distribution</artifactId>-->
-<!--			<version>4.1.4</version>-->
-<!--		</dependency>-->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.17.0</version>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>4.1.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>

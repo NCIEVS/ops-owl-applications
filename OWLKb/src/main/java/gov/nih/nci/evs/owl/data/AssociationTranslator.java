@@ -24,7 +24,8 @@ public class AssociationTranslator extends RDFTranslator {
             OWLOntology ontology, boolean useStrongTyping,
             IndividualAppearance occurrences) {
 //	    super(manager, ontology, useStrongTyping, occurrences);
-        super(manager, ontology, useStrongTyping, occurrences,null,null,null);
+//        super(manager, ontology, useStrongTyping, occurrences,null,null,null);
+        super(manager, ontology, useStrongTyping, occurrences);
     }
 	
 	
