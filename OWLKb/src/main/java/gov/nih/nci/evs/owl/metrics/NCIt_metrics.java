@@ -18,7 +18,7 @@ public class NCIt_metrics {
 	private int hiddenGciCount=0;
 	private int gciCount;
 	private int logicalAxiomCount=0;
-	OWLOntology ontology;
+//	OWLOntology ontology;
 	private int axiomCount = 0;
 	private int multipleInherit = 0;
 	private String dlExpressivity = "";
@@ -27,13 +27,13 @@ public class NCIt_metrics {
 	
 	
 	public NCIt_metrics(OWLOntology o){
-		this.ontology = o;
-		axiomCount = new AxiomCount(ontology).getValue();
-		hiddenGciCount = new HiddenGCICount(ontology).getValue();
-		gciCount = new GCICount(ontology).getValue();
-		multipleInherit = new NumberOfClassesWithMultipleInheritance(ontology).getValue();
-		dlExpressivity = new DLExpressivity(ontology).recomputeMetric();
-		referencedIndividuals = new ReferencedIndividualCount(ontology).recomputeMetric();
+//		this.ontology = o;
+		axiomCount = new AxiomCount(o).getValue();
+		hiddenGciCount = new HiddenGCICount(o).getValue();
+		gciCount = new GCICount(o).getValue();
+		multipleInherit = new NumberOfClassesWithMultipleInheritance(o).getValue();
+		dlExpressivity = new DLExpressivity(o).recomputeMetric();
+		referencedIndividuals = new ReferencedIndividualCount(o).recomputeMetric();
 	}
 
 	public int getAxiomCount(){

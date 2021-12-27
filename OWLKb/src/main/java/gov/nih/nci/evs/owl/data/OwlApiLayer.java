@@ -5,28 +5,19 @@
  */
 package gov.nih.nci.evs.owl.data;
 
-import gov.nih.nci.evs.owl.entity.Association;
-import gov.nih.nci.evs.owl.entity.Property;
+
 import gov.nih.nci.evs.owl.entity.Qualifier;
-import gov.nih.nci.evs.owl.meta.RelationDef;
 import gov.nih.nci.evs.owl.metrics.NCIt_metrics;
 import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 import gov.nih.nci.evs.owl.proxy.PropertyProxy;
 import gov.nih.nci.evs.owl.proxy.QualifierProxy;
 import gov.nih.nci.evs.owl.visitor.AssociationVisitor;
 import gov.nih.nci.evs.owl.visitor.AxiomAnnotationsChanger;
-//import gov.nih.nci.evs.owl.proxy.ConceptProxy;
 import gov.nih.nci.evs.owl.visitor.RoleDescriptionVisitor;
 import gov.nih.nlm.nls.lvg.Flows.ToMapSymbolToAscii;
 import gov.nih.nlm.nls.lvg.Flows.ToMapUnicodeToAscii;
 import gov.nih.nlm.nls.lvg.Flows.ToStripMapUnicode;
 import gov.nih.nlm.nls.lvg.Lib.LexItem;
-
-import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFNode;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,27 +33,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
-
-
-
-
-
-
-
-
-
-import gov.nih.nci.curator.IncrementalReasoner;
-import gov.nih.nci.curator.IncrementalReasonerFactory;
-//import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.protege.editor.owl.p3.PunnedAnnotationProperties;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-//import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
-import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFTriple;
-//import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-//import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.WriterDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -98,7 +71,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
-import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -111,11 +83,9 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplPlain;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectUnionOfImpl;
 
@@ -153,11 +123,10 @@ public class OwlApiLayer {
 
 	/** The reasoner. */
 	private OWLReasoner reasoner;
-//	IncrementalReasoner reasoner;
+
 
 	/** The factory. */
 	private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-//	private final IncrementalReasonerFactory reasonerFactory =   new IncrementalReasonerFactory();
 	/** The property map. */
 	HashMap<IRI, OWLDataProperty> propertyMap = new HashMap<IRI, OWLDataProperty>();
 

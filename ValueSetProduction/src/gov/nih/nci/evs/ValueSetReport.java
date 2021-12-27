@@ -30,7 +30,12 @@ public class ValueSetReport {
 		this.uri = urlStart + sourcePath + code;
 		for( String loc : ftpLocations ) {
 			if( !loc.equals("null|null") ) {
-				this.ftpLocations.add(ftpSite + loc);
+				if(loc.startsWith("EVS")){
+					String newLoc = loc.substring(4);
+					this.ftpLocations.add(ftpSite+ newLoc);
+				}else {
+					this.ftpLocations.add(ftpSite + loc);
+				}
 			}
 			else {
 				this.ftpLocations.add(loc);

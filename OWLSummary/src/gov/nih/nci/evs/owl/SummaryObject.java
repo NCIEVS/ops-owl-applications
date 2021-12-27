@@ -84,7 +84,7 @@ public class SummaryObject {
          * The ontology namespace.
          */
         String ontologyNamespace = "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl";
-        owlApi = new OWLKb(uri, ontologyNamespace);
+        owlApi = new OWLKb(uri, ontologyNamespace, true);
 
         loadPropertyClasses();
         loadConceptClasses();
@@ -157,10 +157,13 @@ public class SummaryObject {
             // Set<String> rootSet = descendants.keySet();
             for (URI rootKey : descendants) {
                 ConceptProxy concept = owlApi.getConcept(rootKey);
-
-                String definition = getDefinition(concept);
-                // String definition = getPropertyValue(cls, "DEFINITION");
-                conceptAndDef.put(rootKey, definition);
+                if(concept !=null) {
+                    String definition = getDefinition(concept);
+                    // String definition = getPropertyValue(cls, "DEFINITION");
+                    conceptAndDef.put(rootKey, definition);
+                } else {
+                    System.out.println("No def. Concept is null "+ rootKey);
+                }
             }
         }
     }
@@ -175,15 +178,18 @@ public class SummaryObject {
             // Set<String> rootSet = descendants.keySet();
             for (URI rootKey : descendants) {
                 ConceptProxy concept = owlApi.getConcept(rootKey);
+                if (concept != null) {
 
-                URI propertyCode = reversePropertyMap.get("Semantic_Type");
-                Vector<Property> semanticTypes = concept
-                        .getProperties(propertyCode.getFragment());
-                Vector<String> semanticTypeValues = new Vector<String>();
-                for (Property prop : semanticTypes) {
-                    semanticTypeValues.add(prop.getValue());
+
+                    URI propertyCode = reversePropertyMap.get("Semantic_Type");
+                    Vector<Property> semanticTypes = concept
+                            .getProperties(propertyCode.getFragment());
+                    Vector<String> semanticTypeValues = new Vector<String>();
+                    for (Property prop : semanticTypes) {
+                        semanticTypeValues.add(prop.getValue());
+                    }
+                    conceptAndSemanticTypes.put(rootKey, semanticTypeValues);
                 }
-                conceptAndSemanticTypes.put(rootKey, semanticTypeValues);
             }
         }
     }
@@ -193,8 +199,11 @@ public class SummaryObject {
 
 
             for (URI conceptCode : conceptCodes) {
-                Vector<URI> parentCodes = owlApi.getConcept(conceptCode).getParentCodes();
-                parentCodeMap.put(conceptCode, parentCodes);
+                ConceptProxy concept = owlApi.getConcept(conceptCode);
+                if(concept!=null) {
+                    Vector<URI> parentCodes = concept.getParentCodes();
+                    parentCodeMap.put(conceptCode, parentCodes);
+                }
             }
             System.out.println("Finished loading concept parents");
         }
@@ -207,7 +216,9 @@ public class SummaryObject {
         try {
             for (URI conceptCode : conceptCodes) {
                 ConceptProxy concept = owlApi.getConcept(conceptCode);
-                preferredNameMap.put(conceptCode, getPreferredName(concept));
+                if(concept!=null) {
+                    preferredNameMap.put(conceptCode, getPreferredName(concept));
+                }
             }
         }
         catch (Exception e) {
@@ -300,7 +311,9 @@ public class SummaryObject {
         Set<URI> set = rootMap.keySet();
         for (URI key : set) {
             RootConcept root = rootMap.get(key);
-            associationsPerKind.put(key, root.getAssociations());
+            if(root!=null) {
+                associationsPerKind.put(key, root.getAssociations());
+            }
         }
         return associationsPerKind;
     }
@@ -397,8 +410,10 @@ public class SummaryObject {
             Set<URI> set = rootMap.keySet();
             for (URI key : set) {
                 RootConcept root = rootMap.get(key);
-                Vector<URI> descendantCodes = root.getAllDescendantCodes();
-                conceptsPerKind.put(key, descendantCodes);
+                if(root!=null) {
+                    Vector<URI> descendantCodes = root.getAllDescendantCodes();
+                    conceptsPerKind.put(key, descendantCodes);
+                }
             }
         }
         return conceptsPerKind;
@@ -445,8 +460,10 @@ public class SummaryObject {
         Set<URI> set = rootMap.keySet();
         for (URI key : set) {
             RootConcept root = rootMap.get(key);
-            primitiveConceptCountsPerKind.put(key, root
-                    .getPrimitiveDescendants().size());
+            if((root!=null) && root.getPrimitiveDescendants()!=null) {
+                primitiveConceptCountsPerKind.put(key, root
+                        .getPrimitiveDescendants().size());
+            }
         }
 
         return primitiveConceptCountsPerKind;
@@ -482,7 +499,9 @@ public class SummaryObject {
         Set<URI> set = rootMap.keySet();
         for (URI key : set) {
             RootConcept root = rootMap.get(key);
-            propertiesPerKind.put(key, root.getDescendantPropertiesCount());
+            if((root!=null)&&(root.getDescendantPropertiesCount()!=null)) {
+                propertiesPerKind.put(key, root.getDescendantPropertiesCount());
+            }
         }
 
         return propertiesPerKind;

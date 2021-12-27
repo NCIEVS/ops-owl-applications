@@ -65,11 +65,15 @@ public class RootConcept extends Concept {
 
         for (URI key : descendantMap) {
             ConceptProxy cls = api.getConcept(key);
+            if(cls != null){
             if (cls.isDefined()) {
                 definedDescendants.add(key);
             } else {
                 primitiveDescendants.add(key);
-            }
+            } }else {
+                System.out.println("Class is null "+ key);
+                }
+
         }
         definedDescendantsSize = definedDescendants.size();
         primitiveDescedantsSize = primitiveDescendants.size();
