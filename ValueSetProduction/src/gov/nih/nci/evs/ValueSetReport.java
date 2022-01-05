@@ -33,7 +33,11 @@ public class ValueSetReport {
 				if(loc.startsWith("EVS")){
 					String newLoc = loc.substring(4);
 					this.ftpLocations.add(ftpSite+ newLoc);
-				}else {
+				} else if (loc.startsWith("/EVS")){
+					String newLoc = loc.substring(5);
+					this.ftpLocations.add(ftpSite+ newLoc);
+				}
+				else {
 					this.ftpLocations.add(ftpSite + loc);
 				}
 			}
