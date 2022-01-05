@@ -24,15 +24,23 @@ import java.util.Vector;
  */
 public class RootConcept extends Concept {
 
-    /** The associations. */
+    /**
+     * The associations.
+     */
     private final HashMap<URI, Integer> associations = new HashMap<URI, Integer>();
     private final Vector<URI> definedDescendants = new Vector<URI>();
     private final Vector<URI> primitiveDescendants = new Vector<URI>();
-    /** The props. */
+    /**
+     * The props.
+     */
     private final HashMap<URI, Integer> props = new HashMap<URI, Integer>();
-    /** The roles. */
+    /**
+     * The roles.
+     */
     private final HashMap<URI, Integer> roles = new HashMap<URI, Integer>();
-    /** The disjoints. */
+    /**
+     * The disjoints.
+     */
     public Vector<String> disjoints;
     private Vector<URI> descendantMap = new Vector<URI>();
     private Integer descendantSize = 0;
@@ -65,14 +73,15 @@ public class RootConcept extends Concept {
 
         for (URI key : descendantMap) {
             ConceptProxy cls = api.getConcept(key);
-            if(cls != null){
-            if (cls.isDefined()) {
-                definedDescendants.add(key);
-            } else {
-                primitiveDescendants.add(key);
-            } }else {
-                System.out.println("Class is null "+ key);
+            if (cls != null) {
+                if (cls.isDefined()) {
+                    definedDescendants.add(key);
+                } else {
+                    primitiveDescendants.add(key);
                 }
+            } else {
+                System.out.println("Class is null " + key);
+            }
 
         }
         definedDescendantsSize = definedDescendants.size();
@@ -115,19 +124,20 @@ public class RootConcept extends Concept {
             for (URI key : descendantMap) {
                 // String cls = descendantMap.get(key);
                 Concept concept = new Concept(key, this.getNamespace(), api);
-                Vector<Association> conceptAssociations = concept
-                        .getAssociations();
-                for (Relationship assoc : conceptAssociations) {
-                    URI assocCode = assoc.getRelation().getCode();
-                    if (associations.containsKey(assocCode)) {
-                        Integer count = associations.get(assocCode);
-                        count++;
-                        associations.put(assocCode, count);
-                    } else {
-                        associations.put(assocCode, 1);
+                if ((concept != null) && (concept.getAssociations() != null)) {
+                    Vector<Association> conceptAssociations = concept
+                            .getAssociations();
+                    for (Relationship assoc : conceptAssociations) {
+                        URI assocCode = assoc.getRelation().getCode();
+                        if (associations.containsKey(assocCode)) {
+                            Integer count = associations.get(assocCode);
+                            count++;
+                            associations.put(assocCode, count);
+                        } else {
+                            associations.put(assocCode, 1);
+                        }
                     }
                 }
-
             }
         }
         catch (RuntimeException e) {
@@ -170,15 +180,17 @@ public class RootConcept extends Concept {
             for (URI key : descendantMap) {
                 // String cls = descendantMap.get(key);
                 Concept concept = new Concept(key, this.getNamespace(), api);
-                Vector<Property> conceptProperties = concept.getProperties();
-                for (Property prop : conceptProperties) {
-                    URI propCode = prop.getURI();
-                    if (props.containsKey(propCode)) {
-                        Integer count = props.get(propCode);
-                        count++;
-                        props.put(propCode, count);
-                    } else {
-                        props.put(propCode, 1);
+                if ((concept != null) && (concept.getProperties() != null)) {
+                    Vector<Property> conceptProperties = concept.getProperties();
+                    for (Property prop : conceptProperties) {
+                        URI propCode = prop.getURI();
+                        if (props.containsKey(propCode)) {
+                            Integer count = props.get(propCode);
+                            count++;
+                            props.put(propCode, count);
+                        } else {
+                            props.put(propCode, 1);
+                        }
                     }
                 }
 
@@ -205,31 +217,32 @@ public class RootConcept extends Concept {
             for (URI key : descendantMap) {
                 // String cls = descendantMap.get(key);
                 Concept concept = new Concept(key, this.getNamespace(), api);
-                Vector<Role> conceptRoles = concept.getRoles();
+                if((concept!=null)&& (concept.getRoles()!=null)) {
+                    Vector<Role> conceptRoles = concept.getRoles();
 
-                for (Relationship role : conceptRoles) {
-                    URI roleCode = role.getRelation().getCode();
-                    if (roles.containsKey(roleCode)) {
-                        Integer count = roles.get(roleCode);
-                        count++;
-                        roles.put(roleCode, count);
-                    } else {
-                        roles.put(roleCode, 1);
+                    for (Relationship role : conceptRoles) {
+                        URI roleCode = role.getRelation().getCode();
+                        if (roles.containsKey(roleCode)) {
+                            Integer count = roles.get(roleCode);
+                            count++;
+                            roles.put(roleCode, count);
+                        } else {
+                            roles.put(roleCode, 1);
+                        }
+                    }
+                    Vector<Role> equivalentClasses = concept
+                            .getEquivalentClasses();
+                    for (Relationship eq : equivalentClasses) {
+                        URI eqCode = eq.getRelation().getCode();
+                        if (roles.containsKey(eqCode)) {
+                            Integer count = roles.get(eqCode);
+                            count++;
+                            roles.put(eqCode, count);
+                        } else {
+                            roles.put(eqCode, 1);
+                        }
                     }
                 }
-                Vector<Role> equivalentClasses = concept
-                        .getEquivalentClasses();
-                for (Relationship eq : equivalentClasses) {
-                    URI eqCode = eq.getRelation().getCode();
-                    if (roles.containsKey(eqCode)) {
-                        Integer count = roles.get(eqCode);
-                        count++;
-                        roles.put(eqCode, count);
-                    } else {
-                        roles.put(eqCode, 1);
-                    }
-                }
-
             }
 
         }
@@ -273,8 +286,10 @@ public class RootConcept extends Concept {
         // Set<String> keySet = descendantMap.keySet();
         for (URI key : descendantMap) {
             ConceptProxy cls = api.getConcept(key);
-            if (!cls.isDefined()) {
-                primitiveDescendants.add(key);
+            if(cls!=null) {
+                if (!cls.isDefined()) {
+                    primitiveDescendants.add(key);
+                }
             }
         }
     }

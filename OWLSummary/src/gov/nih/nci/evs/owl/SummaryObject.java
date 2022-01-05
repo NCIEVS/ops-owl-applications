@@ -136,7 +136,9 @@ public class SummaryObject {
         Vector<URI> rootConceptCodes = owlApi.getRootConceptCodes();
         for (URI rootCode : rootConceptCodes) {
             RootConcept root = new RootConcept(rootCode, owlApi);
-            rootMap.put(rootCode, root);
+            if(!root.getCode().contains("Nothing")) {
+                rootMap.put(rootCode, root);
+            }
         }
         System.out.println("Finished loading root classes");
     }
