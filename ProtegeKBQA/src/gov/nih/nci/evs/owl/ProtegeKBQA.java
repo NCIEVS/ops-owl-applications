@@ -1500,7 +1500,7 @@ public class ProtegeKBQA {
 			System.out.println("AxiomCount = 0");
 			return false;
 		}
-		if (ontology.getAxiomCount() < 2000000 || ontology.getAxiomCount() > 3000000) {
+		if (ontology.getAxiomCount() < 2500000 || ontology.getAxiomCount() > 4000000) {
 			System.out.println("AxiomCOunt <2mil or > 3mil");
 			return false;
 		}
