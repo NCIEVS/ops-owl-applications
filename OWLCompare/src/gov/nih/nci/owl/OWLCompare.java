@@ -846,14 +846,22 @@ public class OWLCompare {
 
 	private boolean isRetired(OWLClass c) {
 		boolean retired = false;
-		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
-			String annotationValue = anno.toString();
+		for(OWLAnnotationProperty annotationProperty: c.getAnnotationPropertiesInSignature()){
+			String annotationValue = annotationProperty.asOWLAnnotationProperty().toString();
 			if (annotationValue
-			        .contains("Annotation(Concept_Status \"Retired_Concept")) {
+					.contains("Annotation(Concept_Status \"Retired_Concept")) {
 				retired = true;
 				break; // I've seen enough
 			}
 		}
+//		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
+//			String annotationValue = anno.toString();
+//			if (annotationValue
+//			        .contains("Annotation(Concept_Status \"Retired_Concept")) {
+//				retired = true;
+//				break; // I've seen enough
+//			}
+//		}
 		return retired;
 	}
 
@@ -862,7 +870,9 @@ public class OWLCompare {
 		String property = new String("");
 		String qualifier = new String("");
 
-		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
+//		for (OWLAnnotation anno : c.getAnnotations(ontology)) {
+		for(OWLAnnotationProperty annotationProperty:c.getAnnotationPropertiesInSignature()){
+				OWLAnnotationProperty anno = annotationProperty.asOWLAnnotationProperty();
 			String annotationValue = anno.toString();
 			for (Vector<String> targetProperty : propertiesToMatch) {
 				if (targetProperty.size() > 1) {

@@ -19,10 +19,6 @@ GenerateCDISC/generatecdisc.properties
 
 GenerateCDISC/generatecdisc.xml
 
-OWLKb/owlkb.properties
-
-OWLKb/owlkb.xml
-
 OWLDisjoint/out/
 
 OWLDisjoint/target/
