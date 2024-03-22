@@ -1,5 +1,5 @@
 # ops-owl-applications
-A set of applications used for the processing and QA of NCI Thesaurus (NCIt) OWL export.  
+A set of applications, written in Java 8, used for the processing and QA of NCI Thesaurus (NCIt) OWL export.  
 
 CTCAE_to_OWL - takes a spreadsheet provided by CTCAE and converts it into OWL format
 
